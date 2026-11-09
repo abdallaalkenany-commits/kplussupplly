@@ -19,15 +19,16 @@ export function Dashboard() {
   useEffect(() => {
     (async () => {
       const c = sb();
-      const [stats, recent, sup, follow, cust, wa] = await Promise.all([
+      const [stats, recent, sup, follow, cust, leads, wa] = await Promise.all([
         c.from("quote_stats").select("*"),
         c.from("quote_requests").select("id,name,phone,product,status,created_at").order("created_at", { ascending: false }).limit(8),
         c.from("suppliers").select("id", { count: "exact", head: true }).eq("status", "pending"),
         c.from("quote_requests").select("id,name,product,follow_up_at,status").not("follow_up_at", "is", null).lte("follow_up_at", new Date().toISOString().slice(0, 10)).in("status", ["new", "contacted", "quoted"]).order("follow_up_at"),
-        c.from("customers").select("id", { count: "exact", head: true }),
+        c.from("customers").select("id", { count: "exact", head: true }).eq("stage", "customer"),
+        c.from("customers").select("id", { count: "exact", head: true }).eq("stage", "lead"),
         c.from("wa_clicks").select("id", { count: "exact", head: true }).gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString()),
       ]);
-      setS({ stats: stats.data || [], recent: recent.data || [], pendingSup: sup.count || 0, follow: follow.data || [], customers: cust.count || 0, wa: wa.count || 0 });
+      setS({ stats: stats.data || [], recent: recent.data || [], pendingSup: sup.count || 0, follow: follow.data || [], customers: cust.count || 0, leads: leads.count || 0, wa: wa.count || 0 });
     })();
   }, []);
   if (!s) return <p>جاري التحميل…</p>;
@@ -45,7 +46,8 @@ export function Dashboard() {
         <Kpi label="صفقات اتكسبت" value={won.n} sub={money(won.amount)} />
         <Kpi label="نسبة الكسب" value={rate + "%"} sub="من الطلبات المقفولة" />
         <Kpi label="موردين مستنيين موافقة" value={s.pendingSup} href="/admin/suppliers/" hot={s.pendingSup > 0} />
-        <Kpi label="العملاء" value={s.customers} href="/admin/customers/" />
+        <Kpi label="عملاء محتملين" value={s.leads} href="/admin/customers/" />
+        <Kpi label="عملاء (بكود)" value={s.customers} href="/admin/customers/" />
         <Kpi label="ضغطات واتساب آخر 7 أيام" value={s.wa} href="/admin/whatsapp/" />
       </div>
       <div className="two">
@@ -91,7 +93,7 @@ export function Quotes() {
   const fields: Field[] = [
     { key: "id", label: "رقم" }, { key: "created_at", label: "التاريخ" }, { key: "name", label: "الاسم" }, { key: "phone", label: "الموبايل" },
     { key: "company", label: "الشركة" }, { key: "product", label: "المنتج" }, { key: "quantity", label: "الكمية" }, { key: "location", label: "الموقع" },
-    { key: "status", label: "الحالة" }, { key: "quoted_amount", label: "قيمة العرض" }, { key: "follow_up_at", label: "المتابعة" }, { key: "notes", label: "ملاحظات" },
+    { key: "source", label: "المصدر" }, { key: "status", label: "الحالة" }, { key: "quoted_amount", label: "قيمة العرض" }, { key: "follow_up_at", label: "المتابعة" }, { key: "notes", label: "ملاحظات" },
   ];
 
   async function move(r: any, st: string) {
@@ -118,7 +120,7 @@ export function Quotes() {
                 <h3>{l} <span>{col.length}</span></h3>
                 {col.map((r) => (
                   <button key={r.id} className="qcard" onClick={() => setOpen(r)}>
-                    <b>{r.name}</b><span>{r.product || "—"}{r.quantity ? ` · ${r.quantity}` : ""}</span>
+                    <b>{r.name}{r.source === "whatsapp" && <em className="src wa"> واتساب</em>}</b><span>{r.product || "—"}{r.quantity ? ` · ${r.quantity}` : ""}</span>
                     <small>#{r.id} · {new Date(r.created_at).toLocaleDateString("ar-EG")}{r.quoted_amount ? ` · ${money(r.quoted_amount)}` : ""}</small>
                     {r.follow_up_at && <small className={r.follow_up_at <= new Date().toISOString().slice(0, 10) ? "late" : ""}>متابعة {r.follow_up_at}</small>}
                   </button>
@@ -130,7 +132,7 @@ export function Quotes() {
       ) : (
         <div className="tablewrap"><table className="atbl">
           <thead><tr><th>#</th><th>التاريخ</th><th>الاسم</th><th>الموبايل</th><th>المنتج</th><th>الكمية</th><th>الحالة</th><th>القيمة</th></tr></thead>
-          <tbody>{shown.map((r) => <tr key={r.id} onClick={() => setOpen(r)} tabIndex={0}><td>{r.id}</td><td>{new Date(r.created_at).toLocaleDateString("ar-EG")}</td><td>{r.name}</td><td dir="ltr">{r.phone}</td><td>{r.product}</td><td>{r.quantity}</td><td><span className={"pill s-" + r.status}>{Q_STATUS.find(([k]) => k === r.status)?.[1]}</span></td><td>{money(r.quoted_amount)}</td></tr>)}</tbody>
+          <tbody>{shown.map((r) => <tr key={r.id} onClick={() => setOpen(r)} tabIndex={0}><td>{r.id}</td><td>{new Date(r.created_at).toLocaleDateString("ar-EG")}</td><td>{r.name}{r.source === "whatsapp" && <em className="src wa"> واتساب</em>}</td><td dir="ltr">{r.phone}</td><td>{r.product}</td><td>{r.quantity}</td><td><span className={"pill s-" + r.status}>{Q_STATUS.find(([k]) => k === r.status)?.[1]}</span></td><td>{money(r.quoted_amount)}</td></tr>)}</tbody>
         </table></div>
       )}
       {open && <QuoteDrawer row={open} staff={staff} me={me.id} onClose={() => setOpen(null)} onChanged={(r) => { setOpen(r); load(); }} onMove={move} />}
@@ -195,15 +197,19 @@ function QuoteDrawer({ row, staff, me, onClose, onChanged, onMove }: { row: any;
 }
 
 /* ---------------- customers ---------------- */
+export const STAGES: [string, string][] = [["lead", "عميل محتمل"], ["customer", "عميل"]];
 export function Customers() {
   const fields: Field[] = [
+    { key: "code", label: "كود العميل", readonly: true, list: true },
+    { key: "stage", label: "التصنيف", type: "select", options: STAGES, required: true, list: true },
     { key: "name", label: "الاسم", required: true, list: true }, { key: "phone", label: "الموبايل", ltr: true, list: true },
     { key: "company", label: "الشركة", list: true },
     { key: "type", label: "النوع", type: "select", options: [["contractor", "مقاول"], ["developer", "مطور عقاري"], ["company", "شركة"], ["individual", "فرد"], ["other", "أخرى"]], list: true },
     { key: "governorate", label: "المحافظة / الموقع", list: true }, { key: "email", label: "الإيميل", ltr: true },
     { key: "notes", label: "ملاحظات", type: "textarea" }, { key: "created_at", label: "تاريخ الإضافة", readonly: true, list: true },
   ];
-  return <Crud table="customers" title="عميل" fields={fields} order="created_at" newRow={{ type: "contractor" }} csvName="customers" extraFor={(r) => <CustomerHistory id={r.id} />} />;
+  return <><p className="emptyst">أي حد يبعت طلب أو يدوس واتساب في الموقع بيتسجل هنا كـ<b>عميل محتمل</b>. أول ما طلب ليه يتحول لـ"اتكسب"، أو تغيّر تصنيفه لـ"عميل"، بياخد كود تلقائي (KP-0001).</p>
+  <Crud table="customers" title="عميل" fields={fields} order="created_at" newRow={{ type: "contractor", stage: "lead" }} filters={{ key: "stage", options: STAGES }} csvName="customers" extraFor={(r) => <CustomerHistory id={r.id} />} /></>;
 }
 function CustomerHistory({ id }: { id: string }) {
   const [rows, setRows] = useState<any[]>([]);

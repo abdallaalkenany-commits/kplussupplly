@@ -12,7 +12,7 @@ const NAV: [string, string, boolean?][] = [
   ["/admin/", "الرئيسية"],
   ["/admin/quotes/", "طلبات الأسعار"],
   ["/admin/whatsapp/", "ضغطات واتساب"],
-  ["/admin/customers/", "العملاء"],
+  ["/admin/customers/", "العملاء والمحتملين"],
   ["/admin/suppliers/", "الموردين"],
   ["/admin/products/", "المنتجات"],
   ["/admin/offers/", "العروض والخصومات"],

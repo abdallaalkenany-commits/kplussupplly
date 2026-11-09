@@ -45,7 +45,7 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
       if (error) { code = error.code || error.message || "db"; console.error("quote save failed", error); }
     } catch (x: any) { saved = false; code = "net"; console.error("quote save failed", x); }
     setBusy(false);
-    if (saved) { setMsg(t.ok); setWaUrl(url); f.reset(); }
+    if (saved) { try { localStorage.setItem("kp_lead", JSON.stringify({ name: row.name, phone: row.phone })); } catch {} setMsg(t.ok); setWaUrl(url); f.reset(); }
     else { setMsg(`${t.err} [${code}]`); window.open(url, "_blank", "noopener"); }
   }
 
