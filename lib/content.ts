@@ -31,6 +31,8 @@ const extra: Record<Lang, Record<string, string>> = {
     sup_cta: "سجّل الآن", account: "حسابي", login: "دخول",
     ok: "✓ وصلنا طلبك، وفريق المبيعات هيكلمك قريب.", err: "حصلت مشكلة في الحفظ، فهنفتحلك واتساب تبعت منه الطلب.",
     q_send: "ابعت طلب السعر", q_hint: "بنرد عليك خلال ساعات عمل، ومن غير أي التزام.", wa_follow: "أو كمّل معانا على واتساب",
+    f_company: "اسم الشركة (اختياري)", f_ctype: "نوع النشاط (اختياري)", ctypes: "developer:مطور عقاري|contractor:مقاول|supplier:مورد|factory:مصنع|concrete_plant:محطة خرسانة",
+    f_map: "لوكيشن الموقع على الخريطة (اختياري)", f_map_btn: "📍 حدد موقعي الحالي", f_map_ph: "أو الصق رابط جوجل ماب", f_map_ok: "✓ اتحدد الموقع", f_map_err: "مقدرناش نحدد موقعك، الصق رابط جوجل ماب بدلها.", f_prefill: "ملينا بياناتك من آخر مرة.",
     price: "السعر",
   },
   en: {
@@ -45,6 +47,8 @@ const extra: Record<Lang, Record<string, string>> = {
     sup_cta: "Register now", account: "My account", login: "Sign in",
     ok: "✓ We got your request. Our sales team will contact you soon.", err: "Saving failed, so we are opening WhatsApp for you to send it.",
     q_send: "Send quote request", q_hint: "We reply within business hours, no obligation.", wa_follow: "Or continue on WhatsApp",
+    f_company: "Company name (optional)", f_ctype: "Business type (optional)", ctypes: "developer:Real estate developer|contractor:Contractor|supplier:Supplier|factory:Factory|concrete_plant:Concrete plant",
+    f_map: "Site location on the map (optional)", f_map_btn: "📍 Use my current location", f_map_ph: "or paste a Google Maps link", f_map_ok: "✓ Location set", f_map_err: "Couldn't get your location. Paste a Google Maps link instead.", f_prefill: "We filled in your details from last time.",
     price: "Price",
   },
 };

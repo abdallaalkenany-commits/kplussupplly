@@ -225,12 +225,12 @@ function SupplierForm({ lang, profile }: { lang: Lang; profile: Profile }) {
     <>
       <h2>{x.sup_profile} {sup.id && <span className={"pill s-" + sup.status}>{statusLabel[sup.status]}</span>}</h2>
       <form className="qform card" onSubmit={save}>
-        <label>{x.company_name}<input id="s-company" name="company_name" required defaultValue={sup.company_name || ""} /></label>
-        <label>{x.contact_name}<input id="s-contact" name="contact_name" defaultValue={sup.contact_name || ""} /></label>
-        <label>{x.phone}<input id="s-phone" name="phone" type="tel" dir="ltr" required defaultValue={sup.phone || ""} /></label>
-        <label>{x.email}<input id="s-email" name="email" type="email" dir="ltr" defaultValue={sup.email || ""} /></label>
+        <label>{x.company_name}<input id="s-company" name="company_name" required autoComplete="organization" defaultValue={sup.company_name || ""} /></label>
+        <label>{x.contact_name}<input id="s-contact" name="contact_name" autoComplete="name" defaultValue={sup.contact_name || ""} /></label>
+        <label>{x.phone}<input id="s-phone" name="phone" type="tel" dir="ltr" required autoComplete="tel" defaultValue={sup.phone || ""} /></label>
+        <label>{x.email}<input id="s-email" name="email" type="email" dir="ltr" autoComplete="email" defaultValue={sup.email || ""} /></label>
         <label>{x.gov}<select id="s-gov" name="governorate" defaultValue={sup.governorate || ""}><option value=""></option>{GOVS[lang].map((g) => <option key={g}>{g}</option>)}</select></label>
-        <label>{x.website}<input id="s-web" name="website" dir="ltr" defaultValue={sup.website || ""} /></label>
+        <label>{x.website}<input id="s-web" name="website" dir="ltr" autoComplete="url" defaultValue={sup.website || ""} /></label>
         <fieldset className="full seg"><legend>{x.cats}</legend>
           {TOP.map((c) => <label key={c.slug}><input type="checkbox" name="categories" value={c.slug} defaultChecked={(sup.categories || []).includes(c.slug)} /> {c[lang].nav}</label>)}
         </fieldset>

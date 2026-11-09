@@ -6,6 +6,7 @@ import { CATEGORIES, GOVS, TOP } from "@/lib/content";
 import Crud, { Editor, toCsv, type Field } from "./crud";
 import { useMe } from "./shell";
 
+export const CTYPES: [string, string][] = [["developer", "مطور عقاري"], ["contractor", "مقاول"], ["supplier", "مورد"], ["factory", "مصنع"], ["concrete_plant", "محطة خرسانة"], ["company", "شركة"], ["individual", "فرد"], ["other", "أخرى"]];
 export const Q_STATUS: [string, string][] = [["new", "جديد"], ["contacted", "اتواصلنا"], ["quoted", "اتبعت عرض سعر"], ["won", "اتكسب"], ["lost", "اتخسر"]];
 const CAT_OPTS: [string, string][] = CATEGORIES.map((c) => [c.slug, c.ar.nav]);
 const TOP_OPTS: [string, string][] = TOP.map((c) => [c.slug, c.ar.nav]);
@@ -92,7 +93,7 @@ export function Quotes() {
   const shown = useMemo(() => (rows || []).filter((r) => (!status || r.status === status) && (!q || [r.name, r.phone, r.product, r.company, r.location, String(r.id)].some((x) => String(x ?? "").includes(q)))), [rows, status, q]);
   const fields: Field[] = [
     { key: "id", label: "رقم" }, { key: "created_at", label: "التاريخ" }, { key: "name", label: "الاسم" }, { key: "phone", label: "الموبايل" },
-    { key: "company", label: "الشركة" }, { key: "product", label: "المنتج" }, { key: "quantity", label: "الكمية" }, { key: "location", label: "الموقع" },
+    { key: "company", label: "الشركة" }, { key: "customer_type", label: "النشاط" }, { key: "product", label: "المنتج" }, { key: "quantity", label: "الكمية" }, { key: "location", label: "الموقع" }, { key: "map_url", label: "اللوكيشن" },
     { key: "source", label: "المصدر" }, { key: "status", label: "الحالة" }, { key: "quoted_amount", label: "قيمة العرض" }, { key: "follow_up_at", label: "المتابعة" }, { key: "notes", label: "ملاحظات" },
   ];
 
@@ -153,8 +154,9 @@ function QuoteDrawer({ row, staff, me, onClose, onChanged, onMove }: { row: any;
     { key: "assigned_to", label: "المسؤول", type: "select", options: staff },
     { key: "follow_up_at", label: "ميعاد المتابعة", type: "date" },
     { key: "name", label: "الاسم", required: true }, { key: "phone", label: "الموبايل", ltr: true, required: true },
-    { key: "company", label: "الشركة" }, { key: "email", label: "الإيميل", ltr: true },
+    { key: "company", label: "الشركة" }, { key: "customer_type", label: "نوع النشاط", type: "select", options: CTYPES.slice(0, 5) }, { key: "email", label: "الإيميل", ltr: true },
     { key: "product", label: "المنتج" }, { key: "quantity", label: "الكمية" }, { key: "location", label: "موقع المشروع" },
+    { key: "map_url", label: "لوكيشن الخريطة (رابط)", ltr: true },
     { key: "notes", label: "ملاحظات العميل", type: "textarea" },
   ];
   async function save(r: any) {
@@ -180,6 +182,7 @@ function QuoteDrawer({ row, staff, me, onClose, onChanged, onMove }: { row: any;
           <div className="row">
             <a className="abtn wa" href={`https://wa.me/${String(row.phone).replace(/\D/g, "").replace(/^0/, "20")}?text=${encodeURIComponent(waText)}`} target="_blank" rel="noopener">واتساب العميل</a>
             <a className="abtn" href={`tel:${row.phone}`}>اتصال</a>
+            {row.map_url && <a className="abtn" href={row.map_url} target="_blank" rel="noopener">📍 فتح اللوكيشن</a>}
             {Q_STATUS.filter(([k]) => k !== row.status).slice(0, 3).map(([k, l]) => <button type="button" key={k} className="abtn" onClick={() => onMove(row, k)}>← {l}</button>)}
           </div>
           <p className="meta">طلب #{row.id} · {fmtDate(row.created_at)} · من صفحة <span dir="ltr">{row.page || "—"}</span></p>
@@ -204,8 +207,8 @@ export function Customers() {
     { key: "stage", label: "التصنيف", type: "select", options: STAGES, required: true, list: true },
     { key: "name", label: "الاسم", required: true, list: true }, { key: "phone", label: "الموبايل", ltr: true, list: true },
     { key: "company", label: "الشركة", list: true },
-    { key: "type", label: "النوع", type: "select", options: [["contractor", "مقاول"], ["developer", "مطور عقاري"], ["company", "شركة"], ["individual", "فرد"], ["other", "أخرى"]], list: true },
-    { key: "governorate", label: "المحافظة / الموقع", list: true }, { key: "email", label: "الإيميل", ltr: true },
+    { key: "type", label: "نوع النشاط", type: "select", options: CTYPES, list: true },
+    { key: "governorate", label: "المحافظة / الموقع", list: true }, { key: "map_url", label: "لوكيشن الخريطة (رابط)", ltr: true }, { key: "email", label: "الإيميل", ltr: true },
     { key: "notes", label: "ملاحظات", type: "textarea" }, { key: "created_at", label: "تاريخ الإضافة", readonly: true, list: true },
   ];
   return <><p className="emptyst">أي حد يبعت طلب أو يدوس واتساب في الموقع بيتسجل هنا كـ<b>عميل محتمل</b>. أول ما طلب ليه يتحول لـ"اتكسب"، أو تغيّر تصنيفه لـ"عميل"، بياخد كود تلقائي (KP-0001).</p>
