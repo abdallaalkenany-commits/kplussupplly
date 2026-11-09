@@ -102,6 +102,9 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
     if (saved) {
       try { const keep: Record<string, string | null> = {}; REMEMBER.forEach((k) => (keep[k] = row[k])); localStorage.setItem(STORE, JSON.stringify(keep)); } catch {}
       setMsg(t.ok); setWaUrl(url);
+      // open WhatsApp with the request details so it also reaches the sales phone
+      const w = window.open(url, "_blank", "noopener");
+      if (!w) setTimeout(() => location.assign(url), 600);
       ["product", "quantity", "map_url", "notes"].forEach((k) => { const el = f.elements.namedItem(k) as HTMLInputElement | null; if (el && k !== "product") el.value = ""; });
       setMapMsg("");
     } else { setMsg(`${t.err} [${code}]`); window.open(url, "_blank", "noopener"); }
