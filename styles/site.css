@@ -1,4 +1,5 @@
 :root{--navy:#0B2545;--navy2:#13315C;--orange:#F29F05;--orange2:#C98200;--ink:#1d2433;--muted:#5b6475;--bg:#F6F7F9;--card:#fff;--line:#e3e6eb;--wa:#1fa855;--r:14px}
+:root{color-scheme:only light}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;font-family:"IBM Plex Sans Arabic",Inter,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;font-size:17px}
 img,svg{max-width:100%}a{color:var(--navy2)}

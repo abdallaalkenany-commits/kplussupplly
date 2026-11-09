@@ -3,7 +3,7 @@ import "@/styles/admin.css";
 import AdminShell from "@/components/admin/shell";
 
 export const metadata: Metadata = { title: "لوحة التحكم | كي بلس", robots: { index: false, follow: false } };
-export const viewport: Viewport = { themeColor: "#0B2545" };
+export const viewport: Viewport = { themeColor: "#0B2545", colorScheme: "only light" };
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
