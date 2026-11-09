@@ -35,7 +35,7 @@ export function display(f: Field, v: any) {
   if (f.type === "multi") return (v as string[]).map((x) => f.options?.find(([k]) => k === x)?.[1] || x).join("، ");
   if (f.type === "image") return <img src={v} alt="" className="thumb" />;
   if (f.type === "number") return Number(v).toLocaleString("ar-EG");
-  if (f.key.endsWith("_at")) return new Date(v).toLocaleDateString("ar-EG");
+  if (f.key.endsWith("_at")) return new Date(v).toLocaleString("ar-EG", { dateStyle: "medium", timeStyle: "short" });
   return String(v);
 }
 

@@ -19,14 +19,15 @@ export function Dashboard() {
   useEffect(() => {
     (async () => {
       const c = sb();
-      const [stats, recent, sup, follow, cust] = await Promise.all([
+      const [stats, recent, sup, follow, cust, wa] = await Promise.all([
         c.from("quote_stats").select("*"),
         c.from("quote_requests").select("id,name,phone,product,status,created_at").order("created_at", { ascending: false }).limit(8),
         c.from("suppliers").select("id", { count: "exact", head: true }).eq("status", "pending"),
         c.from("quote_requests").select("id,name,product,follow_up_at,status").not("follow_up_at", "is", null).lte("follow_up_at", new Date().toISOString().slice(0, 10)).in("status", ["new", "contacted", "quoted"]).order("follow_up_at"),
         c.from("customers").select("id", { count: "exact", head: true }),
+        c.from("wa_clicks").select("id", { count: "exact", head: true }).gte("created_at", new Date(Date.now() - 7 * 864e5).toISOString()),
       ]);
-      setS({ stats: stats.data || [], recent: recent.data || [], pendingSup: sup.count || 0, follow: follow.data || [], customers: cust.count || 0 });
+      setS({ stats: stats.data || [], recent: recent.data || [], pendingSup: sup.count || 0, follow: follow.data || [], customers: cust.count || 0, wa: wa.count || 0 });
     })();
   }, []);
   if (!s) return <p>جاري التحميل…</p>;
@@ -45,6 +46,7 @@ export function Dashboard() {
         <Kpi label="نسبة الكسب" value={rate + "%"} sub="من الطلبات المقفولة" />
         <Kpi label="موردين مستنيين موافقة" value={s.pendingSup} href="/admin/suppliers/" hot={s.pendingSup > 0} />
         <Kpi label="العملاء" value={s.customers} href="/admin/customers/" />
+        <Kpi label="ضغطات واتساب آخر 7 أيام" value={s.wa} href="/admin/whatsapp/" />
       </div>
       <div className="two">
         <section className="box"><h2>متابعات النهارده والمتأخرة</h2>
@@ -335,5 +337,22 @@ export function Users() {
       <Crud table="profiles" title="مستخدم" fields={fields} order="created_at" canDelete={false} csvName="users"
         filters={{ key: "role", options: [["admin", "مدير"], ["sales", "مبيعات"], ["customer", "عميل"], ["supplier", "مورد"]] }} />
     </>
+  );
+}
+
+/* ---------------- whatsapp clicks ---------------- */
+export const WA_SOURCES: [string, string][] = [["float", "الزرار العائم"], ["product", "زرار منتج"], ["page", "زرار في الصفحة"], ["header", "أعلى الصفحة"], ["footer", "أسفل الصفحة"], ["quote_form", "بعد طلب السعر"]];
+export function WhatsApp() {
+  const fields: Field[] = [
+    { key: "created_at", label: "الوقت", list: true, readonly: true },
+    { key: "source", label: "مكان الزرار", type: "select", options: WA_SOURCES, list: true, readonly: true },
+    { key: "message", label: "الرسالة / المنتج", list: true, readonly: true },
+    { key: "page", label: "الصفحة", list: true, readonly: true, ltr: true },
+  ];
+  return (
+    <div>
+      <p className="emptyst">كل مرة زائر يدوس على زرار واتساب في الموقع بتتسجل هنا، ومعاها المنتج والصفحة. الرسايل نفسها بتوصل على واتساب الشركة، ولو الزائر بعت بياناته في الرسالة سجّله كعميل أو طلب سعر.</p>
+      <Crud table="wa_clicks" title="ضغطة" fields={fields} filters={{ key: "source", options: WA_SOURCES }} csvName="whatsapp-clicks" />
+    </div>
   );
 }

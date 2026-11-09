@@ -11,6 +11,7 @@ export const useMe = () => useContext(MeCtx)!;
 const NAV: [string, string, boolean?][] = [
   ["/admin/", "الرئيسية"],
   ["/admin/quotes/", "طلبات الأسعار"],
+  ["/admin/whatsapp/", "ضغطات واتساب"],
   ["/admin/customers/", "العملاء"],
   ["/admin/suppliers/", "الموردين"],
   ["/admin/products/", "المنتجات"],
