@@ -5,6 +5,7 @@
 [build.environment]
   NODE_VERSION = "22"
   NEXT_TELEMETRY_DISABLED = "1"
+  NEXT_PUBLIC_SITE_URL = "https://kplussupply.com"
   # Public values (safe to commit: anon key is meant for browsers; RLS protects data)
   NEXT_PUBLIC_SUPABASE_URL = "https://nymzhatzurqpidagfqcj.supabase.co"
   NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im55bXpoYXR6dXJxcGlkYWdmcWNqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQyNDQ1OTIsImV4cCI6MjEwOTgyMDU5Mn0.J0WwOvwomt0ygyNtHUqeJzY1JKfZZc9B5NIfsEPYhw8"
