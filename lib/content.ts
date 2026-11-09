@@ -29,7 +29,8 @@ const extra: Record<Lang, Record<string, string>> = {
     suppliers_title: "سجّل كمورد مواد بناء | كي بلس", suppliers_desc: "سجّل شركتك كمورد لدى كي بلس لتوريد الأسمنت والطوب والأبواب والصحي والسيراميك لمشروعات المقاولين في مصر.",
     sup_steps: "اعمل حساب مورد|ارفع السجل التجاري والبطاقة الضريبية|فريقنا يراجع ويوافق خلال 3 أيام عمل",
     sup_cta: "سجّل الآن", account: "حسابي", login: "دخول",
-    ok: "وصلنا طلبك، وهنتواصل معاك قريب.", err: "حصلت مشكلة في الحفظ، بس طلبك اتبعت على واتساب.",
+    ok: "✓ وصلنا طلبك، وفريق المبيعات هيكلمك قريب.", err: "حصلت مشكلة في الحفظ، فهنفتحلك واتساب تبعت منه الطلب.",
+    q_send: "ابعت طلب السعر", q_hint: "بنرد عليك خلال ساعات عمل، ومن غير أي التزام.", wa_follow: "أو كمّل معانا على واتساب",
     price: "السعر",
   },
   en: {
@@ -42,7 +43,8 @@ const extra: Record<Lang, Record<string, string>> = {
     suppliers_title: "Become a Building Materials Supplier | K Plus", suppliers_desc: "Register your company as a K Plus supplier of cement, bricks, doors, sanitary ware and ceramics for contractor projects in Egypt.",
     sup_steps: "Create a supplier account|Upload your commercial register and tax card|Our team reviews and approves within 3 business days",
     sup_cta: "Register now", account: "My account", login: "Sign in",
-    ok: "We got your request and will contact you soon.", err: "Saving failed, but your request was sent on WhatsApp.",
+    ok: "✓ We got your request. Our sales team will contact you soon.", err: "Saving failed, so we are opening WhatsApp for you to send it.",
+    q_send: "Send quote request", q_hint: "We reply within business hours, no obligation.", wa_follow: "Or continue on WhatsApp",
     price: "Price",
   },
 };

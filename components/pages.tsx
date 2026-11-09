@@ -10,7 +10,7 @@ const OPTIONS = (lang: Lang) => CATEGORIES.map((c) => c[lang].nav);
 
 function Quote({ lang, preset }: { lang: Lang; preset?: string }) {
   const t = T[lang];
-  return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err }} options={OPTIONS(lang)} preset={preset} wa={C.whatsapp} />;
+  return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow }} options={OPTIONS(lang)} preset={preset} wa={C.whatsapp} />;
 }
 
 function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false): Metadata {

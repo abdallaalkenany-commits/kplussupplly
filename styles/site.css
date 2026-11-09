@@ -45,7 +45,7 @@ a.card:hover{border-color:var(--orange);box-shadow:0 8px 24px rgba(11,37,69,.10)
 .qform{display:grid;grid-template-columns:1fr 1fr;gap:14px}.qform label{display:flex;flex-direction:column;font-weight:600;font-size:15px;gap:4px}
 .qform input,.qform select,.qform textarea{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--bg)}
 .qform input:focus,.qform select:focus,.qform textarea:focus{outline:2px solid var(--orange);border-color:transparent}
-.full{grid-column:1/-1}.hint{margin:0;font-size:14px;color:var(--muted)}
+.hint.okq{color:#1a7f37;font-weight:700;font-size:16px}.full{grid-column:1/-1}.hint{margin:0;font-size:14px;color:var(--muted)}
 .foot{background:#081b33;color:#c3cddc;padding:44px 0 20px;margin-top:64px}.foot a{color:#fff;text-decoration:none}.foot ul{list-style:none;padding:0;margin:8px 0}.foot li{margin:4px 0}
 .cols{display:grid;grid-template-columns:2fr 1.5fr 1.5fr;gap:28px}.fbrand{font-size:22px;color:#fff}.foot b{color:#fff}
 .copy{border-top:1px solid rgba(255,255,255,.1);margin-top:24px;padding-top:16px;font-size:14px}
