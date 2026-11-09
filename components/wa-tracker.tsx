@@ -10,13 +10,14 @@ const TXT = {
   en: { h: "Before we continue to WhatsApp", p: "Leave your name and number so our sales team can call you back if needed.", name: "Name", phone: "Mobile number", go: "Continue to WhatsApp", close: "Close", bad: "Enter a valid mobile number", hi: "Name" },
 };
 
-function post(table: string, body: any) {
+function post(table: string, body: any, fallback?: any) {
   if (!URL_ || !KEY) return;
-  fetch(`${URL_}/rest/v1/${table}`, {
+  const send = (b: any) => fetch(`${URL_}/rest/v1/${table}`, {
     method: "POST", keepalive: true,
     headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, "Content-Type": "application/json", Prefer: "return=minimal" },
-    body: JSON.stringify(body),
-  }).catch(() => {});
+    body: JSON.stringify(b),
+  });
+  send(body).then((r) => { if (!r.ok && fallback && r.status === 400) return send(fallback); }).catch(() => {});
 }
 function readLead(): { name: string; phone: string } | null {
   try { const v = JSON.parse(localStorage.getItem(STORE) || "null"); return v && v.name && v.phone ? v : null; } catch { return null; }
@@ -34,7 +35,8 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
 
   function lead(name: string, phone: string, href: string, message: string) {
     const product = (message.split(":").slice(1).join(":") || "").trim() || null;
-    post("quote_requests", { name, phone, product, notes: (lang === "ar" ? "تواصل عبر واتساب: " : "Contacted via WhatsApp: ") + message, source: "whatsapp", lang, page: location.pathname });
+    const q = { name, phone, product, notes: (lang === "ar" ? "تواصل عبر واتساب: " : "Contacted via WhatsApp: ") + message, lang, page: location.pathname };
+    post("quote_requests", { ...q, source: "whatsapp" }, q);
     let url = href;
     try { const u = new URL(href); u.searchParams.set("text", `${message}\n${t.hi}: ${name}`); url = u.toString(); } catch {}
     window.open(url, "_blank", "noopener");

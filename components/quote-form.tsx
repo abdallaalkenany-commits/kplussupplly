@@ -87,7 +87,14 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
       const { sb } = await import("@/lib/supabase/client");
       const client = sb();
       const { data } = await client.auth.getSession();
-      const { error } = await client.from("quote_requests").insert({ ...row, source: "form", lang, page: location.pathname, user_id: data.session?.user.id || null });
+      const base = { lang, page: location.pathname, user_id: data.session?.user.id || null };
+      let { error } = await client.from("quote_requests").insert({ ...row, source: "form", ...base });
+      if (error && (error.code === "PGRST204" || error.code === "42703")) {
+        // database not updated yet: save the core fields and keep the extras in the notes
+        const { company, customer_type, map_url, ...core } = row;
+        const extra = [company, customer_type, map_url].filter(Boolean).join(" | ");
+        ({ error } = await client.from("quote_requests").insert({ ...core, company, notes: [row.notes, extra].filter(Boolean).join("\n") || null, ...base }));
+      }
       saved = !error;
       if (error) { code = error.code || error.message || "db"; console.error("quote save failed", error); }
     } catch (x: any) { saved = false; code = "net"; console.error("quote save failed", x); }
