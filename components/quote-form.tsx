@@ -35,17 +35,18 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
     // Fallback: no database configured → WhatsApp is the only channel.
     if (!sbConfigured) { window.open(url, "_blank", "noopener"); setMsg(t.ok); return; }
     setBusy(true); setMsg(""); setWaUrl("");
-    let saved = false;
+    let saved = false; let code = "";
     try {
       const { sb } = await import("@/lib/supabase/client");
       const client = sb();
       const { data } = await client.auth.getSession();
       const { error } = await client.from("quote_requests").insert({ ...row, lang, page: location.pathname, user_id: data.session?.user.id || null });
       saved = !error;
-    } catch { saved = false; }
+      if (error) { code = error.code || error.message || "db"; console.error("quote save failed", error); }
+    } catch (x: any) { saved = false; code = "net"; console.error("quote save failed", x); }
     setBusy(false);
     if (saved) { setMsg(t.ok); setWaUrl(url); f.reset(); }
-    else { setMsg(t.err); window.open(url, "_blank", "noopener"); }
+    else { setMsg(`${t.err} [${code}]`); window.open(url, "_blank", "noopener"); }
   }
 
   return (

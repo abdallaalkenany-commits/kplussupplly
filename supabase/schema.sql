@@ -290,3 +290,11 @@ create or replace view public.quote_stats with (security_invoker = true) as
 
 -- After you sign up on /account with your own email, make yourself admin (run once):
 -- update public.profiles set role = 'admin' where email = 'YOUR-EMAIL@example.com';
+
+-- ========== API grants ==========
+-- Newer Supabase projects may not expose new tables to the API automatically.
+-- These grants are the standard Supabase defaults; Row Level Security above still decides what each user can do.
+grant usage on schema public to anon, authenticated;
+grant select, insert, update, delete on all tables in schema public to anon, authenticated;
+grant usage, select on all sequences in schema public to anon, authenticated;
+grant execute on all functions in schema public to anon, authenticated;
