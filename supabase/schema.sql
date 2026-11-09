@@ -1,0 +1,292 @@
+-- KPLUS CRM schema for Supabase. Run once in: Supabase > SQL Editor > New query > Run.
+-- Safe to re-run: uses IF NOT EXISTS / OR REPLACE where possible.
+
+-- ========== profiles & roles ==========
+create table if not exists public.profiles (
+  id uuid primary key references auth.users(id) on delete cascade,
+  email text,
+  full_name text,
+  phone text,
+  company text,
+  role text not null default 'customer' check (role in ('admin','sales','customer','supplier')),
+  created_at timestamptz not null default now()
+);
+
+create or replace function public.is_staff() returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.profiles where id = auth.uid() and role in ('admin','sales'));
+$$;
+
+create or replace function public.is_admin() returns boolean
+language sql stable security definer set search_path = public as $$
+  select exists (select 1 from public.profiles where id = auth.uid() and role = 'admin');
+$$;
+
+-- new sign-ups become customer or supplier only (never staff)
+create or replace function public.handle_new_user() returns trigger
+language plpgsql security definer set search_path = public as $$
+declare r text := coalesce(new.raw_user_meta_data->>'account_type', 'customer');
+begin
+  if r not in ('customer','supplier') then r := 'customer'; end if;
+  insert into public.profiles (id, email, full_name, phone, company, role)
+  values (new.id, new.email, new.raw_user_meta_data->>'full_name', new.raw_user_meta_data->>'phone',
+          new.raw_user_meta_data->>'company', r)
+  on conflict (id) do nothing;
+  return new;
+end $$;
+drop trigger if exists on_auth_user_created on auth.users;
+create trigger on_auth_user_created after insert on auth.users for each row execute function public.handle_new_user();
+
+-- users may edit their own name/phone/company but never their role
+create or replace function public.protect_role() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if new.role is distinct from old.role and auth.uid() is not null and not public.is_admin() then
+    raise exception 'only admins can change roles';
+  end if;
+  return new;
+end $$;
+drop trigger if exists profiles_protect_role on public.profiles;
+create trigger profiles_protect_role before update on public.profiles for each row execute function public.protect_role();
+
+-- ========== customers ==========
+create table if not exists public.customers (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid references auth.users(id) on delete set null,
+  name text not null,
+  phone text,
+  email text,
+  company text,
+  governorate text,
+  type text default 'contractor' check (type in ('contractor','developer','individual','company','other')),
+  notes text,
+  assigned_to uuid references public.profiles(id) on delete set null,
+  created_at timestamptz not null default now()
+);
+create unique index if not exists customers_phone_key on public.customers (phone) where phone is not null;
+
+-- ========== quote requests (leads) ==========
+create table if not exists public.quote_requests (
+  id bigint generated always as identity primary key,
+  user_id uuid references auth.users(id) on delete set null,
+  customer_id uuid references public.customers(id) on delete set null,
+  name text not null check (char_length(name) between 2 and 120),
+  phone text not null check (char_length(phone) between 6 and 30),
+  email text check (email is null or char_length(email) <= 200),
+  company text check (company is null or char_length(company) <= 200),
+  product text check (product is null or char_length(product) <= 200),
+  quantity text check (quantity is null or char_length(quantity) <= 200),
+  location text check (location is null or char_length(location) <= 200),
+  notes text check (notes is null or char_length(notes) <= 2000),
+  lang text default 'ar',
+  page text,
+  status text not null default 'new' check (status in ('new','contacted','quoted','won','lost')),
+  quoted_amount numeric(14,2),
+  assigned_to uuid references public.profiles(id) on delete set null,
+  follow_up_at date,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+create index if not exists quote_requests_status_idx on public.quote_requests (status, created_at desc);
+
+-- link each request to a customer by phone (create the customer if new)
+create or replace function public.link_quote_customer() returns trigger
+language plpgsql security definer set search_path = public as $$
+declare cid uuid;
+begin
+  select id into cid from public.customers where phone = new.phone limit 1;
+  if cid is null then
+    insert into public.customers (user_id, name, phone, email, company, governorate)
+    values (new.user_id, new.name, new.phone, new.email, new.company, new.location) returning id into cid;
+  end if;
+  new.customer_id := cid;
+  return new;
+end $$;
+drop trigger if exists quote_link_customer on public.quote_requests;
+create trigger quote_link_customer before insert on public.quote_requests for each row execute function public.link_quote_customer();
+
+create or replace function public.touch_updated_at() returns trigger language plpgsql as $$
+begin new.updated_at := now(); return new; end $$;
+drop trigger if exists quote_touch on public.quote_requests;
+create trigger quote_touch before update on public.quote_requests for each row execute function public.touch_updated_at();
+
+-- ========== activity log (notes, calls, follow-ups) ==========
+create table if not exists public.activities (
+  id bigint generated always as identity primary key,
+  quote_id bigint references public.quote_requests(id) on delete cascade,
+  customer_id uuid references public.customers(id) on delete cascade,
+  supplier_id uuid,
+  author uuid references public.profiles(id) on delete set null default auth.uid(),
+  kind text not null default 'note' check (kind in ('note','call','whatsapp','email','visit','status')),
+  body text not null check (char_length(body) <= 4000),
+  created_at timestamptz not null default now()
+);
+
+-- ========== suppliers ==========
+create table if not exists public.suppliers (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid unique references auth.users(id) on delete set null,
+  company_name text not null,
+  contact_name text,
+  phone text,
+  email text,
+  governorate text,
+  categories text[] default '{}',
+  products text,
+  cr_number text,
+  tax_number text,
+  website text,
+  files jsonb not null default '[]',
+  status text not null default 'pending' check (status in ('pending','approved','rejected')),
+  rating smallint check (rating between 1 and 5),
+  internal_notes text,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+drop trigger if exists suppliers_touch on public.suppliers;
+create trigger suppliers_touch before update on public.suppliers for each row execute function public.touch_updated_at();
+
+-- suppliers can edit their own profile but not status/rating/internal notes
+create or replace function public.protect_supplier() returns trigger
+language plpgsql security definer set search_path = public as $$
+begin
+  if auth.uid() is not null and not public.is_staff() then
+    new.status := old.status; new.rating := old.rating; new.internal_notes := old.internal_notes; new.user_id := old.user_id;
+  end if;
+  return new;
+end $$;
+drop trigger if exists suppliers_protect on public.suppliers;
+create trigger suppliers_protect before update on public.suppliers for each row execute function public.protect_supplier();
+
+-- ========== products (shown on the website) ==========
+create table if not exists public.products (
+  id bigint generated always as identity primary key,
+  category text not null,
+  name_ar text not null,
+  name_en text,
+  spec_ar text,
+  spec_en text,
+  unit_ar text,
+  unit_en text,
+  price numeric(14,2),
+  show_price boolean not null default false,
+  image_url text,
+  active boolean not null default true,
+  sort int not null default 100,
+  updated_at timestamptz not null default now()
+);
+drop trigger if exists products_touch on public.products;
+create trigger products_touch before update on public.products for each row execute function public.touch_updated_at();
+
+-- ========== row level security ==========
+alter table public.profiles enable row level security;
+alter table public.customers enable row level security;
+alter table public.quote_requests enable row level security;
+alter table public.activities enable row level security;
+alter table public.suppliers enable row level security;
+alter table public.products enable row level security;
+
+drop policy if exists p_profiles_sel on public.profiles;
+create policy p_profiles_sel on public.profiles for select using (id = auth.uid() or public.is_staff());
+drop policy if exists p_profiles_upd on public.profiles;
+create policy p_profiles_upd on public.profiles for update using (id = auth.uid() or public.is_admin());
+
+drop policy if exists p_customers_staff on public.customers;
+create policy p_customers_staff on public.customers for all using (public.is_staff()) with check (public.is_staff());
+drop policy if exists p_customers_own on public.customers;
+create policy p_customers_own on public.customers for select using (user_id = auth.uid());
+
+drop policy if exists p_quotes_insert on public.quote_requests;
+create policy p_quotes_insert on public.quote_requests for insert to anon, authenticated
+  with check (status = 'new' and quoted_amount is null and assigned_to is null and (user_id is null or user_id = auth.uid()));
+drop policy if exists p_quotes_sel on public.quote_requests;
+create policy p_quotes_sel on public.quote_requests for select using (public.is_staff() or user_id = auth.uid());
+drop policy if exists p_quotes_upd on public.quote_requests;
+create policy p_quotes_upd on public.quote_requests for update using (public.is_staff()) with check (public.is_staff());
+drop policy if exists p_quotes_del on public.quote_requests;
+create policy p_quotes_del on public.quote_requests for delete using (public.is_admin());
+
+drop policy if exists p_act_staff on public.activities;
+create policy p_act_staff on public.activities for all using (public.is_staff()) with check (public.is_staff());
+
+drop policy if exists p_sup_insert on public.suppliers;
+create policy p_sup_insert on public.suppliers for insert to authenticated with check (user_id = auth.uid() and status = 'pending');
+drop policy if exists p_sup_sel on public.suppliers;
+create policy p_sup_sel on public.suppliers for select using (public.is_staff() or user_id = auth.uid());
+drop policy if exists p_sup_upd on public.suppliers;
+create policy p_sup_upd on public.suppliers for update using (public.is_staff() or user_id = auth.uid());
+drop policy if exists p_sup_del on public.suppliers;
+create policy p_sup_del on public.suppliers for delete using (public.is_admin());
+
+drop policy if exists p_prod_public on public.products;
+create policy p_prod_public on public.products for select using (active or public.is_staff());
+drop policy if exists p_prod_staff on public.products;
+create policy p_prod_staff on public.products for all using (public.is_staff()) with check (public.is_staff());
+
+-- ========== supplier documents (private storage) ==========
+insert into storage.buckets (id, name, public) values ('supplier-docs', 'supplier-docs', false)
+  on conflict (id) do nothing;
+drop policy if exists p_docs_insert on storage.objects;
+create policy p_docs_insert on storage.objects for insert to authenticated
+  with check (bucket_id = 'supplier-docs' and (storage.foldername(name))[1] = auth.uid()::text);
+drop policy if exists p_docs_sel on storage.objects;
+create policy p_docs_sel on storage.objects for select to authenticated
+  using (bucket_id = 'supplier-docs' and ((storage.foldername(name))[1] = auth.uid()::text or public.is_staff()));
+drop policy if exists p_docs_del on storage.objects;
+create policy p_docs_del on storage.objects for delete to authenticated
+  using (bucket_id = 'supplier-docs' and ((storage.foldername(name))[1] = auth.uid()::text or public.is_admin()));
+
+
+-- ========== categories (icon/image override per website section) ==========
+create table if not exists public.categories (
+  slug text primary key,
+  image_url text,
+  icon_url text,
+  updated_at timestamptz not null default now()
+);
+
+-- ========== offers & discounts ==========
+create table if not exists public.offers (
+  id bigint generated always as identity primary key,
+  title_ar text not null,
+  title_en text,
+  body_ar text,
+  body_en text,
+  category text,
+  discount_label text,          -- e.g. "خصم 10%" or "-500 ج/طن"
+  old_price numeric(14,2),
+  new_price numeric(14,2),
+  unit_ar text,
+  unit_en text,
+  image_url text,
+  starts_on date default current_date,
+  ends_on date,
+  active boolean not null default true,
+  sort int not null default 100,
+  created_at timestamptz not null default now()
+);
+alter table public.categories enable row level security;
+alter table public.offers enable row level security;
+drop policy if exists p_cat_public on public.categories;
+create policy p_cat_public on public.categories for select using (true);
+drop policy if exists p_cat_staff on public.categories;
+create policy p_cat_staff on public.categories for all using (public.is_staff()) with check (public.is_staff());
+drop policy if exists p_off_public on public.offers;
+create policy p_off_public on public.offers for select using ((active and (ends_on is null or ends_on >= current_date)) or public.is_staff());
+drop policy if exists p_off_staff on public.offers;
+create policy p_off_staff on public.offers for all using (public.is_staff()) with check (public.is_staff());
+
+-- public images (products, offers, icons): anyone can view, only staff can upload
+insert into storage.buckets (id, name, public) values ('media', 'media', true) on conflict (id) do nothing;
+drop policy if exists p_media_staff on storage.objects;
+create policy p_media_staff on storage.objects for all to authenticated
+  using (bucket_id = 'media' and public.is_staff()) with check (bucket_id = 'media' and public.is_staff());
+
+-- ========== dashboard numbers ==========
+create or replace view public.quote_stats with (security_invoker = true) as
+  select status, count(*)::int as n, coalesce(sum(quoted_amount),0) as amount,
+         count(*) filter (where created_at > now() - interval '30 days')::int as n30
+  from public.quote_requests group by status;
+
+-- After you sign up on /account with your own email, make yourself admin (run once):
+-- update public.profiles set role = 'admin' where email = 'YOUR-EMAIL@example.com';

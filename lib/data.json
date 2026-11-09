@@ -1,0 +1,1326 @@
+{
+ "config": {
+  "domain": "https://www.kplussupply.com",
+  "brand_ar": "كي بلس",
+  "legal_ar": "كي بلس للتوريدات العمومية",
+  "legal_en": "K Plus General Supply",
+  "cr": "314689",
+  "tax": "239-158-774",
+  "brand_en": "K Plus",
+  "phone_display": "0102 887 9918",
+  "phone_e164": "+201028879918",
+  "whatsapp": "201028879918",
+  "email": "sales@kplussupply.com",
+  "email_sales": "sales@kplussupply.com",
+  "email_support": "care@kplussupply.com",
+  "email_suppliers": "suppliers@kplussupply.com",
+  "street_ar": "عقار 25، شارع 10، الدور الرابع، المعادي، القاهرة",
+  "street_en": "Building 25, Street 10, 4th Floor, Maadi, Cairo",
+  "city": "Maadi, Cairo",
+  "region": "Cairo Governorate",
+  "lat": 29.9602,
+  "lng": 31.2569,
+  "hours": "Sa-Th 09:00-18:00",
+  "parent_ar": "الكنانة لتشييد المباني الحديثة",
+  "parent_en": "Al-Kenana for Modern Building Construction",
+  "founded": "2015"
+ },
+ "categories": [
+  {
+   "slug": "cement",
+   "icon": "cement",
+   "parent": null,
+   "ar": {
+    "nav": "أسمنت",
+    "title": "توريد أسمنت بالجملة في مصر | أسعار الأسمنت اليوم — كي بلس",
+    "desc": "توريد أسمنت بورتلاندي ومقاوم للكبريتات وأسمنت أبيض بالجملة لمواقع المشروعات في القاهرة والجيزة وكل محافظات مصر. اطلب عرض سعر الأسمنت اليوم على واتساب.",
+    "h1": "توريد أسمنت بالجملة للمشروعات والمقاولين",
+    "lead": "نورّد كل أنواع الأسمنت من أكبر المصانع المصرية مباشرة لموقعك: بالشكارة أو السايب (بالمقطورة)، بفاتورة ضريبية وشهادة مطابقة للمواصفة المصرية.",
+    "body": [
+     [
+      "أنواع الأسمنت اللي بنوردها",
+      "نوفّر الأسمنت البورتلاندي العادي (CEM I 42.5N) للخرسانات المسلحة، والأسمنت المخلوط (CEM II 32.5) لأعمال المباني واللياسة، والأسمنت المقاوم للكبريتات (SRC) للأساسات والمناطق القريبة من المياه الجوفية والمالحة، والأسمنت الأبيض لأعمال التشطيب. كل شحنة مطابقة للمواصفة القياسية المصرية م.ق.م 4756."
+     ],
+     [
+      "إزاي بنحدد سعر الأسمنت؟",
+      "سعر طن الأسمنت بيتغير حسب النوع والمصنع والكمية ومكان التسليم. ابعتلنا الكمية والنوع وموقع المشروع، وهنرد عليك بعرض سعر شامل النقل خلال ساعات، مع خصومات للكميات الكبيرة والتعاقدات الشهرية للمقاولين."
+     ],
+     [
+      "التوصيل لموقع المشروع",
+      "أسطول نقل بيوصل للقاهرة الكبرى والعاصمة الإدارية والعين السخنة والصعيد والدلتا والساحل. التسليم بالشكارة (50 كجم) على تريلا أو جامبو، أو سايب لمحطات الخرسانة."
+     ]
+    ],
+    "products": [
+     [
+      "أسمنت بورتلاندي عادي CEM I 42.5N",
+      "للخرسانة المسلحة والأسقف والأعمدة — شكارة 50 كجم",
+      "طن"
+     ],
+     [
+      "أسمنت مخلوط CEM II 32.5",
+      "لأعمال المباني والمحارة والبلاط",
+      "طن"
+     ],
+     [
+      "أسمنت مقاوم للكبريتات SRC",
+      "للأساسات والمنشآت البحرية والتربة الملحية",
+      "طن"
+     ],
+     [
+      "أسمنت أبيض",
+      "لأعمال التشطيب والديكور والترويب",
+      "طن"
+     ],
+     [
+      "أسمنت سايب (Bulk)",
+      "لمحطات الخرسانة الجاهزة والمشروعات الكبيرة",
+      "طن"
+     ]
+    ],
+    "faq": [
+     [
+      "بكام طن الأسمنت النهارده؟",
+      "السعر بيتحدد يوميًا حسب المصنع والنوع والكمية ومكان التسليم. ابعتلنا على واتساب وهنبعتلك سعر اليوم شامل النقل."
+     ],
+     [
+      "إيه الفرق بين الأسمنت العادي والمقاوم للكبريتات؟",
+      "المقاوم للكبريتات (SRC) نسبة ألومينات الكالسيوم فيه أقل، فبيستحمل التربة والمياه الملحية، وبيُستخدم في الأساسات والمنشآت القريبة من البحر. العادي مناسب لباقي الأعمال الإنشائية."
+     ],
+     [
+      "أقل كمية ممكن أطلبها كام؟",
+      "بنورد من 10 طن (عربية جامبو) وأكتر، ومتاح تعاقدات توريد شهرية للمقاولين بأسعار ثابتة."
+     ],
+     [
+      "هل بتوصلوا للصعيد والساحل؟",
+      "أيوه، بنوصل لكل محافظات مصر، والنقل بيتحسب حسب المسافة والكمية."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Cement",
+    "title": "Wholesale Cement Supply in Egypt | Cement Price Today — K Plus",
+    "desc": "Bulk supply of Portland, sulphate-resistant and white cement delivered to construction sites across Cairo, Giza and all Egyptian governorates. Request today's cement price on WhatsApp.",
+    "h1": "Wholesale Cement Supply for Projects & Contractors",
+    "lead": "We deliver every cement type from Egypt's leading plants straight to your site — bagged or bulk — with a tax invoice and Egyptian Standard compliance certificate.",
+    "body": [
+     [
+      "Cement types we supply",
+      "Ordinary Portland Cement (CEM I 42.5N) for reinforced concrete, blended cement (CEM II 32.5) for masonry and plastering, sulphate-resisting cement (SRC) for foundations and saline soils, and white cement for finishing works. Every shipment complies with Egyptian Standard ES 4756."
+     ],
+     [
+      "How is the cement price set?",
+      "Price per ton depends on type, plant, quantity and delivery location. Send us the quantity, type and site location and we will reply with an all-in delivered quote within hours, with discounts for large volumes and monthly contractor agreements."
+     ],
+     [
+      "Delivery to your site",
+      "Our fleet covers Greater Cairo, the New Administrative Capital, Ain Sokhna, Upper Egypt, the Delta and the North Coast — 50 kg bags on trailers, or bulk for ready-mix plants."
+     ]
+    ],
+    "products": [
+     [
+      "Ordinary Portland Cement CEM I 42.5N",
+      "Reinforced concrete, slabs and columns — 50 kg bag",
+      "ton"
+     ],
+     [
+      "Blended Cement CEM II 32.5",
+      "Masonry, plastering and tiling",
+      "ton"
+     ],
+     [
+      "Sulphate Resisting Cement (SRC)",
+      "Foundations, marine structures, saline soil",
+      "ton"
+     ],
+     [
+      "White Cement",
+      "Finishing, decorative works and grouting",
+      "ton"
+     ],
+     [
+      "Bulk Cement",
+      "Ready-mix plants and large projects",
+      "ton"
+     ]
+    ],
+    "faq": [
+     [
+      "What is the cement price per ton today?",
+      "Prices change daily by plant, type, quantity and delivery point. Message us on WhatsApp for today's delivered price."
+     ],
+     [
+      "What is the difference between OPC and SRC?",
+      "SRC has lower tricalcium aluminate, so it resists sulphate attack from soil and saline water and is used for foundations and coastal structures. OPC suits general structural works."
+     ],
+     [
+      "What is the minimum order?",
+      "From 10 tons (one truck) upward, with monthly supply contracts available for contractors."
+     ],
+     [
+      "Do you deliver to Upper Egypt and the North Coast?",
+      "Yes, we deliver to all governorates; freight is priced by distance and quantity."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "cement-bricks",
+   "icon": "brick",
+   "parent": null,
+   "ar": {
+    "nav": "طوب أسمنتي",
+    "title": "توريد طوب أسمنتي مصمت ومفرغ وبلوك | أسعار الطوب — كي بلس",
+    "desc": "توريد طوب أسمنتي مصمت ومفرغ وبلوك خرساني وطوب إنترلوك مطابق للمواصفات لمواقع المشروعات في مصر. اطلب سعر ألف الطوب الأسمنتي الآن.",
+    "h1": "توريد طوب أسمنتي وبلوك خرساني بكل المقاسات",
+    "lead": "طوب أسمنتي بمقاسات قياسية وقوة ضغط مختبرة، من مصانع معتمدة، بيتسلم على بالتات لموقعك.",
+    "body": [
+     [
+      "ليه الطوب الأسمنتي؟",
+      "الطوب الأسمنتي أقوى وأثبت في المقاسات من الطوب الطفلي، وبيوفر في المونة ووقت التنفيذ، ومسموح بيه في كل المشروعات الحكومية والخاصة كبديل للطوب الأحمر."
+     ],
+     [
+      "المقاسات المتاحة",
+      "الطوب المصمت 25×12×6 سم للحوائط الحاملة، والمفرغ 25×12×13 سم، والبلوك الخرساني 20×20×40 سم بسماكات 10 و15 و20 سم للحوائط الخارجية والداخلية، والإنترلوك للأرصفة والممرات."
+     ],
+     [
+      "الجودة والاختبارات",
+      "بنوفر نتائج اختبار قوة الضغط ونسبة الامتصاص من معامل معتمدة عند الطلب، علشان استلام الاستشاري يكون سهل."
+     ]
+    ],
+    "products": [
+     [
+      "طوب أسمنتي مصمت 25×12×6",
+      "للحوائط الحاملة والأساسات",
+      "ألف طوبة"
+     ],
+     [
+      "طوب أسمنتي مفرغ 25×12×13",
+      "حوائط داخلية وخارجية — وزن أخف",
+      "ألف طوبة"
+     ],
+     [
+      "بلوك خرساني 20×20×40",
+      "سمك 10 / 15 / 20 سم",
+      "قطعة"
+     ],
+     [
+      "طوب إنترلوك",
+      "أرصفة وممرات وجراجات — سمك 6 و8 سم",
+      "متر مربع"
+     ],
+     [
+      "بردورات خرسانية",
+      "للأرصفة والطرق",
+      "متر طولي"
+     ]
+    ],
+    "faq": [
+     [
+      "بكام ألف الطوب الأسمنتي؟",
+      "السعر بيختلف حسب المقاس والكمية ومكان التسليم. ابعت المقاس والكمية على واتساب وهنرد بسعر شامل النقل."
+     ],
+     [
+      "الطوب الأسمنتي ولا الطوب الأحمر؟",
+      "الأسمنتي أقوى ومقاساته ثابتة وأوفر في المونة، وهو المعتمد حاليًا في أغلب المشروعات بعد تقليل إنتاج الطوب الطفلي."
+     ],
+     [
+      "هل بتوفروا شهادة اختبار؟",
+      "أيوه، نتائج اختبار قوة الضغط والامتصاص من معمل معتمد متاحة عند الطلب."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Cement Bricks",
+    "title": "Cement Bricks & Concrete Block Supply in Egypt — K Plus",
+    "desc": "Supply of solid and hollow cement bricks, concrete blocks and interlock pavers to construction sites across Egypt. Request a price per 1,000 bricks now.",
+    "h1": "Cement Bricks & Concrete Blocks in Every Size",
+    "lead": "Standard-size cement bricks with tested compressive strength from certified plants, delivered on pallets to your site.",
+    "body": [
+     [
+      "Why cement bricks?",
+      "Cement bricks are stronger and more dimensionally consistent than clay bricks, save mortar and labour time, and are approved on public and private projects."
+     ],
+     [
+      "Available sizes",
+      "Solid 25×12×6 cm for load-bearing walls, hollow 25×12×13 cm, concrete blocks 20×20×40 cm in 10, 15 and 20 cm thickness, and interlock pavers for walkways."
+     ],
+     [
+      "Quality & testing",
+      "Compressive strength and absorption test results from accredited labs are available on request for consultant approval."
+     ]
+    ],
+    "products": [
+     [
+      "Solid Cement Brick 25×12×6",
+      "Load-bearing walls and foundations",
+      "1,000 pcs"
+     ],
+     [
+      "Hollow Cement Brick 25×12×13",
+      "Internal & external walls — lighter",
+      "1,000 pcs"
+     ],
+     [
+      "Concrete Block 20×20×40",
+      "10 / 15 / 20 cm thickness",
+      "piece"
+     ],
+     [
+      "Interlock Pavers",
+      "Walkways, parking — 6 & 8 cm",
+      "m²"
+     ],
+     [
+      "Concrete Kerbs",
+      "Sidewalks and roads",
+      "linear m"
+     ]
+    ],
+    "faq": [
+     [
+      "What is the price of 1,000 cement bricks?",
+      "It depends on size, quantity and delivery point. Send size and quantity on WhatsApp for a delivered price."
+     ],
+     [
+      "Cement bricks or red clay bricks?",
+      "Cement bricks are stronger, consistent in size and save mortar; they are now the standard on most projects."
+     ],
+     [
+      "Do you provide test certificates?",
+      "Yes, compressive strength and absorption results from an accredited lab are available on request."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "doors",
+   "icon": "door",
+   "parent": null,
+   "ar": {
+    "nav": "أبواب",
+    "title": "أبواب خشب جاهزة ومقاومة للحريق وعازلة للصوت | مصنع وتوريد — كي بلس",
+    "desc": "تصنيع وتوريد وتركيب أبواب خشب جاهزة HDF ومصمت، أبواب مقاومة للحريق معتمدة، وأبواب عازلة للصوت للمشروعات السكنية والفنادق والمستشفيات في مصر.",
+    "h1": "أبواب خشب جاهزة ومقاومة للحريق وعازلة للصوت",
+    "lead": "خبرة أكتر من 10 سنين في تصنيع وتوريد وتركيب الأبواب لمشروعات الإسكان والمدارس والمستشفيات، من خلال مصانع الكنانة.",
+    "body": [
+     [
+      "من المصنع لموقعك",
+      "بنصنّع الضلفة والحلق والبرور والكوالين في مصانعنا، وبنوردها جاهزة للتركيب مع فريق تركيب متخصص، وده بيقلل وقت التنفيذ ويضمن جودة التشطيب."
+     ],
+     [
+      "حلول لكل مشروع",
+      "أبواب HDF اقتصادية للمشروعات السكنية الكبيرة، أبواب خشب مصمت للفيلات، أبواب مقاومة للحريق للسلالم والمخارج حسب كود الحماية المدنية، وأبواب عازلة للصوت للفنادق والمستشفيات والاستوديوهات."
+     ]
+    ],
+    "products": [],
+    "faq": [
+     [
+      "بتصنعوا مقاسات خاصة؟",
+      "أيوه، بنصنّع أي مقاس حسب الرسومات المعمارية للمشروع."
+     ],
+     [
+      "هل التركيب ضمن السعر؟",
+      "متاح توريد فقط أو توريد وتركيب، والعرض بيوضح الاتنين."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Doors",
+    "title": "Ready Wooden, Fire-Rated & Soundproof Doors in Egypt — K Plus",
+    "desc": "Manufacture, supply and installation of ready HDF and solid wood doors, certified fire-rated doors and acoustic soundproof doors for residential, hotel and hospital projects in Egypt.",
+    "h1": "Ready Wooden, Fire-Rated & Soundproof Doors",
+    "lead": "Over 10 years manufacturing, supplying and installing doors for housing, schools and hospitals through the Al-Kenana factories.",
+    "body": [
+     [
+      "From factory to site",
+      "We manufacture leaves, frames, architraves and hardware in-house and deliver them ready to install with a specialist installation team."
+     ],
+     [
+      "A solution for every project",
+      "Economic HDF doors for large housing, solid wood doors for villas, fire-rated doors for stairs and exits per civil-defence code, and acoustic doors for hotels, hospitals and studios."
+     ]
+    ],
+    "products": [],
+    "faq": [
+     [
+      "Do you make custom sizes?",
+      "Yes, any size per the project's architectural drawings."
+     ],
+     [
+      "Is installation included?",
+      "We offer supply only or supply & install; the quote shows both."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "doors/wooden",
+   "icon": "door",
+   "parent": "doors",
+   "ar": {
+    "nav": "أبواب خشب جاهزة",
+    "title": "أبواب خشب جاهزة HDF ومصمت | أسعار الأبواب الخشب — كي بلس",
+    "desc": "أبواب خشب جاهزة HDF وكونتر ومصمت بالحلق والبرور والكالون، تصنيع وتوريد وتركيب للشقق والمشروعات السكنية في مصر. اطلب سعر الباب الخشب.",
+    "h1": "أبواب خشب جاهزة للشقق والمشروعات",
+    "lead": "باب كامل جاهز للتركيب: ضلفة + حلق + برور + مفصلات + كالون، بتشطيب دهان أو قشرة طبيعية أو لاكيه.",
+    "body": [
+     [
+      "أنواع الأبواب الخشب",
+      "أبواب HDF مضغوطة اقتصادية ومقاومة للتقوس، أبواب كونتر بقلب خشب، أبواب خشب مصمت (زان/ماسيف) للفيلات والمداخل، وأبواب WPC مقاومة للمياه للحمامات والمطابخ."
+     ],
+     [
+      "التشطيبات",
+      "دهان دوكو أو لاكيه، قشرة طبيعية (أرو، زان، جوز)، أو PVC جاهز. متاح كل الألوان وتصميمات حفر CNC."
+     ]
+    ],
+    "products": [
+     [
+      "باب HDF جاهز",
+      "ضلفة 4 سم + حلق + برور — مقاس 80/90×210",
+      "باب"
+     ],
+     [
+      "باب كونتر بقلب خشب",
+      "تشطيب قشرة أو دهان",
+      "باب"
+     ],
+     [
+      "باب خشب زان مصمت",
+      "للفيلات والمداخل الرئيسية",
+      "باب"
+     ],
+     [
+      "باب WPC مقاوم للمياه",
+      "للحمامات والمطابخ — لا يتأثر بالرطوبة",
+      "باب"
+     ]
+    ],
+    "faq": [
+     [
+      "بكام الباب الخشب الجاهز؟",
+      "السعر حسب النوع والتشطيب والمقاس والكمية. ابعت عدد الأبواب والمقاسات وهنبعت عرض سعر."
+     ],
+     [
+      "إيه أحسن نوع باب للحمام؟",
+      "باب WPC لأنه مقاوم للمياه والرطوبة ومش بيتنفخ."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Ready Wooden Doors",
+    "title": "Ready HDF & Solid Wood Doors in Egypt | Door Prices — K Plus",
+    "desc": "Ready HDF, flush and solid wood doors with frame, architrave and lock — manufactured, supplied and installed for apartments and housing projects in Egypt.",
+    "h1": "Ready Wooden Doors for Apartments & Projects",
+    "lead": "Complete pre-hung door sets: leaf, frame, architraves, hinges and lock — painted, veneered or lacquered.",
+    "body": [
+     [
+      "Door types",
+      "Economic warp-resistant HDF doors, flush doors with timber core, solid beech doors for villas, and water-resistant WPC doors for bathrooms and kitchens."
+     ],
+     [
+      "Finishes",
+      "Duco or lacquer paint, natural veneer (ash, beech, walnut) or PVC. Any colour and CNC designs."
+     ]
+    ],
+    "products": [
+     [
+      "Ready HDF Door",
+      "4 cm leaf + frame + architrave — 80/90×210",
+      "door"
+     ],
+     [
+      "Flush Door with Timber Core",
+      "Veneer or paint finish",
+      "door"
+     ],
+     [
+      "Solid Beech Door",
+      "Villas and main entrances",
+      "door"
+     ],
+     [
+      "Water-resistant WPC Door",
+      "Bathrooms & kitchens — moisture proof",
+      "door"
+     ]
+    ],
+    "faq": [
+     [
+      "How much is a ready wooden door?",
+      "It depends on type, finish, size and quantity. Send the count and sizes for a quote."
+     ],
+     [
+      "Best door for bathrooms?",
+      "WPC doors — fully water and moisture resistant."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "doors/fire-rated",
+   "icon": "fire",
+   "parent": "doors",
+   "ar": {
+    "nav": "أبواب مقاومة للحريق",
+    "title": "أبواب مقاومة للحريق معتمدة 30 و60 و90 دقيقة | كي بلس",
+    "desc": "توريد وتركيب أبواب مقاومة للحريق خشب وصاج معتمدة 30 و60 و90 دقيقة مطابقة لاشتراطات الحماية المدنية للمولات والمستشفيات والأبراج في مصر.",
+    "h1": "أبواب مقاومة للحريق معتمدة من الحماية المدنية",
+    "lead": "أبواب خشب وصاج مقاومة للحريق بتصنيف 30 و60 و90 دقيقة، بشهادة اختبار، مع الإكسسوارات المعتمدة (ذراع غلق، بار طوارئ، شريط انتفاخي).",
+    "body": [
+     [
+      "ليه أبواب الحريق إلزامية؟",
+      "كود الحماية المدنية المصري بيشترط أبواب مقاومة للحريق في بيوت السلالم ومخارج الطوارئ وغرف الكهرباء في الأبراج والمولات والمستشفيات والمدارس، ومن غيرها مش هتاخد شهادة الحماية المدنية."
+     ],
+     [
+      "مكونات الباب",
+      "ضلفة بقلب مقاوم للحريق، حلق معزول، زجاج مقاوم للحريق (اختياري)، شريط انتفاخي Intumescent، ذراع غلق هيدروليك، ومفصلات ومقابض مختبرة."
+     ]
+    ],
+    "products": [
+     [
+      "باب خشب مقاوم للحريق 30 دقيقة",
+      "للشقق والفنادق — تشطيب قشرة",
+      "باب"
+     ],
+     [
+      "باب خشب مقاوم للحريق 60 دقيقة",
+      "بيوت السلالم والممرات",
+      "باب"
+     ],
+     [
+      "باب صاج مقاوم للحريق 90 دقيقة",
+      "غرف الكهرباء والمولدات والمخارج",
+      "باب"
+     ],
+     [
+      "باب طوارئ بـ Panic Bar",
+      "مخارج الطوارئ في المولات والمستشفيات",
+      "باب"
+     ]
+    ],
+    "faq": [
+     [
+      "الباب المقاوم للحريق معتمد؟",
+      "أيوه، بشهادة اختبار مقاومة حريق ومطابق لاشتراطات الحماية المدنية."
+     ],
+     [
+      "أختار 60 ولا 90 دقيقة؟",
+      "حسب نوع المبنى ومكان الباب في الرسومات المعتمدة؛ ابعتلنا الرسومات وهنحدد التصنيف المطلوب."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Fire-Rated Doors",
+    "title": "Certified Fire-Rated Doors 30, 60 & 90 min in Egypt — K Plus",
+    "desc": "Supply and installation of certified 30, 60 and 90 minute fire-rated wooden and steel doors meeting Egyptian civil defence requirements for malls, hospitals and towers.",
+    "h1": "Fire-Rated Doors Approved for Civil Defence",
+    "lead": "Wood and steel fire doors rated 30, 60 and 90 minutes with test certificates and approved hardware (closers, panic bars, intumescent seals).",
+    "body": [
+     [
+      "Why fire doors are mandatory",
+      "Egypt's civil defence code requires fire-rated doors in stairwells, emergency exits and electrical rooms of towers, malls, hospitals and schools."
+     ],
+     [
+      "Door components",
+      "Fire-resistant core, insulated frame, optional fire glass, intumescent seal, hydraulic closer and tested hinges and handles."
+     ]
+    ],
+    "products": [
+     [
+      "Wooden Fire Door 30 min",
+      "Apartments & hotels — veneer finish",
+      "door"
+     ],
+     [
+      "Wooden Fire Door 60 min",
+      "Stairwells and corridors",
+      "door"
+     ],
+     [
+      "Steel Fire Door 90 min",
+      "Electrical/generator rooms & exits",
+      "door"
+     ],
+     [
+      "Emergency Exit Door with Panic Bar",
+      "Malls and hospitals",
+      "door"
+     ]
+    ],
+    "faq": [
+     [
+      "Are your fire doors certified?",
+      "Yes, with fire-resistance test certificates and civil-defence compliance."
+     ],
+     [
+      "60 or 90 minutes?",
+      "It depends on the building type and door location; send the drawings and we will specify the rating."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "doors/soundproof",
+   "icon": "sound",
+   "parent": "doors",
+   "ar": {
+    "nav": "أبواب عازلة للصوت",
+    "title": "أبواب عازلة للصوت للفنادق والمستشفيات والاستوديوهات | كي بلس",
+    "desc": "أبواب عازلة للصوت (Acoustic Doors) بعزل حتى 45 ديسيبل للفنادق والمستشفيات وقاعات الاجتماعات والاستوديوهات. تصنيع وتوريد وتركيب في مصر.",
+    "h1": "أبواب عازلة للصوت (Acoustic Doors)",
+    "lead": "أبواب بقلب صوتي متعدد الطبقات وجوانات محكمة وعتبة أوتوماتيك، بتقلل الصوت لحد 45 ديسيبل.",
+    "body": [
+     [
+      "فين بنستخدمها؟",
+      "غرف الفنادق، غرف الكشف والعمليات في المستشفيات، قاعات الاجتماعات والمحاكم، الاستوديوهات وقاعات السينما، والشقق الفاخرة."
+     ],
+     [
+      "إزاي الباب بيعزل الصوت؟",
+      "قلب الضلفة طبقات مختلفة الكثافة بتمتص الموجات الصوتية، وجوانات مطاطية على الحلق، وعتبة سفلية أوتوماتيك بتقفل الفتحة تحت الباب أول ما يتقفل."
+     ]
+    ],
+    "products": [
+     [
+      "باب عازل للصوت 32 ديسيبل",
+      "غرف الفنادق والشقق",
+      "باب"
+     ],
+     [
+      "باب عازل للصوت 40 ديسيبل",
+      "قاعات الاجتماعات والعيادات",
+      "باب"
+     ],
+     [
+      "باب عازل للصوت 45 ديسيبل",
+      "استوديوهات وسينما",
+      "باب"
+     ],
+     [
+      "باب عازل للصوت ومقاوم للحريق",
+      "فنادق ومستشفيات — مواصفتين في باب واحد",
+      "باب"
+     ]
+    ],
+    "faq": [
+     [
+      "الباب العازل للصوت بيعزل قد إيه؟",
+      "من 32 لـ 45 ديسيبل حسب الموديل وطريقة التركيب."
+     ],
+     [
+      "ينفع يبقى عازل للصوت ومقاوم للحريق مع بعض؟",
+      "أيوه، عندنا موديل بيجمع المواصفتين للفنادق والمستشفيات."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Soundproof Doors",
+    "title": "Soundproof Acoustic Doors for Hotels, Hospitals & Studios — K Plus",
+    "desc": "Acoustic soundproof doors with up to 45 dB reduction for hotels, hospitals, meeting rooms and studios. Manufactured, supplied and installed in Egypt.",
+    "h1": "Soundproof Acoustic Doors",
+    "lead": "Multi-layer acoustic core, tight perimeter seals and automatic drop seal — up to 45 dB sound reduction.",
+    "body": [
+     [
+      "Where are they used?",
+      "Hotel rooms, hospital clinics and theatres, meeting rooms and courts, studios and cinemas, and luxury apartments."
+     ],
+     [
+      "How does it insulate sound?",
+      "A core of varying-density layers absorbs sound, rubber seals close the frame gap and an automatic drop seal closes the gap under the door."
+     ]
+    ],
+    "products": [
+     [
+      "Acoustic Door 32 dB",
+      "Hotel rooms & apartments",
+      "door"
+     ],
+     [
+      "Acoustic Door 40 dB",
+      "Meeting rooms & clinics",
+      "door"
+     ],
+     [
+      "Acoustic Door 45 dB",
+      "Studios & cinemas",
+      "door"
+     ],
+     [
+      "Acoustic + Fire-Rated Door",
+      "Hotels & hospitals — both specs in one",
+      "door"
+     ]
+    ],
+    "faq": [
+     [
+      "How much sound does it block?",
+      "32 to 45 dB depending on model and installation."
+     ],
+     [
+      "Can a door be both acoustic and fire-rated?",
+      "Yes, we have a combined model for hotels and hospitals."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "ideal-standard",
+   "icon": "bath",
+   "parent": null,
+   "ar": {
+    "nav": "أدوات صحية إيديال ستاندرد",
+    "title": "توريد أدوات صحية إيديال ستاندرد للمشروعات | أطقم حمامات — كي بلس",
+    "desc": "توريد أطقم حمامات وأحواض ومراحيض وخلاطات إيديال ستاندرد الأصلية بالجملة للمشروعات السكنية والفنادق في مصر، بضمان الوكيل. اطلب عرض سعر.",
+    "h1": "توريد أدوات صحية إيديال ستاندرد الأصلية",
+    "lead": "أطقم حمامات كاملة ومراحيض وأحواض وخلاطات إيديال ستاندرد (Ideal Standard) أصلية بضمان، بأسعار جملة للمقاولين والمطورين.",
+    "body": [
+     [
+      "ليه إيديال ستاندرد؟",
+      "علامة عالمية ليها تاريخ طويل في السوق المصري، بورسلين عالي الجودة، قطع غيار متوفرة، وضمان رسمي. مناسبة للمشروعات السكنية والفنادق والمستشفيات."
+     ],
+     [
+      "توريد للمشروعات",
+      "بنجهز جدول كميات لكل وحدة (طقم حمام + حوض مطبخ + خلاطات)، وبنورد على مراحل حسب برنامج تنفيذ المشروع."
+     ]
+    ],
+    "products": [
+     [
+      "طقم حمام كامل",
+      "مرحاض + حوض بقاعدة + بيديه",
+      "طقم"
+     ],
+     [
+      "مرحاض معلق مع صندوق دفن",
+      "تصميم حديث وتوفير مساحة",
+      "قطعة"
+     ],
+     [
+      "أحواض حمام وأحواض كاونتر",
+      "مقاسات متعددة",
+      "قطعة"
+     ],
+     [
+      "خلاطات حوض ودش ومطبخ",
+      "صناعة نحاس بطلاء كروم",
+      "قطعة"
+     ],
+     [
+      "بانيوهات وقواعد دش",
+      "أكريليك وصيني",
+      "قطعة"
+     ]
+    ],
+    "faq": [
+     [
+      "المنتجات أصلية؟",
+      "أيوه، أصلية من الوكيل وبالضمان الرسمي."
+     ],
+     [
+      "في خصم للكميات؟",
+      "أيوه، أسعار جملة للمقاولين والمطورين حسب عدد الوحدات."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Ideal Standard Sanitary Ware",
+    "title": "Ideal Standard Sanitary Ware Supply for Projects in Egypt — K Plus",
+    "desc": "Wholesale supply of genuine Ideal Standard bathroom sets, basins, WCs and mixers for residential and hotel projects in Egypt, with official warranty. Request a quote.",
+    "h1": "Genuine Ideal Standard Sanitary Ware Supply",
+    "lead": "Complete bathroom sets, WCs, basins and mixers from Ideal Standard with warranty, at wholesale prices for contractors and developers.",
+    "body": [
+     [
+      "Why Ideal Standard?",
+      "A global brand with a long history in Egypt: high-quality vitreous china, available spare parts and an official warranty."
+     ],
+     [
+      "Project supply",
+      "We prepare a bill of quantities per unit and deliver in phases matching your construction programme."
+     ]
+    ],
+    "products": [
+     [
+      "Complete Bathroom Set",
+      "WC + pedestal basin + bidet",
+      "set"
+     ],
+     [
+      "Wall-hung WC with Concealed Cistern",
+      "Modern, space-saving",
+      "piece"
+     ],
+     [
+      "Basins & Countertop Basins",
+      "Multiple sizes",
+      "piece"
+     ],
+     [
+      "Basin, Shower & Kitchen Mixers",
+      "Chrome-plated brass",
+      "piece"
+     ],
+     [
+      "Bathtubs & Shower Trays",
+      "Acrylic and ceramic",
+      "piece"
+     ]
+    ],
+    "faq": [
+     [
+      "Are products genuine?",
+      "Yes, genuine through the official channel with warranty."
+     ],
+     [
+      "Volume discounts?",
+      "Yes, wholesale pricing by number of units."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "ceramics",
+   "icon": "tile",
+   "parent": null,
+   "ar": {
+    "nav": "سيراميك",
+    "title": "توريد سيراميك كليوباترا والجوهرة وأوبليسك بالجملة | كي بلس",
+    "desc": "توريد سيراميك وبورسلين كليوباترا والجوهرة وأوبليسك بالجملة للأرضيات والحوائط للمشروعات والمقاولين في مصر. اطلب سعر متر السيراميك.",
+    "h1": "توريد سيراميك وبورسلين بالجملة للمشروعات",
+    "lead": "سيراميك أرضيات وحوائط وبورسلين من أكبر المصانع المصرية: كليوباترا، الجوهرة، وأوبليسك — فرز أول، بأسعار جملة وتوصيل للموقع.",
+    "body": [
+     [
+      "اختار المقاس والنوع",
+      "مقاسات 30×30 و40×40 و60×60 و60×120 للأرضيات، و25×40 و30×60 للحوائط، بتشطيب لامع أو مطفي أو مضاد للانزلاق للمطابخ والحمامات والمداخل."
+     ],
+     [
+      "فرز أول ونفس اللوط",
+      "بنورد الكمية كلها من نفس اللوط (Shade) علشان اللون يبقى موحد في المشروع كله، مع زيادة 5% احتياطي للقص."
+     ]
+    ],
+    "products": [],
+    "faq": [
+     [
+      "بكام متر السيراميك؟",
+      "حسب الماركة والمقاس والفرز والكمية. ابعتلنا الموديل أو صورة وهنبعت السعر."
+     ],
+     [
+      "الفرق بين السيراميك والبورسلين؟",
+      "البورسلين أقل امتصاص للمياه وأصلب، مناسب للأماكن عالية الحركة والخارجية؛ السيراميك أوفر ومناسب للحوائط والأرضيات الداخلية."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Ceramics",
+    "title": "Cleopatra, Al-Gawhara & Obelisk Ceramic Tiles Wholesale — K Plus",
+    "desc": "Wholesale supply of Cleopatra, Al-Gawhara and Obelisk ceramic and porcelain floor and wall tiles for projects and contractors in Egypt. Request price per m².",
+    "h1": "Wholesale Ceramic & Porcelain Tiles for Projects",
+    "lead": "Floor, wall and porcelain tiles from Egypt's leading factories — Cleopatra, Al-Gawhara and Obelisk — first grade, wholesale prices, delivered to site.",
+    "body": [
+     [
+      "Choose size and type",
+      "30×30, 40×40, 60×60 and 60×120 for floors; 25×40 and 30×60 for walls; glossy, matt or anti-slip."
+     ],
+     [
+      "First grade, same lot",
+      "The full quantity comes from one shade lot for uniform colour, plus 5% cutting allowance."
+     ]
+    ],
+    "products": [],
+    "faq": [
+     [
+      "Price per m²?",
+      "Depends on brand, size, grade and quantity. Send the model or a photo for a price."
+     ],
+     [
+      "Ceramic vs porcelain?",
+      "Porcelain has lower water absorption and is harder — for high-traffic and outdoor areas; ceramic is more economical for interior walls and floors."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "ceramics/cleopatra",
+   "icon": "tile",
+   "parent": "ceramics",
+   "ar": {
+    "nav": "سيراميك كليوباترا",
+    "title": "سيراميك كليوباترا بالجملة | أسعار سيراميك كليوباترا 2026 — كي بلس",
+    "desc": "توريد سيراميك وبورسلين كليوباترا فرز أول بالجملة للأرضيات والحوائط والمطابخ والحمامات بكل المقاسات، توصيل لموقعك في كل مصر.",
+    "h1": "توريد سيراميك كليوباترا فرز أول",
+    "lead": "كليوباترا من أكبر منتجي السيراميك في الشرق الأوسط، بتشكيلة ضخمة من الموديلات والمقاسات للأرضيات والحوائط والبورسلين.",
+    "body": [
+     [
+      "تشكيلة كليوباترا",
+      "سيراميك أرضيات 40×40 و60×60، حوائط حمامات ومطابخ 25×40 و30×60، بورسلين 60×60 و60×120، وموديلات رخامي وخشبي وأسمنتي."
+     ]
+    ],
+    "products": [
+     [
+      "سيراميك أرضيات كليوباترا 60×60",
+      "لامع ومطفي — فرز أول",
+      "م²"
+     ],
+     [
+      "سيراميك حوائط كليوباترا 30×60",
+      "حمامات ومطابخ",
+      "م²"
+     ],
+     [
+      "بورسلين كليوباترا 60×120",
+      "رخامي وخشبي",
+      "م²"
+     ]
+    ],
+    "faq": [
+     [
+      "بكام متر سيراميك كليوباترا؟",
+      "حسب الموديل والمقاس والفرز. ابعت اسم الموديل أو صورة على واتساب."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Cleopatra Ceramics",
+    "title": "Cleopatra Ceramics Wholesale | Cleopatra Tile Prices — K Plus",
+    "desc": "First-grade Cleopatra ceramic and porcelain tiles wholesale for floors, walls, kitchens and bathrooms in all sizes, delivered across Egypt.",
+    "h1": "First-Grade Cleopatra Ceramic Tiles",
+    "lead": "Cleopatra is one of the largest tile producers in the Middle East with a huge range of models and sizes.",
+    "body": [
+     [
+      "The Cleopatra range",
+      "Floor tiles 40×40 and 60×60, wall tiles 25×40 and 30×60, porcelain 60×60 and 60×120 in marble, wood and concrete looks."
+     ]
+    ],
+    "products": [
+     [
+      "Cleopatra Floor Tile 60×60",
+      "Glossy & matt — first grade",
+      "m²"
+     ],
+     [
+      "Cleopatra Wall Tile 30×60",
+      "Bathrooms & kitchens",
+      "m²"
+     ],
+     [
+      "Cleopatra Porcelain 60×120",
+      "Marble & wood look",
+      "m²"
+     ]
+    ],
+    "faq": [
+     [
+      "Cleopatra tile price per m²?",
+      "Depends on model, size and grade. Send the model name or a photo on WhatsApp."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "ceramics/al-gawhara",
+   "icon": "tile",
+   "parent": "ceramics",
+   "ar": {
+    "nav": "سيراميك الجوهرة",
+    "title": "سيراميك الجوهرة بالجملة | أسعار سيراميك الجوهرة — كي بلس",
+    "desc": "توريد سيراميك الجوهرة فرز أول بالجملة للأرضيات والحوائط بأسعار مناسبة للمشروعات السكنية والمقاولين، توصيل لكل محافظات مصر.",
+    "h1": "توريد سيراميك الجوهرة فرز أول",
+    "lead": "سيراميك الجوهرة اختيار اقتصادي وعملي لمشروعات الإسكان، بجودة ثابتة وتشكيلة ألوان واسعة.",
+    "body": [
+     [
+      "ليه الجوهرة للمشروعات؟",
+      "سعر تنافسي مع جودة ثابتة، مناسب لمشروعات الإسكان الاجتماعي والمتوسط والوحدات الكبيرة العدد."
+     ]
+    ],
+    "products": [
+     [
+      "سيراميك أرضيات الجوهرة 40×40",
+      "فرز أول",
+      "م²"
+     ],
+     [
+      "سيراميك أرضيات الجوهرة 60×60",
+      "لامع ومطفي",
+      "م²"
+     ],
+     [
+      "سيراميك حوائط الجوهرة 25×40",
+      "حمامات ومطابخ",
+      "م²"
+     ]
+    ],
+    "faq": [
+     [
+      "سيراميك الجوهرة كويس؟",
+      "أيوه، جودة ثابتة وسعر اقتصادي ومناسب جدًا للمشروعات السكنية."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Al-Gawhara Ceramics",
+    "title": "Al-Gawhara Ceramics Wholesale | Al-Gawhara Tile Prices — K Plus",
+    "desc": "First-grade Al-Gawhara ceramic floor and wall tiles wholesale at project-friendly prices, delivered to all Egyptian governorates.",
+    "h1": "First-Grade Al-Gawhara Ceramic Tiles",
+    "lead": "An economical, practical choice for housing projects with consistent quality and a wide colour range.",
+    "body": [
+     [
+      "Why Al-Gawhara for projects?",
+      "Competitive price with consistent quality — ideal for social and mid-market housing."
+     ]
+    ],
+    "products": [
+     [
+      "Al-Gawhara Floor Tile 40×40",
+      "First grade",
+      "m²"
+     ],
+     [
+      "Al-Gawhara Floor Tile 60×60",
+      "Glossy & matt",
+      "m²"
+     ],
+     [
+      "Al-Gawhara Wall Tile 25×40",
+      "Bathrooms & kitchens",
+      "m²"
+     ]
+    ],
+    "faq": [
+     [
+      "Is Al-Gawhara good quality?",
+      "Yes — consistent quality at an economical price, ideal for housing."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "ceramics/obelisk",
+   "icon": "tile",
+   "parent": "ceramics",
+   "ar": {
+    "nav": "سيراميك أوبليسك",
+    "title": "سيراميك أوبليسك بالجملة | أسعار سيراميك أوبليسك — كي بلس",
+    "desc": "توريد سيراميك وبورسلين أوبليسك فرز أول بالجملة للأرضيات والحوائط، تصميمات حديثة بمقاسات كبيرة، توصيل لموقع مشروعك في مصر.",
+    "h1": "توريد سيراميك أوبليسك فرز أول",
+    "lead": "أوبليسك بتقدم تصميمات حديثة ومقاسات كبيرة بجودة تصدير، مناسبة للمشروعات المتوسطة والفاخرة.",
+    "body": [
+     [
+      "تشكيلة أوبليسك",
+      "سيراميك وبورسلين بمقاسات 60×60 و60×120، تصميمات رخامي وحجري، وتشطيبات لامعة ومطفية."
+     ]
+    ],
+    "products": [
+     [
+      "سيراميك أرضيات أوبليسك 60×60",
+      "فرز أول",
+      "م²"
+     ],
+     [
+      "بورسلين أوبليسك 60×120",
+      "رخامي — لامع",
+      "م²"
+     ],
+     [
+      "سيراميك حوائط أوبليسك 30×60",
+      "حمامات ومطابخ",
+      "م²"
+     ]
+    ],
+    "faq": [
+     [
+      "بكام متر سيراميك أوبليسك؟",
+      "حسب الموديل والمقاس. ابعت اسم الموديل على واتساب."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Obelisk Ceramics",
+    "title": "Obelisk Ceramics Wholesale | Obelisk Tile Prices — K Plus",
+    "desc": "First-grade Obelisk ceramic and porcelain tiles wholesale — modern large-format designs delivered to your project site in Egypt.",
+    "h1": "First-Grade Obelisk Ceramic Tiles",
+    "lead": "Modern designs and large formats at export quality for mid-range and premium projects.",
+    "body": [
+     [
+      "The Obelisk range",
+      "Ceramic and porcelain in 60×60 and 60×120, marble and stone looks, glossy and matt."
+     ]
+    ],
+    "products": [
+     [
+      "Obelisk Floor Tile 60×60",
+      "First grade",
+      "m²"
+     ],
+     [
+      "Obelisk Porcelain 60×120",
+      "Marble — glossy",
+      "m²"
+     ],
+     [
+      "Obelisk Wall Tile 30×60",
+      "Bathrooms & kitchens",
+      "m²"
+     ]
+    ],
+    "faq": [
+     [
+      "Obelisk tile price per m²?",
+      "Depends on model and size. Send the model name on WhatsApp."
+     ]
+    ]
+   }
+  }
+ ],
+ "govs": {
+  "ar": [
+   "القاهرة",
+   "الجيزة",
+   "القليوبية",
+   "العاصمة الإدارية الجديدة",
+   "6 أكتوبر",
+   "الشيخ زايد",
+   "القاهرة الجديدة",
+   "العاشر من رمضان",
+   "الإسكندرية",
+   "العلمين الجديدة",
+   "السويس",
+   "العين السخنة",
+   "الإسماعيلية",
+   "بورسعيد",
+   "دمياط",
+   "المنصورة",
+   "طنطا",
+   "الزقازيق",
+   "بني سويف",
+   "المنيا",
+   "أسيوط",
+   "سوهاج",
+   "قنا",
+   "الأقصر",
+   "أسوان",
+   "الغردقة"
+  ],
+  "en": [
+   "Cairo",
+   "Giza",
+   "Qalyubia",
+   "New Administrative Capital",
+   "6th of October",
+   "Sheikh Zayed",
+   "New Cairo",
+   "10th of Ramadan",
+   "Alexandria",
+   "New Alamein",
+   "Suez",
+   "Ain Sokhna",
+   "Ismailia",
+   "Port Said",
+   "Damietta",
+   "Mansoura",
+   "Tanta",
+   "Zagazig",
+   "Beni Suef",
+   "Minya",
+   "Assiut",
+   "Sohag",
+   "Qena",
+   "Luxor",
+   "Aswan",
+   "Hurghada"
+  ]
+ },
+ "t": {
+  "ar": {
+   "dir": "rtl",
+   "home": "الرئيسية",
+   "about": "من نحن",
+   "contact": "اطلب عرض سعر",
+   "products": "منتجاتنا",
+   "quote": "اطلب سعر",
+   "wa": "واتساب",
+   "call": "اتصل بنا",
+   "unit": "الوحدة",
+   "faq": "أسئلة شائعة",
+   "related": "منتجات أخرى",
+   "other": "English",
+   "tagline": "مفتاحك لأفضل سعر أينما كنت… بجودة بلا تنازل ومن مصادر موثوقة",
+   "areas": "مناطق التوريد",
+   "areas_txt": "بنورد لكل محافظات مصر، ومنها:",
+   "rights": "جميع الحقوق محفوظة",
+   "member": "إحدى شركات",
+   "hero_h": "توريد مواد البناء لمشروعك بأسعار المصنع",
+   "hero_p": "أسمنت، طوب أسمنتي، أبواب خشب ومقاومة للحريق وعازلة للصوت، أدوات صحية إيديال ستاندرد، وسيراميك كليوباترا والجوهرة وأوبليسك — عرض سعر خلال ساعات وتوصيل لموقعك في كل مصر.",
+   "cats": "اختار القسم",
+   "why": "ليه كي بلس؟",
+   "how": "إزاي تطلب؟",
+   "browse": "تصفح",
+   "form_h": "ابعت طلبك ونرد عليك بعرض سعر",
+   "f_name": "الاسم",
+   "f_phone": "رقم الموبايل",
+   "f_cat": "المنتج",
+   "f_qty": "الكمية",
+   "f_loc": "موقع المشروع (المحافظة/المدينة)",
+   "f_note": "ملاحظات",
+   "f_send": "ابعت الطلب على واتساب",
+   "f_hint": "الطلب بيتبعت لينا على واتساب مباشرة، ومن غير أي التزام.",
+   "wa_msg": "السلام عليكم، عايز عرض سعر:",
+   "why_items": [
+    [
+     "أسعار جملة",
+     "علاقات مباشرة مع المصانع والوكلاء بتخلي سعرك أقل."
+    ],
+    [
+     "عرض سعر سريع",
+     "رد بعرض سعر شامل النقل خلال ساعات عمل."
+    ],
+    [
+     "توصيل لكل مصر",
+     "أسطول نقل للقاهرة والعاصمة والصعيد والدلتا والساحل."
+    ],
+    [
+     "فاتورة وضمان",
+     "فاتورة ضريبية وشهادات مطابقة وضمان الوكيل."
+    ],
+    [
+     "مورد واحد",
+     "كل مواد المشروع من مكان واحد ومسؤول حساب واحد."
+    ],
+    [
+     "خبرة مشروعات",
+     "بنورد لمقاولين كبار في مشروعات إسكان ومدارس ومستشفيات."
+    ]
+   ],
+   "how_items": [
+    [
+     "1",
+     "اختار المنتج",
+     "حدد النوع والمقاس والكمية."
+    ],
+    [
+     "2",
+     "استلم عرض السعر",
+     "بنبعتلك السعر شامل النقل على واتساب."
+    ],
+    [
+     "3",
+     "استلم في موقعك",
+     "بنوصل في الميعاد ومعاك فاتورة رسمية."
+    ]
+   ],
+   "about_h": "عن كي بلس",
+   "about_p": [
+    "كي بلس شركة متخصصة في توريد مواد البناء والتشطيبات للمقاولين والمطورين العقاريين وأصحاب المشروعات في مصر، وهي إحدى شركات الكنانة لتشييد المباني الحديثة، اللي بتشتغل في تصنيع وتوريد وتركيب الأعمال الخشبية والأبواب لمشروعات الإسكان والمدارس والمستشفيات من سنة 2015.",
+    "هدفنا نوفر للمقاول كل مواد المشروع من مورد واحد موثوق: سعر واضح، توصيل في الميعاد، وفاتورة رسمية.",
+    "من عملائنا مقاولين في مشروعات شمال الصعيد، الشروق، جيدار، وكونكريت بلس."
+   ],
+   "home_title": "كي بلس K Plus | توريد مواد بناء في مصر — أسمنت، طوب، أبواب، صحي وسيراميك",
+   "home_desc": "كي بلس لتوريد مواد البناء في مصر: أسمنت وطوب أسمنتي وأبواب خشب ومقاومة للحريق وعازلة للصوت وأدوات صحية إيديال ستاندرد وسيراميك كليوباترا والجوهرة. أسعار جملة وتوصيل لموقعك.",
+   "about_title": "من نحن | كي بلس لتوريد مواد البناء",
+   "about_desc": "تعرف على كي بلس، إحدى شركات الكنانة، مورد مواد البناء والأبواب والتشطيبات للمقاولين والمشروعات في مصر.",
+   "contact_title": "اطلب عرض سعر مواد بناء | كي بلس",
+   "contact_desc": "ابعت طلب عرض سعر أسمنت أو طوب أو أبواب أو أدوات صحية أو سيراميك، ونرد عليك خلال ساعات على واتساب.",
+   "nf_title": "الصفحة غير موجودة | كي بلس",
+   "nf_h": "الصفحة دي مش موجودة",
+   "nf_p": "ممكن تكون اتنقلت. ارجع للرئيسية أو اختار قسم."
+  },
+  "en": {
+   "dir": "ltr",
+   "home": "Home",
+   "about": "About",
+   "contact": "Request a Quote",
+   "products": "Products",
+   "quote": "Get price",
+   "wa": "WhatsApp",
+   "call": "Call us",
+   "unit": "Unit",
+   "faq": "FAQ",
+   "related": "Other products",
+   "other": "العربية",
+   "tagline": "Your key to the best price, wherever you are. Uncompromised quality, trusted sources.",
+   "areas": "Delivery areas",
+   "areas_txt": "We deliver to all Egyptian governorates, including:",
+   "rights": "All rights reserved",
+   "member": "A member of",
+   "hero_h": "Building Materials Delivered at Factory Prices",
+   "hero_p": "Cement, cement bricks, wooden, fire-rated and soundproof doors, Ideal Standard sanitary ware, and Cleopatra, Al-Gawhara and Obelisk ceramics — quotes within hours and delivery anywhere in Egypt.",
+   "cats": "Shop by category",
+   "why": "Why K Plus?",
+   "how": "How to order",
+   "browse": "Browse",
+   "form_h": "Send your request and get a quote",
+   "f_name": "Name",
+   "f_phone": "Mobile",
+   "f_cat": "Product",
+   "f_qty": "Quantity",
+   "f_loc": "Project location (governorate/city)",
+   "f_note": "Notes",
+   "f_send": "Send request on WhatsApp",
+   "f_hint": "Your request goes straight to our WhatsApp — no obligation.",
+   "wa_msg": "Hello, I would like a quote for:",
+   "why_items": [
+    [
+     "Wholesale prices",
+     "Direct relationships with plants and agents lower your price."
+    ],
+    [
+     "Fast quotes",
+     "All-in delivered quote within business hours."
+    ],
+    [
+     "Nationwide delivery",
+     "Fleet covering Cairo, the New Capital, Upper Egypt, the Delta and the coast."
+    ],
+    [
+     "Invoice & warranty",
+     "Tax invoice, compliance certificates and agent warranty."
+    ],
+    [
+     "One supplier",
+     "All project materials from one place with one account manager."
+    ],
+    [
+     "Project experience",
+     "Supplying major contractors on housing, school and hospital projects."
+    ]
+   ],
+   "how_items": [
+    [
+     "1",
+     "Pick a product",
+     "Choose type, size and quantity."
+    ],
+    [
+     "2",
+     "Get your quote",
+     "We send a delivered price on WhatsApp."
+    ],
+    [
+     "3",
+     "Receive on site",
+     "On-time delivery with an official invoice."
+    ]
+   ],
+   "about_h": "About K Plus",
+   "about_p": [
+    "K Plus supplies building and finishing materials to contractors, developers and project owners across Egypt. It is part of Al-Kenana for Modern Building Construction, which has manufactured, supplied and installed doors and woodwork for housing, school and hospital projects since 2015.",
+    "Our goal is to give contractors every project material from one trusted supplier: clear pricing, on-time delivery and an official invoice.",
+    "Our clients include contractors on projects in North Upper Egypt, El Shorouk, Gedar and Concrete Plus."
+   ],
+   "home_title": "K Plus | Building Materials Supplier in Egypt — Cement, Bricks, Doors, Sanitary & Ceramics",
+   "home_desc": "K Plus supplies building materials in Egypt: cement, cement bricks, wooden, fire-rated and soundproof doors, Ideal Standard sanitary ware and Cleopatra & Al-Gawhara ceramics. Wholesale prices, delivered to site.",
+   "about_title": "About Us | K Plus Building Materials",
+   "about_desc": "Meet K Plus, part of Al-Kenana — supplier of building materials, doors and finishes to contractors and projects in Egypt.",
+   "contact_title": "Request a Building Materials Quote | K Plus",
+   "contact_desc": "Request a quote for cement, bricks, doors, sanitary ware or ceramics and get a reply within hours on WhatsApp.",
+   "nf_title": "Page not found | K Plus",
+   "nf_h": "Page not found",
+   "nf_p": "It may have moved. Go back home or pick a category."
+  }
+ },
+ "icons": {
+  "cement": "<path d=\"M12 10h40l-6 44H18z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"/><path d=\"M16 24h32M18 38h28\" stroke=\"currentColor\" stroke-width=\"3\"/>",
+  "brick": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><rect x=\"6\" y=\"12\" width=\"52\" height=\"40\" rx=\"2\"/><path d=\"M6 25h52M6 39h52M24 12v13M42 25v14M24 39v13\"/></g>",
+  "door": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><rect x=\"16\" y=\"6\" width=\"32\" height=\"52\" rx=\"2\"/><path d=\"M22 12h20v18H22zM22 36h20v16H22z\"/></g><circle cx=\"42\" cy=\"33\" r=\"2.5\" fill=\"currentColor\"/>",
+  "fire": "<path d=\"M32 6c4 10 14 15 14 30a14 14 0 0 1-28 0c0-8 4-12 7-16 0 6 3 9 6 9-2-9 1-16 1-23z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linejoin=\"round\"/>",
+  "sound": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"><path d=\"M10 26h10l12-10v32L20 38H10z\"/><path d=\"M42 24l12 16M54 24L42 40\"/></g>",
+  "bath": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"><path d=\"M6 32h52v6a12 12 0 0 1-12 12H18A12 12 0 0 1 6 38z\"/><path d=\"M14 32V14a6 6 0 0 1 12 0M18 50l-3 6M46 50l3 6\"/></g>",
+  "tile": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><path d=\"M32 6l26 26-26 26L6 32z\"/><path d=\"M19 19l26 26M45 19L19 45\"/></g>"
+ }
+}
