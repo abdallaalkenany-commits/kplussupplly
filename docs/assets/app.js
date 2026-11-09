@@ -1,0 +1,2 @@
+(function(){var m=document.querySelector('.menu'),n=document.getElementById('nav');if(m&&n)m.addEventListener('click',function(){var o=n.classList.toggle('open');m.setAttribute('aria-expanded',o)});
+document.querySelectorAll('.qform').forEach(function(f){f.addEventListener('submit',function(e){e.preventDefault();var t=[f.dataset.msg];new FormData(f).forEach(function(v,k){if(v)t.push(k+': '+v)});window.open('https://wa.me/'+f.dataset.wa+'?text='+encodeURIComponent(t.join('\n')),'_blank','noopener')})})})();
