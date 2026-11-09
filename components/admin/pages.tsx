@@ -342,10 +342,55 @@ export function Users() {
   ];
   return (
     <>
+      <WaAlerts />
       <p className="tip">علشان تضيف موظف: خليه يعمل حساب من صفحة "حسابي" على الموقع، وبعدين غيّر صلاحيته هنا لـ "مبيعات" أو "مدير".</p>
       <Crud table="profiles" title="مستخدم" fields={fields} order="created_at" canDelete={false} csvName="users"
         filters={{ key: "role", options: [["admin", "مدير"], ["sales", "مبيعات"], ["customer", "عميل"], ["supplier", "مورد"]] }} />
     </>
+  );
+}
+
+/* ---------------- whatsapp alerts (CallMeBot) ---------------- */
+function WaAlerts() {
+  const [v, setV] = useState<{ phone: string; key: string } | null>(null);
+  const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    sb().from("app_settings").select("key,value").in("key", ["callmebot_phone", "callmebot_apikey"]).then(({ data, error }: any) => {
+      if (error) { setMsg("لازم تشغّل ملف التحديث 005 في Supabase الأول."); setV({ phone: "+201028879918", key: "" }); return; }
+      const m: any = {}; (data || []).forEach((r: any) => (m[r.key] = r.value));
+      setV({ phone: m.callmebot_phone || "+201028879918", key: m.callmebot_apikey || "" });
+    });
+  }, []);
+  async function save(test: boolean) {
+    if (!v) return;
+    setBusy(true); setMsg("");
+    const { error } = await sb().from("app_settings").upsert([
+      { key: "callmebot_phone", value: v.phone.replace(/[^\d+]/g, ""), updated_at: new Date().toISOString() },
+      { key: "callmebot_apikey", value: v.key.trim(), updated_at: new Date().toISOString() },
+    ]);
+    if (error) { setBusy(false); return setMsg("مااتحفظش: " + error.message); }
+    if (test) {
+      const r = await sb().rpc("wa_notify_test");
+      setMsg(r.error ? "اتحفظ، بس التجربة فشلت: " + r.error.message : "اتحفظ، وبعتنا رسالة تجربة. لو ماوصلتش خلال دقيقة راجع الرقم والمفتاح.");
+    } else setMsg("اتحفظ.");
+    setBusy(false);
+  }
+  if (!v) return null;
+  return (
+    <section className="box" style={{ marginBottom: 16 }}>
+      <h2>تنبيهات واتساب للطلبات الجديدة</h2>
+      <p className="tip">كل طلب جديد من الموقع بيوصل رسالة أوتوماتيك على الرقم ده. المفتاح بيوصلك من CallMeBot مرة واحدة بس (الخطوات في رسالة التفعيل).</p>
+      <div className="aform" style={{ maxWidth: 520 }}>
+        <label>رقم واتساب اللي هيستقبل التنبيهات (بكود الدولة)<input id="cmb-phone" dir="ltr" value={v.phone} onChange={(e) => setV({ ...v, phone: e.target.value })} /></label>
+        <label>مفتاح CallMeBot (apikey)<input id="cmb-key" dir="ltr" value={v.key} onChange={(e) => setV({ ...v, key: e.target.value })} /></label>
+        <div className="row">
+          <button className="abtn primary" disabled={busy} onClick={() => save(true)}>حفظ وتجربة</button>
+          <button className="abtn" disabled={busy} onClick={() => save(false)}>حفظ بس</button>
+        </div>
+        {msg && <p className="okmsg" role="status">{msg}</p>}
+      </div>
+    </section>
   );
 }
 
