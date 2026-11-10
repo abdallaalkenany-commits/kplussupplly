@@ -70,8 +70,8 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
       <header className="top">
         <div className="wrap bar">
           <Link className="logo" href={upath(lang)} aria-label={brand}>
-            <img src="/assets/logo.png" width={130} height={43} alt={`KPLUS ${brand}`} />
-            <span><small>{lang === "ar" ? "توريدات مواد البناء والتوكيلات التجارية" : "Key to better supply"}</small></span>
+            <img className="lmark" src="/assets/mark-hd.png" width={36} height={48} alt="" />
+            <span className="lword"><img src="/assets/plus-word.png" width={108} height={24} alt={`KPLUS ${brand}`} /><span className="slog">KEY TO BETTER SUPPLY</span></span>
           </Link>
           <MenuButton />
           <nav id="nav" className="nav">
@@ -87,7 +87,7 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
       <footer className="foot">
         <div className="wrap cols">
           <div>
-            <img src="/assets/logo-white.png" width={140} height={46} alt="KPLUS" />
+            <img className="flogo" src="/assets/logo-slogan-white.png" width={280} height={95} alt="KPLUS — Key to better supply" />
             <p><b>{lang === "ar" ? C.legal_ar : C.legal_en}</b><br />{t.tagline}</p>
             <p className="legal">{lang === "ar" ? "سجل تجاري" : "C.R."}: {C.cr} · {lang === "ar" ? "بطاقة ضريبية" : "Tax ID"}: <span dir="ltr">{C.tax}</span></p>
           </div>
@@ -114,6 +114,11 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
         </div>
         <div className="wrap copy">© {new Date().getFullYear()} {brand} — {t.rights}</div>
       </footer>
+      <nav className="mbar" aria-label={lang === "ar" ? "تواصل سريع" : "Quick contact"}>
+        <a className="mq" href={upath(lang, "contact") + "#quote"} data-goquote="1">{t.contact}</a>
+        <a className="mw" href={waLink(t.wa_msg)} rel="noopener">{t.wa}</a>
+        <a className="mc" href={`tel:${C.phone_e164}`} aria-label={t.call}><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></a>
+      </nav>
       <WaTracker lang={lang} />
       <a className="wa-float" href={waLink(t.wa_msg)} rel="noopener" aria-label={t.wa}>
         <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="#fff" d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.6a10.6 10.6 0 0 1-5.4-1.5l-.4-.2-3.9 1 1-3.8-.2-.4A10.6 10.6 0 1 1 16 26.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a8.7 8.7 0 0 1-4.3-3.8c-.3-.6.3-.5 1-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6a1.2 1.2 0 0 0-.9.4 3.7 3.7 0 0 0-1.1 2.7 6.5 6.5 0 0 0 1.3 3.4 14.6 14.6 0 0 0 5.6 5c2.1.9 2.9 1 4 .8a3.4 3.4 0 0 0 2.2-1.6 2.8 2.8 0 0 0 .2-1.6c-.1-.2-.3-.3-.6-.4z" /></svg>

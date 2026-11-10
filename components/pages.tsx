@@ -10,7 +10,7 @@ const OPTIONS = (lang: Lang) => CATEGORIES.map((c) => c[lang].nav);
 
 function Quote({ lang, preset }: { lang: Lang; preset?: string }) {
   const t = T[lang];
-  return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow, f_company: t.f_company, f_ctype: t.f_ctype, ctypes: t.ctypes, f_map: t.f_map, f_map_btn: t.f_map_btn, f_map_ph: t.f_map_ph, f_map_ok: t.f_map_ok, f_map_err: t.f_map_err, f_prefill: t.f_prefill }} options={OPTIONS(lang)} preset={preset} wa={C.whatsapp} />;
+  return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow, f_company: t.f_company, f_ctype: t.f_ctype, ctypes: t.ctypes, f_map: t.f_map, f_map_btn: t.f_map_btn, f_map_ph: t.f_map_ph, f_map_ok: t.f_map_ok, f_map_err: t.f_map_err, f_prefill: t.f_prefill, f_more: t.f_more }} options={OPTIONS(lang)} preset={preset} wa={C.whatsapp} />;
 }
 
 function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false): Metadata {
@@ -65,7 +65,7 @@ async function Home({ lang }: { lang: Lang }) {
       <JsonLd data={[orgSchema(lang), site]} />
       <section className="hero"><div className="wrap">
         <h1>{t.hero_h}</h1><p className="lead">{t.hero_p}</p>
-        <div className="actions"><a className="btn wa" href={waLink(t.wa_msg)} rel="noopener">{t.wa}</a><Link className="btn light" href={upath(lang, "contact")}>{t.contact}</Link></div>
+        <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg)} rel="noopener">{t.wa}</a></div>
         <ul className="badges"><li>{t.why_items[0][0]}</li><li>{t.why_items[2][0]}</li><li>{t.why_items[3][0]}</li></ul>
       </div></section>
       <section className="wrap"><h2>{t.cats}</h2><CatCards lang={lang} cats={TOP} media={media} /></section>
@@ -132,7 +132,7 @@ function OfferGrid({ lang, offers }: { lang: Lang; offers: Awaited<ReturnType<ty
             {body && <p>{body}</p>}
             {o.new_price != null && <p className="price">{o.old_price != null && <s>{money(o.old_price, lang)}</s>} {money(o.new_price, lang)}{unit ? ` / ${unit}` : ""}</p>}
             {o.ends_on && <p className="unit">{t.until} {o.ends_on}</p>}
-            <a className="btn sm" href={waLink(`${t.wa_msg} ${title}`)} rel="noopener">{t.quote}</a>
+            <a className="btn sm" href="#quote" data-quote={title}>{t.quote}</a>
           </article>
         );
       })}
@@ -147,7 +147,7 @@ async function Offers({ lang }: { lang: Lang }) {
     <>
       <Crumbs lang={lang} items={[[t.offers, "offers"]]} />
       <section className="phero"><div className="wrap"><span className="ic big"><Icon name="tile" size={56} /></span><div><h1>{t.offers_h}</h1><p className="lead">{t.offers_lead}</p>
-        <div className="actions"><a className="btn wa" href={waLink(t.wa_msg + " " + t.offers)} rel="noopener">{t.wa}</a></div></div></div></section>
+        <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg + " " + t.offers)} rel="noopener">{t.wa}</a></div></div></div></section>
       <section className="wrap">{offers.length ? <OfferGrid lang={lang} offers={offers} /> : <p className="empty">{t.offers_empty}</p>}</section>
       <Quote lang={lang} />
     </>
@@ -207,7 +207,7 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
       <section className="phero"><div className="wrap">
         <span className="ic big">{m?.icon_url ? <img src={m.icon_url} alt="" width={56} height={56} /> : <Icon name={c.icon} size={56} />}</span>
         <div><h1>{d.h1}</h1><p className="lead">{d.lead}</p>
-          <div className="actions"><a className="btn wa" href={waLink(t.wa_msg + " " + d.nav)} rel="noopener">{t.wa}</a><a className="btn ghost" href="#quote">{t.contact}</a></div></div>
+          <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg + " " + d.nav)} rel="noopener">{t.wa}</a></div></div>
         {m?.image_url && <img className="hero-img" src={m.image_url} alt={d.nav} />}
       </div></section>
       {children.length > 0 && <section className="wrap"><h2>{t.products}</h2><CatCards lang={lang} cats={children} media={media} /></section>}
@@ -218,7 +218,7 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
               {p.image && <img className="pimg" src={p.image} alt={p.name} loading="lazy" />}
               <h3>{p.name}</h3><p>{p.spec}</p>
               {p.price && <p className="price">{p.price}{p.unit ? ` / ${p.unit}` : ""}</p>}
-              <div className="pfoot"><span className="unit">{t.unit}: {p.unit}</span><a className="btn sm" href={waLink(t.wa_msg + " " + p.name)} rel="noopener">{t.quote}</a></div>
+              <div className="pfoot"><span className="unit">{t.unit}: {p.unit}</span><a className="btn sm" href="#quote" data-quote={p.name}>{t.quote}</a></div>
             </article>
           ))}
         </div></section>

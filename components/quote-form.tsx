@@ -22,6 +22,7 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
   const [mapMsg, setMapMsg] = useState("");
   const [prefilled, setPrefilled] = useState(false);
   const form = useRef<HTMLFormElement>(null);
+  const more = useRef<HTMLDetailsElement>(null);
   const ctypes: [string, string][] = (t.ctypes || "").split("|").map((x) => x.split(":") as [string, string]);
   const labels: Record<string, string> = { name: t.f_name, phone: t.f_phone, company: t.f_company, customer_type: t.f_ctype, product: t.f_cat, quantity: t.f_qty, location: t.f_loc, map_url: t.f_map, notes: t.f_note };
 
@@ -35,6 +36,8 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
     };
     try { const saved = JSON.parse(localStorage.getItem(STORE) || "null"); if (saved) REMEMBER.forEach((k) => fill(k, saved[k])); } catch {}
     if (filled) setPrefilled(true);
+    const co = f.elements.namedItem("company") as HTMLInputElement | null;
+    if (co?.value && more.current) more.current.open = true;
     if (!sbConfigured) return;
     (async () => {
       try {
@@ -55,9 +58,33 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
     })();
   }, []);
 
+  // "Get price" buttons anywhere on the page pick the product and jump to this form
+  useEffect(() => {
+    function onClick(e: MouseEvent) {
+      const a = (e.target as Element | null)?.closest?.("[data-quote],[data-goquote]") as HTMLElement | null;
+      const f = form.current; if (!a || !f) return;
+      e.preventDefault();
+      const name = a.getAttribute("data-quote");
+      const sel = f.elements.namedItem("product") as HTMLSelectElement | null;
+      if (name && sel) {
+        if (![...sel.options].some((o) => o.value === name)) sel.add(new Option(name, name), 0);
+        sel.value = name;
+      }
+      document.getElementById("quote")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => {
+        const first = f.elements.namedItem("name") as HTMLInputElement | null;
+        const qty = f.elements.namedItem("quantity") as HTMLInputElement | null;
+        (first && !first.value ? first : qty)?.focus({ preventScroll: true });
+      }, 450);
+    }
+    document.addEventListener("click", onClick);
+    return () => document.removeEventListener("click", onClick);
+  }, []);
+
   function locate() {
     const el = form.current?.elements.namedItem("map_url") as HTMLInputElement | null;
     if (!navigator.geolocation || !el) return setMapMsg(t.f_map_err);
+    if (more.current) more.current.open = true;
     setMapMsg("…");
     navigator.geolocation.getCurrentPosition(
       (pos) => { el.value = `https://maps.google.com/?q=${pos.coords.latitude.toFixed(6)},${pos.coords.longitude.toFixed(6)}`; setMapMsg(t.f_map_ok); },
@@ -103,8 +130,9 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
       try { const keep: Record<string, string | null> = {}; REMEMBER.forEach((k) => (keep[k] = row[k])); localStorage.setItem(STORE, JSON.stringify(keep)); } catch {}
       setMsg(t.ok); setWaUrl(url);
       // open WhatsApp with the request details so it also reaches the sales phone
-      const w = window.open(url, "_blank", "noopener");
-      if (!w) setTimeout(() => location.assign(url), 600);
+      // ("noopener" would make window.open return null, so detach the opener manually)
+      const w = window.open(url, "_blank");
+      if (w) { try { w.opener = null; } catch {} } else setTimeout(() => location.assign(url), 600);
       ["product", "quantity", "map_url", "notes"].forEach((k) => { const el = f.elements.namedItem(k) as HTMLInputElement | null; if (el && k !== "product") el.value = ""; });
       setMapMsg("");
     } else { setMsg(`${t.err} [${code}]`); window.open(url, "_blank", "noopener"); }
@@ -117,20 +145,25 @@ export default function QuoteForm({ lang, t, options, preset, wa }: Props) {
       <form className="qform" onSubmit={submit} ref={form} autoComplete="on">
         <label>{t.f_name}<input id="q-name" name="name" required autoComplete="name" maxLength={120} /></label>
         <label>{t.f_phone}<input id="q-phone" name="phone" type="tel" required autoComplete="tel" inputMode="tel" dir="ltr" maxLength={30} /></label>
-        <label>{t.f_company}<input id="q-company" name="company" autoComplete="organization" maxLength={200} /></label>
-        <label>{t.f_ctype}<select id="q-ctype" name="customer_type" defaultValue=""><option value="">—</option>{ctypes.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
         <label>{t.f_cat}<select id="q-product" name="product" defaultValue={preset || options[0]}>{options.map((o) => <option key={o}>{o}</option>)}</select></label>
         <label>{t.f_qty}<input id="q-qty" name="quantity" maxLength={200} /></label>
         <label className="full">{t.f_loc}<input id="q-loc" name="location" autoComplete="address-level2" maxLength={200} /></label>
-        <div className="full mapf">
-          <span>{t.f_map}</span>
-          <div className="maprow">
-            <button type="button" className="btn light sm" onClick={locate}>{t.f_map_btn}</button>
-            <input id="q-map" name="map_url" type="url" dir="ltr" placeholder={t.f_map_ph} maxLength={500} aria-label={t.f_map} />
+        <details className="full moref" ref={more}>
+          <summary>{t.f_more}</summary>
+          <div className="qform inner">
+            <label>{t.f_company}<input id="q-company" name="company" autoComplete="organization" maxLength={200} /></label>
+            <label>{t.f_ctype}<select id="q-ctype" name="customer_type" defaultValue=""><option value="">—</option>{ctypes.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
+            <div className="full mapf">
+              <span>{t.f_map}</span>
+              <div className="maprow">
+                <button type="button" className="btn light sm" onClick={locate}>{t.f_map_btn}</button>
+                <input id="q-map" name="map_url" type="url" dir="ltr" placeholder={t.f_map_ph} maxLength={500} aria-label={t.f_map} />
+              </div>
+              {mapMsg && <small role="status">{mapMsg}</small>}
+            </div>
+            <label className="full">{t.f_note}<textarea id="q-notes" name="notes" rows={3} maxLength={2000} /></label>
           </div>
-          {mapMsg && <small role="status">{mapMsg}</small>}
-        </div>
-        <label className="full">{t.f_note}<textarea id="q-notes" name="notes" rows={3} maxLength={2000} /></label>
+        </details>
         <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hp" aria-hidden="true" />
         <button className="btn full" type="submit" disabled={busy}>{busy ? "…" : sbConfigured ? t.q_send : t.f_send}</button>
         <p className={"hint full" + (waUrl ? " okq" : "")} role="status">{msg || (sbConfigured ? t.q_hint : t.f_hint)}</p>
