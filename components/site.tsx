@@ -26,6 +26,7 @@ export function orgSchema(lang: Lang) {
     url: D + "/", logo: D + "/assets/logo.png", image: D + "/assets/og.png", telephone: C.phone_e164, email: C.email, priceRange: "$$",
     address: { "@type": "PostalAddress", streetAddress: lang === "ar" ? C.street_ar : C.street_en, addressLocality: C.city, addressRegion: C.region, addressCountry: "EG" },
     geo: { "@type": "GeoCoordinates", latitude: C.lat, longitude: C.lng },
+    ...(C.same_as?.length ? { sameAs: C.same_as } : {}),
     openingHours: C.hours, areaServed: { "@type": "Country", name: "Egypt" },
     parentOrganization: { "@type": "Organization", name: C.parent_en, alternateName: C.parent_ar },
     contactPoint: [
