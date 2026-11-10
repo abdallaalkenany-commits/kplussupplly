@@ -1,7 +1,9 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { C, CATEGORIES, D, GOVS, T, TOP, bySlug, upath, waLink, type Lang } from "@/lib/content";
+import { C, CATEGORIES, CONTENT_UPDATED, D, GOVS, T, TOP, bySlug, upath, waLink, type Lang } from "@/lib/content";
+import { GUIDES, guideBySlug, type Guide } from "@/lib/guides";
+import Calculator from "./calculator";
 import { getCategoryMedia, getOffers, getProducts } from "@/lib/db";
 import { CatCards, Crumbs, Faq, Icon, JsonLd, Shell, money, orgSchema } from "./site";
 import QuoteForm from "./quote-form";
@@ -13,12 +15,15 @@ function Quote({ lang, preset }: { lang: Lang; preset?: string }) {
   return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow, f_company: t.f_company, f_ctype: t.f_ctype, ctypes: t.ctypes, f_map: t.f_map, f_map_btn: t.f_map_btn, f_map_ph: t.f_map_ph, f_map_ok: t.f_map_ok, f_map_err: t.f_map_err, f_prefill: t.f_prefill, f_more: t.f_more }} options={OPTIONS(lang)} preset={preset} wa={C.whatsapp} />;
 }
 
-function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false): Metadata {
+function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false, arOnly = false): Metadata {
   const url = D + upath(lang, slug);
+  const languages: Record<string, string> = arOnly
+    ? { "ar-EG": D + upath("ar", slug), "x-default": D + upath("ar", slug) }
+    : { "ar-EG": D + upath("ar", slug), "en-EG": D + upath("en", slug), "x-default": D + upath("ar", slug) };
   return {
     title: { absolute: title }, description,
-    alternates: { canonical: url, languages: { "ar-EG": D + upath("ar", slug), "en-EG": D + upath("en", slug), "x-default": D + upath("ar", slug) } },
-    openGraph: { type: "website", siteName: lang === "ar" ? C.brand_ar : C.brand_en, locale: lang === "ar" ? "ar_EG" : "en_US", title, description, url, images: [D + "/assets/og.png"] },
+    alternates: { canonical: url, languages },
+    openGraph: { type: arOnly && slug.startsWith("guides/") ? "article" : "website", siteName: lang === "ar" ? C.brand_ar : C.brand_en, locale: lang === "ar" ? "ar_EG" : "en_US", title, description, url, images: [D + "/assets/og.png"] },
     twitter: { card: "summary_large_image" },
     robots: noindex ? { index: false } : { index: true, follow: true, "max-image-preview": "large" },
   };
@@ -32,6 +37,12 @@ export function pageMeta(lang: Lang, parts: string[] = []): Metadata {
   if (slug === "contact") return metaFor(lang, slug, t.contact_title, t.contact_desc);
   if (slug === "offers") return metaFor(lang, slug, t.offers_title, t.offers_desc);
   if (slug === "suppliers") return metaFor(lang, slug, t.suppliers_title, t.suppliers_desc);
+  if (slug === "calculator") return metaFor(lang, slug, t.calc_title, t.calc_desc);
+  if (lang === "ar" && slug === "guides") return metaFor(lang, slug, t.guides_title, t.guides_desc, false, true);
+  if (lang === "ar" && slug.startsWith("guides/")) {
+    const g = guideBySlug(parts[1]);
+    if (g) return metaFor(lang, slug, g.title, g.desc, false, true);
+  }
   const c = bySlug(slug);
   if (!c) return { title: t.nf_title, robots: { index: false } };
   return metaFor(lang, slug, c[lang].title, c[lang].desc);
@@ -45,6 +56,9 @@ export async function SitePage({ lang, parts = [] }: { lang: Lang; parts?: strin
   else if (slug === "contact") body = <Contact lang={lang} />;
   else if (slug === "offers") body = await Offers({ lang });
   else if (slug === "suppliers") body = <Suppliers lang={lang} />;
+  else if (slug === "calculator") body = <CalcPage lang={lang} />;
+  else if (lang === "ar" && slug === "guides") body = <GuidesIndex />;
+  else if (lang === "ar" && slug.startsWith("guides/") && guideBySlug(parts[1])) body = <GuidePage g={guideBySlug(parts[1])!} />;
   else {
     const c = bySlug(slug);
     if (!c) notFound();
@@ -76,7 +90,100 @@ async function Home({ lang }: { lang: Lang }) {
       <section className="band"><div className="wrap"><h2>{t.why}</h2><div className="whys">{t.why_items.map(([h, p]: string[]) => <div className="why" key={h}><h3>{h}</h3><p>{p}</p></div>)}</div></div></section>
       <section className="wrap brands" aria-label="brands">{brands.map((b) => <span key={b}>{b}</span>)}</section>
       <section className="wrap prose"><h2>{t.areas}</h2><p>{t.areas_txt}</p><ul className="govs">{GOVS[lang].map((g) => <li key={g}>{g}</li>)}</ul></section>
+      <section className="wrap"><div className="sechead"><h2>{lang === "ar" ? t.guides : t.calc}</h2><Link href={upath(lang, "calculator")}>{t.calc} {lang === "ar" ? "←" : "→"}</Link></div>
+        {lang === "ar" ? <GuideCards guides={GUIDES.slice(0, 3)} /> : <p className="lead">{t.calc_lead} <Link href={upath(lang, "calculator")}>{t.calc}</Link></p>}
+      </section>
       <Faq lang={lang} faqs={faqs} />
+      <Quote lang={lang} />
+    </>
+  );
+}
+
+function fmtDate(iso: string, lang: Lang) {
+  return new Date(iso + "T12:00:00Z").toLocaleDateString(lang === "ar" ? "ar-EG" : "en-GB", { year: "numeric", month: "long", day: "numeric", timeZone: "Africa/Cairo" });
+}
+
+function GuideCards({ guides }: { guides: Guide[] }) {
+  return (
+    <div className="cards">
+      {guides.map((g) => (
+        <Link key={g.slug} className="card cat guide" href={`/guides/${g.slug}/`}>
+          <h3>{g.h1}</h3>
+          <p>{g.lead.slice(0, 120)}…</p>
+          <span className="more">{T.ar.read_more} ←</span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function GuidesIndex() {
+  const t = T.ar;
+  return (
+    <>
+      <Crumbs lang="ar" items={[[t.guides, "guides"]]} />
+      <JsonLd data={{ "@context": "https://schema.org", "@type": "CollectionPage", name: t.guides_h, url: D + "/guides/", inLanguage: "ar-EG",
+        hasPart: GUIDES.map((g) => ({ "@type": "Article", headline: g.h1, url: D + `/guides/${g.slug}/` })) }} />
+      <section className="phero"><div className="wrap"><div><h1>{t.guides_h}</h1><p className="lead">{t.guides_lead}</p>
+        <div className="actions"><Link className="btn" href="/calculator/">{t.calc}</Link><a className="btn wa" href={waLink(t.wa_msg)} rel="noopener">{t.wa}</a></div></div></div></section>
+      <section className="wrap"><GuideCards guides={GUIDES} /></section>
+      <Quote lang="ar" />
+    </>
+  );
+}
+
+function GuidePage({ g }: { g: Guide }) {
+  const t = T.ar;
+  const url = D + `/guides/${g.slug}/`;
+  const cats = g.related.map((s) => bySlug(s)).filter(Boolean) as NonNullable<ReturnType<typeof bySlug>>[];
+  const article = {
+    "@context": "https://schema.org", "@type": "Article", headline: g.h1, description: g.desc, inLanguage: "ar-EG",
+    datePublished: g.published, dateModified: g.updated, mainEntityOfPage: url, image: D + "/assets/og.png",
+    author: { "@type": "Organization", name: C.brand_ar, url: D + "/" }, publisher: { "@id": D + "/#business" },
+  };
+  return (
+    <>
+      <Crumbs lang="ar" items={[[t.guides, "guides"], [g.h1, "guides/" + g.slug]]} />
+      <JsonLd data={article} />
+      <article>
+        <section className="phero"><div className="wrap"><div><h1>{g.h1}</h1><p className="lead">{g.lead}</p>
+          <p className="upd">{t.updated}: <time dateTime={g.updated}>{fmtDate(g.updated, "ar")}</time> · {C.brand_ar}</p></div></div></section>
+        <section className="wrap prose guide-body">
+          {g.sections.map((sec, i) => (
+            <div key={i}>
+              <h2>{sec.h}</h2>
+              {sec.p.map((p, j) => <p key={j}>{p}</p>)}
+              {sec.table && (
+                <div className="tbl"><table>
+                  <thead><tr>{sec.table.head.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
+                  <tbody>{sec.table.rows.map((r, j) => <tr key={j}>{r.map((cell, k) => (k === 0 ? <th key={k} scope="row">{cell}</th> : <td key={k}>{cell}</td>))}</tr>)}</tbody>
+                </table></div>
+              )}
+            </div>
+          ))}
+          <p className="cta-line">احسب كمية مشروعك بالظبط من <Link href="/calculator/">حاسبة مواد البناء</Link>، وبعدها اطلب عرض سعر شامل النقل لموقعك.</p>
+        </section>
+      </article>
+      {cats.length > 0 && <section className="wrap"><h2>{t.products}</h2><CatCards lang="ar" cats={cats} /></section>}
+      <Faq lang="ar" faqs={g.faq} />
+      <Quote lang="ar" preset={cats[0]?.ar.nav} />
+      <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={GUIDES.filter((x) => x.slug !== g.slug).slice(0, 3)} /></section>
+    </>
+  );
+}
+
+function CalcPage({ lang }: { lang: Lang }) {
+  const t = T[lang];
+  const app = { "@context": "https://schema.org", "@type": "WebApplication", name: t.calc_h, url: D + upath(lang, "calculator"), applicationCategory: "UtilitiesApplication", operatingSystem: "Any", inLanguage: lang + "-EG",
+    offers: { "@type": "Offer", price: 0, priceCurrency: "EGP" }, publisher: { "@id": D + "/#business" } };
+  return (
+    <>
+      <Crumbs lang={lang} items={[[t.calc, "calculator"]]} />
+      <JsonLd data={app} />
+      <section className="phero"><div className="wrap"><div><h1>{t.calc_h}</h1><p className="lead">{t.calc_lead}</p></div></div></section>
+      <section className="wrap"><Calculator lang={lang} wa={C.whatsapp} /></section>
+      {lang === "ar" && <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={GUIDES.slice(0, 3)} /></section>}
+      <section className="wrap"><h2>{t.cats}</h2><CatCards lang={lang} cats={TOP.slice(0, 4)} /></section>
       <Quote lang={lang} />
     </>
   );
@@ -190,15 +297,21 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
     : d.products.map(([name, spec, unit]) => ({ name, spec, unit }));
   const url = D + upath(lang, slug);
   const schemas: object[] = [orgSchema(lang)];
+  // Google requires a price on Product offers; list unpriced items by name only.
   if (products.length) schemas.push({
     "@context": "https://schema.org", "@type": "ItemList", name: d.h1,
-    itemListElement: products.map((p, i) => ({
-      "@type": "ListItem", position: i + 1,
-      item: { "@type": "Product", name: p.name, description: p.spec, ...(p.image ? { image: p.image } : {}), brand: { "@type": "Brand", name: C.brand_en }, category: d.nav,
-        offers: { "@type": "Offer", priceCurrency: "EGP", availability: "https://schema.org/InStock", seller: { "@id": D + "/#business" }, url } },
-    })),
+    itemListElement: products.map((p, i) => {
+      const raw = db?.find((x) => (lang === "ar" ? x.name_ar : x.name_en || x.name_ar) === p.name);
+      const priced = raw && raw.show_price && raw.price != null;
+      return priced
+        ? { "@type": "ListItem", position: i + 1,
+            item: { "@type": "Product", name: p.name, description: p.spec, ...(p.image ? { image: p.image } : {}), brand: { "@type": "Brand", name: C.brand_en }, category: d.nav,
+              offers: { "@type": "Offer", price: raw!.price, priceCurrency: "EGP", availability: "https://schema.org/InStock", seller: { "@id": D + "/#business" }, url } } }
+        : { "@type": "ListItem", position: i + 1, name: p.name };
+    }),
   });
   const rel = TOP.filter((x) => x.slug !== slug && x.slug !== c.parent).slice(0, 4);
+  const guides = lang === "ar" ? GUIDES.filter((g) => g.related.includes(slug) || (c.parent && g.related[0] === c.parent)).slice(0, 3) : [];
   const m = media[slug];
   return (
     <>
@@ -207,7 +320,8 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
       <section className="phero"><div className="wrap">
         <span className="ic big">{m?.icon_url ? <img src={m.icon_url} alt="" width={56} height={56} /> : <Icon name={c.icon} size={56} />}</span>
         <div><h1>{d.h1}</h1><p className="lead">{d.lead}</p>
-          <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg + " " + d.nav)} rel="noopener">{t.wa}</a></div></div>
+          <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg + " " + d.nav)} rel="noopener">{t.wa}</a></div>
+          <p className="upd">{t.updated}: <time dateTime={CONTENT_UPDATED}>{fmtDate(CONTENT_UPDATED, lang)}</time></p></div>
         {m?.image_url && <img className="hero-img" src={m.image_url} alt={d.nav} />}
       </div></section>
       {children.length > 0 && <section className="wrap"><h2>{t.products}</h2><CatCards lang={lang} cats={children} media={media} /></section>}
@@ -224,6 +338,7 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
         </div></section>
       )}
       <section className="wrap prose">{d.body.map(([h, p], i) => <div key={i}><h2>{h}</h2><p>{p}</p></div>)}</section>
+      {guides.length > 0 && <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={guides} /></section>}
       <Faq lang={lang} faqs={d.faq} />
       <Quote lang={lang} preset={d.nav} />
       <section className="wrap"><h2>{t.related}</h2><CatCards lang={lang} cats={rel} media={media} /></section>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { C, CATEGORIES, ICONS, T, TOP, D, upath, waLink, type Category, type Lang } from "@/lib/content";
+import { AR_ONLY_SLUGS, C, CATEGORIES, ICONS, MENU, T, TOP, D, upath, waLink, type Category, type Lang } from "@/lib/content";
 import type { DbCategory } from "@/lib/db";
 
 export function Icon({ name, size = 40 }: { name: string; size?: number }) {
@@ -23,7 +23,7 @@ export function orgSchema(lang: Lang) {
     name: C.brand_en, alternateName: [C.brand_ar, C.legal_ar, C.legal_en, "KPLUS", "كي بلاس", "K Plus Supply"], legalName: C.legal_en,
     slogan: "Key to better supply",
     identifier: [{ "@type": "PropertyValue", name: "Commercial Register", value: C.cr }, { "@type": "PropertyValue", name: "Tax ID", value: C.tax }],
-    url: D + "/", logo: D + "/assets/logo.png", image: D + "/assets/og.png", telephone: C.phone_e164, email: C.email, priceRange: "EGP",
+    url: D + "/", logo: D + "/assets/logo.png", image: D + "/assets/og.png", telephone: C.phone_e164, email: C.email, priceRange: "$$",
     address: { "@type": "PostalAddress", streetAddress: lang === "ar" ? C.street_ar : C.street_en, addressLocality: C.city, addressRegion: C.region, addressCountry: "EG" },
     geo: { "@type": "GeoCoordinates", latitude: C.lat, longitude: C.lng },
     openingHours: C.hours, areaServed: { "@type": "Country", name: "Egypt" },
@@ -63,7 +63,7 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
   const t = T[lang];
   const other: Lang = lang === "ar" ? "en" : "ar";
   const brand = lang === "ar" ? C.brand_ar : C.brand_en;
-  const switchSlug = ["account"].includes(slug) ? "" : slug;
+  const switchSlug = ["account", ...AR_ONLY_SLUGS].includes(slug) ? "" : slug;
   return (
     <>
       <a className="skip" href="#main">{lang === "ar" ? "تخطي للمحتوى" : "Skip to content"}</a>
@@ -75,7 +75,7 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
           </Link>
           <MenuButton />
           <nav id="nav" className="nav">
-            {TOP.map((c) => <Link key={c.slug} href={upath(lang, c.slug)}>{c[lang].nav}</Link>)}
+            {MENU.map((c) => <Link key={c.slug} href={upath(lang, c.slug)}>{c[lang].nav}</Link>)}
             <Link className="hot" href={upath(lang, "offers")}>{t.offers}</Link>
             <Link href={upath(lang, "account")}>{t.account}</Link>
             <Link className="lang" hrefLang={other} href={upath(other, switchSlug)}>{t.other}</Link>
@@ -96,6 +96,8 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
             <ul>
               {CATEGORIES.map((c) => <li key={c.slug}><Link href={upath(lang, c.slug)}>{c[lang].nav}</Link></li>)}
               <li><Link href={upath(lang, "offers")}>{t.offers}</Link></li>
+              <li><Link href={upath(lang, "calculator")}>{t.calc}</Link></li>
+              {lang === "ar" && <li><Link href="/guides/">{t.guides}</Link></li>}
               <li><Link href={upath(lang, "suppliers")}>{t.suppliers}</Link></li>
               <li><Link href={upath(lang, "about")}>{t.about}</Link></li>
             </ul>

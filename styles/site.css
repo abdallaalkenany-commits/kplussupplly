@@ -164,3 +164,24 @@ a.card:hover{border-color:var(--orange);box-shadow:0 8px 24px rgba(11,37,69,.10)
   .steps li p{font-size:14.5px}
   .whys{gap:10px}.why{padding:14px}
 }
+/* SEO pages: last-updated line, guides, comparison tables, calculator */
+.upd{font-size:14px;color:var(--muted);margin:12px 0 0}
+.guide-body h2{margin-top:1.6em}
+.tbl{overflow-x:auto;margin:16px 0;border:1px solid var(--line);border-radius:12px;background:#fff}
+.tbl table{border-collapse:collapse;width:100%;min-width:520px;font-size:15.5px}
+.tbl th,.tbl td{padding:10px 14px;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+.tbl thead th{background:var(--navy);color:#fff;font-weight:700}
+.tbl tbody tr:last-child th,.tbl tbody tr:last-child td{border-bottom:0}
+.tbl tbody th{font-weight:600;color:var(--navy)}
+.cta-line{background:#fff;border-inline-start:4px solid var(--orange);padding:12px 16px;border-radius:8px}
+.calc{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:20px;max-width:860px}
+.calc-tabs{display:flex;gap:8px;margin-bottom:16px}
+.calc-tabs button{font:inherit;font-weight:700;padding:8px 18px;border-radius:999px;border:1px solid var(--line);background:var(--bg);color:var(--navy);cursor:pointer}
+.calc-tabs button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.calc-in{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.calc-in label{display:flex;flex-direction:column;gap:4px;font-weight:600;font-size:15px;color:var(--ink)}
+.calc-in input,.calc-in select{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;min-height:46px}
+.calc-out{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin:20px 0 8px}
+.calc-out div{background:var(--bg);border-radius:12px;padding:12px 14px}
+.calc-out dt{font-size:14px;color:var(--muted)}.calc-out dd{margin:0;font-size:20px;font-weight:800;color:var(--navy)}
+.calc-note{font-size:14px;color:var(--muted)}
