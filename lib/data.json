@@ -48,6 +48,18 @@
      [
       "التوصيل لموقع المشروع",
       "أسطول نقل بيوصل للقاهرة الكبرى والعاصمة الإدارية والعين السخنة والصعيد والدلتا والساحل. التسليم بالشكارة (50 كجم) على تريلا أو جامبو، أو سايب لمحطات الخرسانة."
+     ],
+     [
+      "أسعار الأسمنت اليوم في مصر",
+      "سعر طن الأسمنت في السوق المصري بيتغير مع أسعار الطاقة والنقل وحجم الطلب، والفرق بين سعر المصنع وسعر المستهلك بيكون في النقل وهامش التاجر. علشان كده بنعرض الأسعار على الموقع ونحدّثها باستمرار، ولو ماظهرش سعر لمنتج يبقى بيتسعر حسب الكمية ومكان التسليم: ابعت طلبك وهنرد بسعر اليوم."
+     ],
+     [
+      "كام شكارة أسمنت محتاجها؟",
+      "كقاعدة تقريبية: متر الخرسانة المسلحة محتاج حوالي 7 شكاير (350 كجم)، ومتر الخرسانة العادية حوالي 5 شكاير، ومتر المباني بالطوب الأسمنتي حوالي شكارة ونص لكل 100 طوبة تقريبًا حسب سمك العراميس. استخدم حاسبة مواد البناء على موقعنا لحساب الكمية بالظبط لمشروعك."
+     ],
+     [
+      "نصايح تخزين الأسمنت في الموقع",
+      "خزّن الشكاير على طبالي خشب بعيد عن الأرض والحيطان، ومتغطية بمشمع، وماتعليش الرصة عن 10 شكاير. استخدم الأقدم الأول، والأسمنت اللي اتكتل أو عدّى عليه أكتر من 3 شهور في جو رطب ماينفعش للخرسانة المسلحة."
      ]
     ],
     "products": [
@@ -93,6 +105,18 @@
      [
       "هل بتوصلوا للصعيد والساحل؟",
       "أيوه، بنوصل لكل محافظات مصر، والنقل بيتحسب حسب المسافة والكمية."
+     ],
+     [
+      "المتر المكعب خرسانة محتاج كام شكارة أسمنت؟",
+      "حوالي 7 شكاير (350 كجم) للخرسانة المسلحة و5 شكاير (250 كجم) للخرسانة العادية، والنسبة النهائية بيحددها المهندس حسب التصميم."
+     ],
+     [
+      "الأسمنت بيوصل في أد إيه؟",
+      "داخل القاهرة الكبرى عادة خلال 24 إلى 48 ساعة من تأكيد الطلب، والمحافظات حسب المسافة والكمية."
+     ],
+     [
+      "بتوردوا بفاتورة ضريبية؟",
+      "أيوه، كل توريد بفاتورة ضريبية باسم شركتك، ونقدر نعمل تعاقد توريد شهري للمقاولين."
      ]
     ]
    },
@@ -114,6 +138,14 @@
      [
       "Delivery to your site",
       "Our fleet covers Greater Cairo, the New Administrative Capital, Ain Sokhna, Upper Egypt, the Delta and the North Coast — 50 kg bags on trailers, or bulk for ready-mix plants."
+     ],
+     [
+      "Cement prices in Egypt today",
+      "Cement prices move with energy and freight costs and demand. We publish prices on the site and update them regularly; where no price is shown, it is quoted by volume and delivery point."
+     ],
+     [
+      "How many bags of cement do I need?",
+      "Roughly 7 bags (350 kg) per m³ of reinforced concrete and 5 bags per m³ of plain concrete. Use our building materials calculator for exact quantities."
      ]
     ],
     "products": [
@@ -159,6 +191,184 @@
      [
       "Do you deliver to Upper Egypt and the North Coast?",
       "Yes, we deliver to all governorates; freight is priced by distance and quantity."
+     ],
+     [
+      "How many cement bags per cubic metre of concrete?",
+      "About 7 bags (350 kg) for reinforced concrete and 5 bags (250 kg) for plain concrete; your engineer sets the final mix."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "cement/sulfate-resistant",
+   "icon": "cement",
+   "parent": "cement",
+   "ar": {
+    "nav": "أسمنت مقاوم للكبريتات",
+    "title": "أسمنت مقاوم للكبريتات SRC بالجملة | سعر الأسمنت المقاوم — كي بلس",
+    "desc": "توريد أسمنت مقاوم للكبريتات (SRC) بالجملة للأساسات والخرسانات المعرضة للمياه الجوفية والتربة الملحية، شكاير أو سايب، توصيل لموقعك في كل مصر.",
+    "h1": "توريد أسمنت مقاوم للكبريتات (SRC) للأساسات",
+    "lead": "الأسمنت المقاوم هو الاختيار الصح لأي خرسانة تحت منسوب الأرض أو قريبة من مياه جوفية أو مالحة. بنورّده بالشكارة والسايب بفاتورة ضريبية وشهادة مطابقة.",
+    "body": [
+     [
+      "إمتى تستخدم الأسمنت المقاوم للكبريتات؟",
+      "في الأساسات والسملات والخرسانات العادية تحت الأرض، والخزانات الأرضية، ومحطات الصرف، والمنشآت القريبة من البحر أو البحيرات المالحة، وفي أي موقع تقرير التربة فيه بيقول إن نسبة الكبريتات أو الكلوريدات عالية. مهندس الموقع أو الاستشاري بيحدد ده من تقرير التربة."
+     ],
+     [
+      "الفرق بينه وبين الأسمنت العادي",
+      "الأسمنت المقاوم نسبة ألومينات ثلاثي الكالسيوم (C3A) فيه منخفضة، فالكبريتات اللي في المية والتربة ماتتفاعلش معاه وتعمل تمدد وتشققات في الخرسانة. العادي أسرع في الشك وأرخص، ومناسب للأعمدة والأسقف فوق الأرض."
+     ],
+     [
+      "التوريد والتسليم",
+      "بنورد بالشكارة 50 كجم على تريلا أو جامبو، أو سايب لمحطات الخرسانة الجاهزة. ممكن نقسم التوريد على دفعات حسب جدول صب الأساسات عندك عشان ماتخزنش كميات كبيرة في الموقع."
+     ]
+    ],
+    "products": [
+     [
+      "أسمنت مقاوم للكبريتات SRC 42.5",
+      "للأساسات والخرسانات تحت الأرض — شكارة 50 كجم",
+      "طن"
+     ],
+     [
+      "أسمنت مقاوم سايب (Bulk)",
+      "لمحطات الخرسانة الجاهزة والمشروعات الكبيرة",
+      "طن"
+     ]
+    ],
+    "faq": [
+     [
+      "سعر الأسمنت المقاوم أغلى من العادي بكام؟",
+      "عادة أغلى بفرق بسيط في الطن، والفرق بيتغير حسب المصنع والكمية. ابعتلنا الكمية ومكان الموقع ونرد بسعر اليوم شامل النقل."
+     ],
+     [
+      "ينفع أستخدم المقاوم في كل المبنى؟",
+      "ينفع، لكنه مش ضروري فوق الأرض. الأوفر إنك تستخدمه في الأساسات والخرسانات المعرضة للمياه والتربة بس، والعادي في باقي الهيكل."
+     ],
+     [
+      "أعرف منين إن موقعي محتاج أسمنت مقاوم؟",
+      "من تقرير جسات التربة: لو نسبة الكبريتات أو الكلوريدات أو منسوب المياه الجوفية عالي، الاستشاري هيشترط أسمنت مقاوم في الأساسات."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Sulphate-Resisting Cement",
+    "title": "Sulphate-Resisting Cement (SRC) Wholesale in Egypt — K Plus",
+    "desc": "Wholesale sulphate-resisting cement (SRC) for foundations and concrete exposed to groundwater and saline soil, bagged or bulk, delivered across Egypt.",
+    "h1": "Sulphate-Resisting Cement (SRC) Supply for Foundations",
+    "lead": "SRC is the right cement for concrete below ground level or near groundwater and saline water. Bagged or bulk, with a tax invoice and compliance certificate.",
+    "body": [
+     [
+      "When to use SRC",
+      "Foundations, ground beams, plain concrete below ground, underground tanks, sewage works and coastal structures, or wherever the soil report shows high sulphates or chlorides."
+     ],
+     [
+      "SRC vs ordinary Portland cement",
+      "SRC has low tricalcium aluminate (C3A), so sulphates in soil and water cannot react with it and crack the concrete. OPC sets faster and costs less, and suits columns and slabs above ground."
+     ],
+     [
+      "Delivery",
+      "50 kg bags on trailers, or bulk for ready-mix plants, split into batches that follow your foundation pour schedule."
+     ]
+    ],
+    "products": [
+     [
+      "Sulphate-Resisting Cement SRC 42.5",
+      "Foundations and below-ground concrete — 50 kg bag",
+      "ton"
+     ],
+     [
+      "Bulk SRC",
+      "Ready-mix plants and large projects",
+      "ton"
+     ]
+    ],
+    "faq": [
+     [
+      "How much more does SRC cost than OPC?",
+      "Usually a small premium per ton, depending on plant and volume. Send the quantity and site location for today's delivered price."
+     ],
+     [
+      "How do I know my site needs SRC?",
+      "Your soil investigation report: high sulphates, chlorides or groundwater mean the consultant will specify SRC for foundations."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "cement/white",
+   "icon": "cement",
+   "parent": "cement",
+   "ar": {
+    "nav": "أسمنت أبيض",
+    "title": "أسمنت أبيض بالجملة | سعر شكارة الأسمنت الأبيض — كي بلس",
+    "desc": "توريد أسمنت أبيض بالجملة لأعمال التشطيب والترويب والديكور والحجر الصناعي، شكارة 50 كجم أو 25 كجم، توصيل لموقعك في القاهرة وكل المحافظات.",
+    "h1": "توريد أسمنت أبيض لأعمال التشطيب",
+    "lead": "أسمنت أبيض عالي البياض للترويب والمصيص والحجر الصناعي والبلاطات والديكورات، بالكميات اللي يحتاجها مشروعك.",
+    "body": [
+     [
+      "استخدامات الأسمنت الأبيض",
+      "ترويب السيراميك والرخام، المحارة البيضا والواجهات، صناعة الحجر الصناعي والإنترلوك الملون والبلاط، وأعمال الديكور والجبس المخلوط. لونه بييجي من خامات قليلة الحديد."
+     ],
+     [
+      "إزاي تختار النوع؟",
+      "للترويب وأعمال الديكور البسيطة الشكارة 25 كجم أوفر. للمصانع والحجر الصناعي والكميات الكبيرة الشكارة 50 كجم بالطن. قولنا الاستخدام ونرشحلك الأنسب."
+     ]
+    ],
+    "products": [
+     [
+      "أسمنت أبيض شكارة 50 كجم",
+      "للمحارة البيضا والحجر الصناعي والبلاط",
+      "طن"
+     ],
+     [
+      "أسمنت أبيض شكارة 25 كجم",
+      "للترويب والتشطيبات والكميات الصغيرة",
+      "شكارة"
+     ]
+    ],
+    "faq": [
+     [
+      "سعر شكارة الأسمنت الأبيض كام؟",
+      "بيتغير حسب المصنع وحجم الشكارة والكمية. ابعتلنا على واتساب ونرد بسعر اليوم."
+     ],
+     [
+      "ينفع الأسمنت الأبيض في الخرسانة؟",
+      "تقنيًا ينفع لكنه أغلى بكتير، فبيُستخدم بس في الخرسانات المعمارية الظاهرة اللي محتاجة لون فاتح."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "White Cement",
+    "title": "White Cement Wholesale in Egypt | White Cement Price — K Plus",
+    "desc": "Wholesale white cement for grouting, finishing, decorative works and cast stone, 50 kg or 25 kg bags, delivered to your site in Cairo and across Egypt.",
+    "h1": "White Cement Supply for Finishing Works",
+    "lead": "High-whiteness cement for grouting, white plaster, cast stone, tiles and decorative works in the quantity your project needs.",
+    "body": [
+     [
+      "Uses",
+      "Tile and marble grouting, white render and façades, cast stone, coloured pavers and tiles, and decorative works."
+     ],
+     [
+      "Choosing the bag",
+      "25 kg bags for grouting and small jobs; 50 kg bags by the ton for factories and large volumes."
+     ]
+    ],
+    "products": [
+     [
+      "White cement 50 kg bag",
+      "White plaster, cast stone and tiles",
+      "ton"
+     ],
+     [
+      "White cement 25 kg bag",
+      "Grouting and small finishing jobs",
+      "bag"
+     ]
+    ],
+    "faq": [
+     [
+      "What is the white cement price?",
+      "It depends on plant, bag size and volume. Message us on WhatsApp for today's price."
      ]
     ]
    }
@@ -185,6 +395,14 @@
      [
       "الجودة والاختبارات",
       "بنوفر نتائج اختبار قوة الضغط ونسبة الامتصاص من معامل معتمدة عند الطلب، علشان استلام الاستشاري يكون سهل."
+     ],
+     [
+      "مقاسات الطوب الأسمنتي الشائعة",
+      "الطوب المصمت 25×12×6 سم للحوائط الحاملة والأساسات، والطوب المفرغ (البلوك) 20×20×40 و20×12×40 و20×10×40 سم للحوائط الداخلية والخارجية لأنه أخف وأسرع في البناء وبيوفر مونة. الطوب الإنترلوك بسمك 6 و8 سم للأرصفة والممرات والجراجات."
+     ],
+     [
+      "حساب كمية الطوب",
+      "متر الحيطة المربع بالطوب المصمت (نص طوبة 12 سم) محتاج حوالي 60 طوبة، وبالطوبة الكاملة 25 سم حوالي 120 طوبة. البلوك 20×40 محتاج حوالي 12.5 بلوكة للمتر المربع. زوّد 3 إلى 5% هالك. جرّب حاسبة مواد البناء على الموقع."
      ]
     ],
     "products": [
@@ -226,6 +444,14 @@
      [
       "هل بتوفروا شهادة اختبار؟",
       "أيوه، نتائج اختبار قوة الضغط والامتصاص من معمل معتمد متاحة عند الطلب."
+     ],
+     [
+      "المتر المربع محتاج كام طوبة أسمنتي؟",
+      "حوالي 60 طوبة مصمت لحيطة 12 سم، و120 لحيطة 25 سم، و12.5 بلوكة مقاس 20×40."
+     ],
+     [
+      "الفرق بين الطوب المصمت والمفرغ إيه؟",
+      "المصمت أتقل وأقوى للحوائط الحاملة والأساسات، والمفرغ أخف وأرخص في المونة والعمالة ومناسب للحوائط غير الحاملة."
      ]
     ]
    },
@@ -247,6 +473,10 @@
      [
       "Quality & testing",
       "Compressive strength and absorption test results from accredited labs are available on request for consultant approval."
+     ],
+     [
+      "Common brick sizes",
+      "Solid bricks 25×12×6 cm for load-bearing walls and foundations; hollow blocks 20×20×40, 20×12×40 and 20×10×40 cm for partition and external walls; interlock pavers 6 and 8 cm thick."
      ]
     ],
     "products": [
@@ -288,6 +518,10 @@
      [
       "Do you provide test certificates?",
       "Yes, compressive strength and absorption results from an accredited lab are available on request."
+     ],
+     [
+      "How many cement bricks per m²?",
+      "About 60 solid bricks for a 12 cm wall, 120 for a 25 cm wall, and 12.5 blocks of 20×40 cm."
      ]
     ]
    }
@@ -310,6 +544,14 @@
      [
       "حلول لكل مشروع",
       "أبواب HDF اقتصادية للمشروعات السكنية الكبيرة، أبواب خشب مصمت للفيلات، أبواب مقاومة للحريق للسلالم والمخارج حسب كود الحماية المدنية، وأبواب عازلة للصوت للفنادق والمستشفيات والاستوديوهات."
+     ],
+     [
+      "إزاي تختار نوع الباب؟",
+      "للغرف في الشقق: باب HDF أو كونتر اقتصادي وسريع التوريد. للحمامات والمطابخ: باب WPC مقاوم للمياه. لبيوت السلالم ومخارج الطوارئ: باب مقاوم للحريق معتمد. للفنادق وقاعات الاجتماعات: باب عازل للصوت. وللمشروعات الكبيرة بنقدم باكدج كامل: ضلف وحلوق وبرور وتركيب."
+     ],
+     [
+      "مصنع أبواب من 2015",
+      "كي بلس جزء من مجموعة الكنانة لتشييد المباني الحديثة، اللي بتصنع وتورد وتركب الأعمال الخشبية لمشروعات إسكان ومدارس ومساجد مع شركات مقاولات كبرى. ده معناه تصنيع بمقاسات مشروعك ومتابعة تركيب في الموقع."
      ]
     ],
     "products": [],
@@ -321,6 +563,14 @@
      [
       "هل التركيب ضمن السعر؟",
       "متاح توريد فقط أو توريد وتركيب، والعرض بيوضح الاتنين."
+     ],
+     [
+      "بتعملوا أبواب بمقاسات خاصة؟",
+      "أيوه، بنصنع حسب مقاسات الفتحات في مشروعك، وبنرفع المقاسات في الموقع للكميات الكبيرة."
+     ],
+     [
+      "عندكم أبواب للحمامات ماتبوظش من المية؟",
+      "أيوه، أبواب WPC مقاومة للمياه بالكامل ومابتتسوسش، ومناسبة للحمامات والمطابخ."
      ]
     ]
    },
@@ -338,6 +588,10 @@
      [
       "A solution for every project",
       "Economic HDF doors for large housing, solid wood doors for villas, fire-rated doors for stairs and exits per civil-defence code, and acoustic doors for hotels, hospitals and studios."
+     ],
+     [
+      "Which door do you need?",
+      "Rooms: HDF or plywood doors. Bathrooms and kitchens: waterproof WPC doors. Stairwells and exits: certified fire-rated doors. Hotels and meeting rooms: acoustic doors. For large projects we supply the full package: leaves, frames, architraves and installation."
      ]
     ],
     "products": [],
@@ -371,6 +625,18 @@
      [
       "التشطيبات",
       "دهان دوكو أو لاكيه، قشرة طبيعية (أرو، زان، جوز)، أو PVC جاهز. متاح كل الألوان وتصميمات حفر CNC."
+     ],
+     [
+      "مقاسات الأبواب الخشب القياسية في مصر",
+      "باب الغرفة عادة 80 أو 90 سم عرض × 210 إلى 220 سم ارتفاع، وباب الحمام 70 أو 80 سم، وباب الشقة الرئيسي 100 سم. سمك الحلق بيتحدد حسب سمك الحيطة (12 أو 25 سم). لو المقاسات مختلفة بنصنع حسب الفتحة."
+     ],
+     [
+      "الفرق بين HDF والكونتر والمصمت",
+      "باب HDF: سطح ضغط عالي الكثافة على شاسيه خشب، اقتصادي وشكله ثابت ومناسب للمشروعات السكنية. باب الكونتر: أخف وأرخص للتشطيبات البسيطة. الباب المصمت أو قشرة الأرو والزان: الأتقل والأفخم للفلل والإداري. للحمامات ننصح بـ WPC."
+     ],
+     [
+      "الباكدج الكامل للمقاولين",
+      "بنورد الضلفة والحلق والبرور والكالون والمفصلات والأكر، وبنركب في الموقع بفريقنا. ده بيوفر عليك تنسيق 3 موردين وبيضمن إن المقاسات مظبوطة."
      ]
     ],
     "products": [
@@ -403,6 +669,14 @@
      [
       "إيه أحسن نوع باب للحمام؟",
       "باب WPC لأنه مقاوم للمياه والرطوبة ومش بيتنفخ."
+     ],
+     [
+      "مقاس باب الغرفة القياسي كام؟",
+      "غالبًا 80 أو 90 سم × 210 إلى 220 سم، وباب الحمام 70 أو 80 سم عرض."
+     ],
+     [
+      "أيهما أحسن HDF ولا خشب مصمت؟",
+      "HDF أوفر وثابت ومناسب للشقق والمشروعات، والمصمت أتقل وأفخم وأغلى. للحمامات الأفضل WPC."
      ]
     ]
    },
@@ -420,6 +694,14 @@
      [
       "Finishes",
       "Duco or lacquer paint, natural veneer (ash, beech, walnut) or PVC. Any colour and CNC designs."
+     ],
+     [
+      "Standard door sizes in Egypt",
+      "Room doors are usually 80 or 90 cm wide × 210–220 cm high, bathroom doors 70 or 80 cm, and main apartment doors 100 cm. We also build to your opening."
+     ],
+     [
+      "HDF vs plywood vs solid",
+      "HDF: high-density moulded skin on a timber frame, economical and stable. Plywood: lighter and cheaper. Solid or veneered: heaviest and most premium. For bathrooms we recommend WPC."
      ]
     ],
     "products": [
@@ -474,6 +756,14 @@
      [
       "مكونات الباب",
       "ضلفة بقلب مقاوم للحريق، حلق معزول، زجاج مقاوم للحريق (اختياري)، شريط انتفاخي Intumescent، ذراع غلق هيدروليك، ومفصلات ومقابض مختبرة."
+     ],
+     [
+      "تصنيفات مقاومة الحريق",
+      "التصنيف بيعبّر عن عدد الدقائق اللي الباب بيمنع فيها انتقال النار والدخان في الاختبار: 30 دقيقة (FD30) للشقق والغرف الفندقية، 60 دقيقة (FD60) لبيوت السلالم والممرات، و90 إلى 120 دقيقة لغرف الكهرباء والمولدات والمخازن. التصنيف المطلوب مكتوب في رسومات الحماية المدنية المعتمدة."
+     ],
+     [
+      "المستندات اللي بتستلمها",
+      "مع كل توريد بنسلم بيانات الباب الفنية وشهادة الاختبار للتصنيف، علشان تقدمها في ملف الحماية المدنية. قبل التصنيع بنراجع معاك الرسومات ومكان كل باب واتجاه الفتح."
      ]
     ],
     "products": [
@@ -506,6 +796,14 @@
      [
       "أختار 60 ولا 90 دقيقة؟",
       "حسب نوع المبنى ومكان الباب في الرسومات المعتمدة؛ ابعتلنا الرسومات وهنحدد التصنيف المطلوب."
+     ],
+     [
+      "الأبواب دي مناسبة لاشتراطات الحماية المدنية؟",
+      "بنحدد معاك التصنيف المطلوب لكل باب من الرسومات المعتمدة، وبنسلم المستندات الفنية وشهادات الاختبار مع التوريد."
+     ],
+     [
+      "الباب المقاوم للحريق شكله زي الباب العادي؟",
+      "الخشب منه بيتشطب قشرة أو دهان زي الأبواب العادية، فيتركب في الفنادق والشقق من غير ما يبان الفرق."
      ]
     ]
    },
@@ -523,6 +821,10 @@
      [
       "Door components",
       "Fire-resistant core, insulated frame, optional fire glass, intumescent seal, hydraulic closer and tested hinges and handles."
+     ],
+     [
+      "Fire ratings explained",
+      "The rating is how many minutes the door holds back fire and smoke in testing: FD30 for apartments and hotel rooms, FD60 for stairwells and corridors, and 90–120 minutes for electrical and generator rooms."
      ]
     ],
     "products": [
@@ -663,6 +965,245 @@
    }
   },
   {
+   "slug": "doors/wpc",
+   "icon": "door",
+   "parent": "doors",
+   "ar": {
+    "nav": "أبواب WPC",
+    "title": "أبواب WPC ضد المياه للحمامات والمطابخ | أسعار أبواب WPC — كي بلس",
+    "desc": "تصنيع وتوريد وتركيب أبواب WPC (خشب بلاستيك) مقاومة للمياه والرطوبة والسوس للحمامات والمطابخ والشقق والمشروعات في مصر. اطلب سعر باب WPC بالحلق.",
+    "h1": "أبواب WPC مقاومة للمياه والرطوبة",
+    "lead": "باب WPC مصنوع من خليط ألياف الخشب والبلاستيك (Wood Plastic Composite): مابيبوظش من المية، مابيتسوسش، ومابيحتاجش دهان. الحل المثالي للحمامات والمطابخ والأدوار الأرضية.",
+    "body": [
+     [
+      "ليه أبواب WPC بدل الخشب العادي في الحمام؟",
+      "الباب الخشب العادي أو الـ HDF بيشرب الرطوبة فينتفخ ويتقشر بعد كام سنة في الحمام والمطبخ. WPC مادة مصمتة مقاومة للماء بالكامل، فبيفضل ثابت المقاس ومابيتأثرش بالمياه ولا بالسوس ولا النمل الأبيض، وده بيوفر تكلفة الصيانة والتغيير."
+     ],
+     [
+      "المقاسات والتشطيبات",
+      "بنصنع بالمقاسات القياسية للشقق المصرية (عرض 70 و80 و90 سم وارتفاع 210 إلى 220 سم) أو حسب مقاس الفتحة عندك. التشطيب ألوان خشبية ومودرن وسادة، والضلفة بتيجي بالحلق WPC والبرور والكالون والمفصلات."
+     ],
+     [
+      "للمقاولين والمطورين",
+      "بنورد أبواب WPC بالكميات للمشروعات السكنية والفنادق والمستشفيات والمدارس، مع مقاس وتركيب في الموقع وجدول توريد على مراحل التشطيب. ابعت جدول الأبواب والمقاسات وناخد منك عرض سعر خلال ساعات."
+     ]
+    ],
+    "products": [
+     [
+      "باب WPC للحمام بالحلق",
+      "مقاوم للمياه 100% — ضلفة + حلق + برور + كالون",
+      "باب"
+     ],
+     [
+      "باب WPC للغرف",
+      "تشطيب خشبي أو سادة — مقاسات قياسية أو حسب الطلب",
+      "باب"
+     ],
+     [
+      "حلق WPC",
+      "بديل الحلق الخشب في الأماكن الرطبة — مابيتسوسش",
+      "حلق"
+     ],
+     [
+      "أبواب WPC للمشروعات",
+      "كميات للمطورين بجدول توريد وتركيب",
+      "مشروع"
+     ]
+    ],
+    "faq": [
+     [
+      "إيه الفرق بين باب WPC وباب PVC؟",
+      "PVC بلاستيك مفرغ وخفيف وأرخص لكنه أضعف. WPC فيه ألياف خشب فأتقل وأمتن وشكله أقرب للخشب، ومقاوم للمياه زي الـ PVC."
+     ],
+     [
+      "باب WPC بيعيش قد إيه؟",
+      "عمره أطول بكتير من الخشب في الأماكن الرطبة لأنه مابيتأثرش بالمياه ولا السوس، وبيحتاج تنظيف بس من غير دهان."
+     ],
+     [
+      "ينفع أركب باب WPC على حلق خشب قديم؟",
+      "الأفضل تغيير الحلق لـ WPC كمان في الحمام، لأن الحلق الخشب هو أول حاجة بتبوظ من الرطوبة."
+     ],
+     [
+      "سعر باب WPC كام؟",
+      "بيتحدد حسب المقاس والتشطيب والكمية والإكسسوارات. ابعتلنا المقاسات والعدد على واتساب ونرد بعرض سعر شامل التركيب."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "WPC Doors",
+    "title": "Waterproof WPC Doors for Bathrooms & Kitchens in Egypt — K Plus",
+    "desc": "Manufacture, supply and installation of waterproof, rot- and termite-proof WPC (wood plastic composite) doors for bathrooms, kitchens, apartments and projects in Egypt.",
+    "h1": "Waterproof WPC Doors",
+    "lead": "WPC doors are made from wood fibre and polymer composite: they do not swell with water, do not rot and need no painting. Ideal for bathrooms, kitchens and ground floors.",
+    "body": [
+     [
+      "Why WPC instead of wood in bathrooms?",
+      "Wood and HDF doors absorb moisture, swell and peel within a few years in wet areas. WPC is fully water-resistant and dimensionally stable, and termites and rot do not affect it."
+     ],
+     [
+      "Sizes and finishes",
+      "Standard Egyptian apartment sizes (70, 80, 90 cm wide, 210–220 cm high) or made to your opening, in wood-grain or plain finishes, supplied with WPC frame, architraves, lock and hinges."
+     ],
+     [
+      "For contractors and developers",
+      "Volume supply for housing, hotels, hospitals and schools with on-site measuring, installation and a delivery schedule that follows your finishing phases."
+     ]
+    ],
+    "products": [
+     [
+      "WPC bathroom door with frame",
+      "100% waterproof — leaf, frame, architraves, lock",
+      "door"
+     ],
+     [
+      "WPC room door",
+      "Wood-grain or plain, standard or custom sizes",
+      "door"
+     ],
+     [
+      "WPC door frame",
+      "Replaces timber frames in wet areas",
+      "frame"
+     ],
+     [
+      "WPC doors for projects",
+      "Volume supply and installation for developers",
+      "project"
+     ]
+    ],
+    "faq": [
+     [
+      "WPC vs PVC doors?",
+      "PVC is hollow plastic: lighter and cheaper but weaker. WPC contains wood fibre, so it is heavier, stronger and looks closer to wood, while being just as waterproof."
+     ],
+     [
+      "What does a WPC door cost?",
+      "It depends on size, finish, quantity and hardware. Send sizes and quantities on WhatsApp for an installed quote."
+     ]
+    ]
+   }
+  },
+  {
+   "slug": "wpc",
+   "icon": "deck",
+   "parent": null,
+   "ar": {
+    "nav": "أرضيات وتجاليد WPC",
+    "title": "أرضيات WPC وتجاليد حوائط WPC (ديك وكلادينج) | كي بلس",
+    "desc": "توريد وتركيب أرضيات WPC خارجية (ديك) للحدائق والرووف وحمامات السباحة، وتجاليد وكلادينج WPC للواجهات والحوائط الداخلية في مصر. مقاومة للمياه والشمس.",
+    "h1": "أرضيات WPC (ديك) وتجاليد وكلادينج WPC",
+    "lead": "WPC بيديك شكل الخشب الطبيعي من غير مشاكله: مابيتشققش من الشمس، مابيتسوسش، ومابيحتاجش ورنيش. مثالي للحدائق والرووف والبيسينات والواجهات.",
+    "body": [
+     [
+      "أرضيات WPC الخارجية (Decking)",
+      "ألواح ديك WPC مفرغة أو مصمتة بتتركب على مدادات (Joists) بكليبسات مخفية، فيها مسافة لتصريف المياه. مناسبة للحدائق والرووف وحول حمامات السباحة والممشى، وسطحها مضلع ضد الانزلاق."
+     ],
+     [
+      "تجاليد وكلادينج WPC",
+      "ألواح تجليد للواجهات الخارجية والأسوار، وبانوهات حوائط داخلية (Wall Panels) للريسبشن والمكاتب والفنادق. التركيب سريع على شاسيه، ومن غير دهان أو صيانة دورية."
+     ],
+     [
+      "ليه WPC بدل الخشب الطبيعي؟",
+      "الخشب الطبيعي برا البيت محتاج ورنيش كل سنة وبيتشقق ويتسوس. WPC مقاوم للمياه والأشعة فوق البنفسجية والحشرات، وعمره أطول بتكلفة صيانة قريبة من الصفر."
+     ],
+     [
+      "للمشروعات والكمبوندات",
+      "بنورد ونركب للكمبوندات والقرى السياحية والفنادق والمطاعم بالكميات، مع رفع مقاسات وتصميم توزيع الألواح وجدول تنفيذ."
+     ]
+    ],
+    "products": [
+     [
+      "أرضيات ديك WPC خارجية",
+      "للحدائق والرووف وحمامات السباحة — سطح ضد الانزلاق",
+      "م²"
+     ],
+     [
+      "كلادينج WPC للواجهات",
+      "تجليد خارجي للواجهات والأسوار",
+      "م²"
+     ],
+     [
+      "بانوهات حوائط WPC داخلية",
+      "للريسبشن والمكاتب والفنادق",
+      "م²"
+     ],
+     [
+      "برجولات وأسوار WPC",
+      "مظلات وأسوار وبرجولات للحدائق",
+      "مشروع"
+     ]
+    ],
+    "faq": [
+     [
+      "أرضيات WPC بتستحمل الشمس والمطر؟",
+      "أيوه، WPC الخارجي معالج ضد الأشعة فوق البنفسجية والمياه، ومابيتشققش ولا بيتسوس زي الخشب الطبيعي."
+     ],
+     [
+      "سعر متر أرضيات WPC كام؟",
+      "بيتحدد حسب نوع اللوح (مفرغ أو مصمت) والسمك واللون والمساحة والتركيب. ابعتلنا المساحة وصور المكان ونرد بعرض سعر."
+     ],
+     [
+      "هل تركيب الديك WPC محتاج أرضية خرسانة؟",
+      "محتاج أرضية مستوية (خرسانة أو بلاط)، وبيتركب فوقها مدادات WPC أو ألومنيوم، وبعدين الألواح بكليبسات."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "WPC Decking & Cladding",
+    "title": "WPC Decking, Flooring & Wall Cladding in Egypt — K Plus",
+    "desc": "Supply and installation of outdoor WPC decking for gardens, roofs and pools, and WPC cladding and wall panels for façades and interiors in Egypt. Water- and UV-resistant.",
+    "h1": "WPC Decking, Cladding & Wall Panels",
+    "lead": "WPC gives you the look of natural timber without its problems: no cracking in the sun, no rot, no varnishing. Ideal for gardens, roofs, pools and façades.",
+    "body": [
+     [
+      "Outdoor WPC decking",
+      "Hollow or solid WPC boards on joists with hidden clips and drainage gaps, with an anti-slip grooved surface for gardens, roofs, pool decks and walkways."
+     ],
+     [
+      "WPC cladding and wall panels",
+      "Exterior cladding for façades and fences, and interior wall panels for receptions, offices and hotels, fixed quickly on a sub-frame with no painting."
+     ],
+     [
+      "Why WPC instead of timber?",
+      "Outdoor timber needs yearly varnish and cracks and rots. WPC resists water, UV and insects with near-zero maintenance."
+     ]
+    ],
+    "products": [
+     [
+      "Outdoor WPC decking",
+      "Gardens, roofs and pools — anti-slip surface",
+      "m²"
+     ],
+     [
+      "WPC façade cladding",
+      "Exterior façades and fences",
+      "m²"
+     ],
+     [
+      "Interior WPC wall panels",
+      "Receptions, offices and hotels",
+      "m²"
+     ],
+     [
+      "WPC pergolas and fences",
+      "Garden shades, pergolas and fences",
+      "project"
+     ]
+    ],
+    "faq": [
+     [
+      "Does WPC decking withstand sun and rain?",
+      "Yes. Outdoor WPC is UV- and water-resistant and does not crack or rot like natural timber."
+     ],
+     [
+      "What is the WPC decking price per m²?",
+      "It depends on board type, thickness, colour, area and installation. Send the area and photos for a quote."
+     ]
+    ]
+   },
+   "menu": false
+  },
+  {
    "slug": "ideal-standard",
    "icon": "bath",
    "parent": null,
@@ -680,6 +1221,10 @@
      [
       "توريد للمشروعات",
       "بنجهز جدول كميات لكل وحدة (طقم حمام + حوض مطبخ + خلاطات)، وبنورد على مراحل حسب برنامج تنفيذ المشروع."
+     ],
+     [
+      "توريد صحي للمشروعات",
+      "بنورد أطقم الحمامات والأحواض والمراحيض المعلقة والأرضية والخلاطات وسخانات وإكسسوارات إيديال ستاندرد للمشروعات السكنية والفنادق والمستشفيات، بجدول توريد على مراحل التشطيب وضمان الوكيل."
      ]
     ],
     "products": [
@@ -717,6 +1262,10 @@
      [
       "في خصم للكميات؟",
       "أيوه، أسعار جملة للمقاولين والمطورين حسب عدد الوحدات."
+     ],
+     [
+      "المنتجات أصلية بضمان؟",
+      "أيوه، منتجات إيديال ستاندرد أصلية بفاتورة وضمان الوكيل في مصر."
      ]
     ]
    },
@@ -793,6 +1342,14 @@
      [
       "فرز أول ونفس اللوط",
       "بنورد الكمية كلها من نفس اللوط (Shade) علشان اللون يبقى موحد في المشروع كله، مع زيادة 5% احتياطي للقص."
+     ],
+     [
+      "إزاي تختار السيراميك لمشروعك؟",
+      "للأرضيات اختار بورسلين أو سيراميك بدرجة مقاومة احتكاك مناسبة (PEI 3 أو أعلى للشقق، 4 للمحلات)، وللحمامات أرضية مطفية ضد الانزلاق، وللحوائط سيراميك حوائط أخف. دايمًا اطلب فرز أول واحسب 7 إلى 10% زيادة للقص والهالك، واطلب كل الكمية من نفس اللوط علشان اللون يبقى واحد."
+     ],
+     [
+      "سيراميك بالجملة للمقاولين",
+      "بنورد كميات المشروعات من مصانع كليوباترا والجوهرة وأوبليسك مباشرة، بالتنسيق مع جدول التشطيب، وبنثبّت اللوط للكمية كلها."
      ]
     ],
     "products": [],
@@ -804,6 +1361,10 @@
      [
       "الفرق بين السيراميك والبورسلين؟",
       "البورسلين أقل امتصاص للمياه وأصلب، مناسب للأماكن عالية الحركة والخارجية؛ السيراميك أوفر ومناسب للحوائط والأرضيات الداخلية."
+     ],
+     [
+      "محتاج كام متر زيادة في السيراميك؟",
+      "حوالي 7 إلى 10% زيادة للقص والهالك، وأكتر شوية لو التركيب مايل (دياجونال)."
      ]
     ]
    },
@@ -821,6 +1382,10 @@
      [
       "First grade, same lot",
       "The full quantity comes from one shade lot for uniform colour, plus 5% cutting allowance."
+     ],
+     [
+      "Choosing tiles for your project",
+      "Use porcelain or PEI 3+ floor tiles for apartments (PEI 4 for shops), matt anti-slip tiles for bathrooms, and lighter wall tiles for walls. Order first grade, add 7–10% for cutting, and take the whole quantity from one batch."
      ]
     ],
     "products": [],
@@ -1066,6 +1631,120 @@
      ]
     ]
    }
+  },
+  {
+   "slug": "electrical",
+   "icon": "bolt",
+   "parent": null,
+   "ar": {
+    "nav": "أدوات كهربائية",
+    "title": "توريد أدوات كهربائية وكابلات بالجملة للمشروعات | كي بلس",
+    "desc": "توريد أدوات كهربائية بالجملة للمقاولين والمشروعات: كابلات وأسلاك، مواسير وعلب، مفاتيح وبرايز، لوحات توزيع وقواطع، وكشافات إنارة. عرض سعر على جدول الكميات.",
+    "h1": "توريد أدوات كهربائية وكابلات للمشروعات",
+    "lead": "كل خامات الكهرباء لمشروعك من مورد واحد: من الكابلات والمواسير لحد المفاتيح واللوحات والإنارة، بماركات مصرية وعالمية معتمدة وفاتورة ضريبية.",
+    "body": [
+     [
+      "بنورد إيه في الكهرباء؟",
+      "كابلات وأسلاك نحاس للتغذية والإنارة والقوى، مواسير وخراطيم وعلب تجميع، مفاتيح وبرايز وأفياش، لوحات توزيع وقواطع (Circuit Breakers) وأجهزة حماية، ووحدات إنارة LED داخلية وخارجية."
+     ],
+     [
+      "إزاي بنسعّر؟",
+      "ابعتلنا جدول الكميات (BOQ) أو قائمة الخامات من مهندس الكهرباء، وبنرد بعرض سعر مفصّل بالماركات المتاحة والبدائل، مع خصومات المشروعات والتوريد على مراحل التنفيذ."
+     ],
+     [
+      "ليه مورد واحد للكهرباء والتشطيبات؟",
+      "لما الأسمنت والطوب والأبواب والصحي والكهرباء ييجوا من مكان واحد، بتتعامل مع مسؤول حساب واحد وفاتورة واحدة وجدول توريد واحد، وده بيقلل التأخير والتكلفة الإدارية في الموقع."
+     ]
+    ],
+    "products": [
+     [
+      "كابلات وأسلاك نحاس",
+      "للتغذية والإنارة والقوى — بكرات ولفات",
+      "متر"
+     ],
+     [
+      "مواسير وعلب كهرباء",
+      "مواسير PVC وخراطيم وعلب تجميع",
+      "قطعة"
+     ],
+     [
+      "مفاتيح وبرايز",
+      "ماركات مصرية وعالمية لكل مستويات التشطيب",
+      "قطعة"
+     ],
+     [
+      "لوحات توزيع وقواطع",
+      "لوحات شقق ومباني وقواطع وأجهزة حماية",
+      "قطعة"
+     ],
+     [
+      "إنارة LED",
+      "كشافات وسبوتات وإنارة خارجية",
+      "قطعة"
+     ]
+    ],
+    "faq": [
+     [
+      "بتوردوا ماركات إيه؟",
+      "بنوفر الماركات المتاحة في السوق المصري حسب مواصفات المشروع والميزانية؛ قولنا المواصفة أو الماركة المطلوبة وهنرد بالمتاح والبدائل."
+     ],
+     [
+      "ينفع أبعت جدول كميات كامل؟",
+      "أيوه، ابعت BOQ الكهرباء على واتساب أو الإيميل ونرد بعرض سعر بند ببند."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "Electrical Supplies",
+    "title": "Wholesale Electrical Supplies & Cables for Projects in Egypt — K Plus",
+    "desc": "Wholesale electrical supplies for contractors: cables and wires, conduits and boxes, switches and sockets, distribution boards and breakers, and LED lighting. Quotes on your BOQ.",
+    "h1": "Electrical Supplies & Cables for Projects",
+    "lead": "Every electrical material for your project from one supplier, from cables and conduits to switches, boards and lighting, with approved brands and a tax invoice.",
+    "body": [
+     [
+      "What we supply",
+      "Copper cables and wires, PVC conduits and junction boxes, switches and sockets, distribution boards, breakers and protection devices, and indoor and outdoor LED lighting."
+     ],
+     [
+      "How we quote",
+      "Send your electrical BOQ and we reply with an itemised quote with available brands and alternatives, project discounts and phased delivery."
+     ]
+    ],
+    "products": [
+     [
+      "Copper cables and wires",
+      "Feeders, lighting and power circuits",
+      "m"
+     ],
+     [
+      "Conduits and boxes",
+      "PVC conduits, flexible hoses and junction boxes",
+      "pc"
+     ],
+     [
+      "Switches and sockets",
+      "Local and international brands",
+      "pc"
+     ],
+     [
+      "Distribution boards and breakers",
+      "Apartment and building boards",
+      "pc"
+     ],
+     [
+      "LED lighting",
+      "Downlights, spots and outdoor lighting",
+      "pc"
+     ]
+    ],
+    "faq": [
+     [
+      "Which brands do you supply?",
+      "Brands available in the Egyptian market to match your specification and budget; tell us the required spec or brand."
+     ]
+    ]
+   },
+   "menu": false
   }
  ],
  "govs": {
@@ -1321,6 +2000,8 @@
   "fire": "<path d=\"M32 6c4 10 14 15 14 30a14 14 0 0 1-28 0c0-8 4-12 7-16 0 6 3 9 6 9-2-9 1-16 1-23z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linejoin=\"round\"/>",
   "sound": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"><path d=\"M10 26h10l12-10v32L20 38H10z\"/><path d=\"M42 24l12 16M54 24L42 40\"/></g>",
   "bath": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linecap=\"round\"><path d=\"M6 32h52v6a12 12 0 0 1-12 12H18A12 12 0 0 1 6 38z\"/><path d=\"M14 32V14a6 6 0 0 1 12 0M18 50l-3 6M46 50l3 6\"/></g>",
-  "tile": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><path d=\"M32 6l26 26-26 26L6 32z\"/><path d=\"M19 19l26 26M45 19L19 45\"/></g>"
+  "tile": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><path d=\"M32 6l26 26-26 26L6 32z\"/><path d=\"M19 19l26 26M45 19L19 45\"/></g>",
+  "bolt": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\" stroke-linejoin=\"round\"><path d=\"M36 4L12 36h18l-4 24 26-34H34z\"/></g>",
+  "deck": "<g fill=\"none\" stroke=\"currentColor\" stroke-width=\"3\"><rect x=\"6\" y=\"10\" width=\"52\" height=\"44\" rx=\"2\"/><path d=\"M6 21h52M6 32h52M6 43h52\"/><path d=\"M24 10v11M40 21v11M18 32v11M34 43v11\"/></g>"
  }
 }

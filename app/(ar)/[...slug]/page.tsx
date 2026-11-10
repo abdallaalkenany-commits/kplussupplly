@@ -1,11 +1,11 @@
 import { SitePage, pageMeta } from "@/components/pages";
-import { STATIC_SLUGS } from "@/lib/content";
+import { AR_ONLY_SLUGS, STATIC_SLUGS } from "@/lib/content";
 
 export const revalidate = 300;
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return STATIC_SLUGS.map((s) => ({ slug: s.split("/") }));
+  return [...STATIC_SLUGS, ...AR_ONLY_SLUGS].map((s) => ({ slug: s.split("/") }));
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
