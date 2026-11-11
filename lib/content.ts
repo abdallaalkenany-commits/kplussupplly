@@ -15,7 +15,7 @@ export const TOP = CATEGORIES.filter((c) => c.parent === null);
 // header menu keeps the core sections; every category is still linked from the footer and home page
 export const MENU = TOP.filter((c) => c.menu !== false);
 // date the category copy was last reviewed (shown on pages and used as sitemap lastmod)
-export const CONTENT_UPDATED = "2026-11-10";
+export const CONTENT_UPDATED = "2026-11-11";
 export const GOVS = data.govs as Record<Lang, string[]>;
 export const ICONS = data.icons as Record<string, string>;
 export const D = (process.env.NEXT_PUBLIC_SITE_URL || C.domain).replace(/\/$/, "");
