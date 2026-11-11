@@ -35,6 +35,31 @@ export async function getPricedProducts(): Promise<DbPricedProduct[]> {
   return error ? [] : (data as DbPricedProduct[]);
 }
 
+export type DbPartner = { id: number; kind: "client" | "brand"; name_ar: string; name_en: string | null; logo_url: string; website: string | null };
+
+// Partner logos managed from /admin/partners/. Null = table missing or empty, so callers use the built-in list.
+export async function getPartners(): Promise<DbPartner[] | null> {
+  if (!pub) return null;
+  const { data, error } = await pub.from("partners").select("id,kind,name_ar,name_en,logo_url,website")
+    .eq("active", true).order("sort").order("id");
+  return error || !data?.length ? null : (data as DbPartner[]);
+}
+
+export type DbDesign = {
+  logo_url: string | null; logo_white_url: string | null; favicon_url: string | null;
+  color_primary: string | null; color_accent: string | null;
+  hero_title_ar: string | null; hero_text_ar: string | null; hero_title_en: string | null; hero_text_en: string | null;
+  hero_img_1: string | null; hero_img_2: string | null; hero_img_3: string | null; hero_img_4: string | null;
+  show_partners: boolean; show_offers: boolean;
+};
+
+// Site design set from /admin/design/. Returns {} when not configured so every field falls back to the built-in design.
+export async function getDesign(): Promise<Partial<DbDesign>> {
+  if (!pub) return {};
+  const { data, error } = await pub.from("site_design").select("*").eq("id", 1).maybeSingle();
+  return error || !data ? {} : (data as DbDesign);
+}
+
 export async function getOffers(): Promise<DbOffer[]> {
   if (!pub) return [];
   const { data, error } = await pub.from("offers").select("*").order("sort").order("id", { ascending: false });
