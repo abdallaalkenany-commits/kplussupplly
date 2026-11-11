@@ -1,7 +1,18 @@
 import { catArt } from "@/lib/art";
 import Link from "next/link";
 import { AR_ONLY_SLUGS, C, CATEGORIES, ICONS, MENU, T, TOP, D, upath, waLink, type Category, type Lang } from "@/lib/content";
-import type { DbCategory } from "@/lib/db";
+import type { DbCategory, DbDesign } from "@/lib/db";
+
+const HEX = /^#[0-9a-f]{3}([0-9a-f]{3})?$/i;
+const safeUrl = (u?: string | null) => (u && /^(https:\/\/|\/)[^\s"'<>()]*$/.test(u) ? u : null);
+
+// CSS variable overrides from the admin design page (only well-formed hex colours are used)
+function designCss(d: Partial<DbDesign>) {
+  const v: string[] = [];
+  if (d.color_primary && HEX.test(d.color_primary)) v.push(`--navy:${d.color_primary}`, `--navy2:${d.color_primary}`, `--cta-ink:${d.color_primary}`);
+  if (d.color_accent && HEX.test(d.color_accent)) v.push(`--orange:${d.color_accent}`, `--orange2:${d.color_accent}`);
+  return v.length ? `:root{${v.join(";")}}` : "";
+}
 
 export function Icon({ name, size = 40 }: { name: string; size?: number }) {
   return <svg viewBox="0 0 64 64" width={size} height={size} aria-hidden="true" dangerouslySetInnerHTML={{ __html: ICONS[name] }} />;
@@ -60,19 +71,25 @@ export function Crumbs({ lang, items }: { lang: Lang; items: [string, string][] 
   );
 }
 
-export function Shell({ lang, slug, children }: { lang: Lang; slug: string; children: React.ReactNode }) {
+export function Shell({ lang, slug, children, design = {} }: { lang: Lang; slug: string; children: React.ReactNode; design?: Partial<DbDesign> }) {
   const t = T[lang];
   const other: Lang = lang === "ar" ? "en" : "ar";
   const brand = lang === "ar" ? C.brand_ar : C.brand_en;
   const switchSlug = ["account", ...AR_ONLY_SLUGS].includes(slug) ? "" : slug;
+  const css = designCss(design);
+  const logo = safeUrl(design.logo_url), logoWhite = safeUrl(design.logo_white_url), favicon = safeUrl(design.favicon_url);
   return (
     <>
+      {css && <style dangerouslySetInnerHTML={{ __html: css }} />}
+      {favicon && <link rel="icon" href={favicon} />}
       <a className="skip" href="#main">{lang === "ar" ? "تخطي للمحتوى" : "Skip to content"}</a>
       <header className="top">
         <div className="wrap bar">
           <Link className="logo" href={upath(lang)} aria-label={brand}>
-            <img className="lmark" src="/assets/mark-hd.png" width={36} height={48} alt="" />
-            <span className="lword"><img src="/assets/plus-word.png" width={108} height={24} alt={`KPLUS ${brand}`} /><span className="slog">KEY TO BETTER SUPPLY</span></span>
+            {logo ? <img className="lcustom" src={logo} alt={`KPLUS ${brand}`} /> : <>
+              <img className="lmark" src="/assets/mark-hd.png" width={36} height={48} alt="" />
+              <span className="lword"><img src="/assets/plus-word.png" width={108} height={24} alt={`KPLUS ${brand}`} /><span className="slog">KEY TO BETTER SUPPLY</span></span>
+            </>}
           </Link>
           <MenuButton />
           <nav id="nav" className="nav">
@@ -88,7 +105,7 @@ export function Shell({ lang, slug, children }: { lang: Lang; slug: string; chil
       <footer className="foot">
         <div className="wrap cols">
           <div>
-            <img className="flogo" src="/assets/logo-slogan-white.png" width={280} height={95} alt="KPLUS — Key to better supply" />
+            <img className="flogo" src={logoWhite || "/assets/logo-slogan-white.png"} width={logoWhite ? undefined : 280} height={logoWhite ? undefined : 95} alt="KPLUS — Key to better supply" />
             <p><b>{lang === "ar" ? C.legal_ar : C.legal_en}</b><br />{t.tagline}</p>
             <p className="legal">{lang === "ar" ? "سجل تجاري" : "C.R."}: {C.cr} · {lang === "ar" ? "بطاقة ضريبية" : "Tax ID"}: <span dir="ltr">{C.tax}</span></p>
           </div>

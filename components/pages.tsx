@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { C, CATEGORIES, CONTENT_UPDATED, D, GOVS, PRICES_MIN, T, TOP, bySlug, upath, waLink, type Lang } from "@/lib/content";
 import { GUIDES, guideBySlug, type Guide } from "@/lib/guides";
 import Calculator from "./calculator";
-import { getCategoryMedia, getOffers, getPricedProducts, getProducts } from "@/lib/db";
+import { getCategoryMedia, getDesign, getOffers, getPricedProducts, getProducts, type DbDesign } from "@/lib/db";
 import { CatCards, Crumbs, Faq, Icon, JsonLd, Shell, money, orgSchema } from "./site";
 import QuoteForm from "./quote-form";
 import Partners from "./partners";
@@ -61,9 +61,10 @@ export async function pricesMeta(): Promise<Metadata> {
 
 export async function SitePage({ lang, parts = [] }: { lang: Lang; parts?: string[] }) {
   const slug = parts.join("/");
+  const design = await getDesign();
   let body: React.ReactNode;
-  if (!slug) body = await Home({ lang });
-  else if (slug === "about") body = <About lang={lang} />;
+  if (!slug) body = await Home({ lang, design });
+  else if (slug === "about") body = <About lang={lang} design={design} />;
   else if (slug === "contact") body = <Contact lang={lang} />;
   else if (slug === "offers") body = await Offers({ lang });
   else if (slug === "suppliers") body = <Suppliers lang={lang} />;
@@ -76,23 +77,28 @@ export async function SitePage({ lang, parts = [] }: { lang: Lang; parts?: strin
     if (!c) notFound();
     body = await CategoryPage({ lang, slug });
   }
-  return <Shell lang={lang} slug={slug}>{body}</Shell>;
+  return <Shell lang={lang} slug={slug} design={design}>{body}</Shell>;
 }
 
-async function Home({ lang }: { lang: Lang }) {
+async function Home({ lang, design }: { lang: Lang; design: Partial<DbDesign> }) {
   const t = T[lang];
   const media = await getCategoryMedia();
-  const offers = (await getOffers()).slice(0, 3);
+  const offers = design.show_offers === false ? [] : (await getOffers()).slice(0, 3);
+  const heroH = (lang === "ar" ? design.hero_title_ar : design.hero_title_en) || t.hero_h;
+  const heroP = (lang === "ar" ? design.hero_text_ar : design.hero_text_en) || t.hero_p;
+  // hero collage: admin images first, then the category image (admin upload or built-in art)
+  const heroImgs = (["cement", "doors", "ceramics", "ideal-standard"] as const).map((s, i) =>
+    (design as Record<string, string | null | undefined>)[`hero_img_${i + 1}`] || media[s]?.image_url || catArt(s));
   const faqs = TOP.map((c) => c[lang].faq[0]);
   const site = { "@context": "https://schema.org", "@type": "WebSite", "@id": D + "/#website", url: D + upath(lang), name: lang === "ar" ? C.brand_ar : C.brand_en, inLanguage: lang + "-EG", publisher: { "@id": D + "/#business" } };
   return (
     <>
       <JsonLd data={[orgSchema(lang), site]} />
       <section className="hero"><div className="wrap">
-        <h1>{t.hero_h}</h1><p className="lead">{t.hero_p}</p>
+        <h1>{heroH}</h1><p className="lead">{heroP}</p>
         <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg)} rel="noopener">{t.wa}</a></div>
         <ul className="badges"><li>{t.why_items[0][0]}</li><li>{t.why_items[2][0]}</li><li>{t.why_items[3][0]}</li></ul>
-        <div className="hero-art" aria-hidden="true">{["cement", "doors", "ceramics", "ideal-standard"].map((s) => <img key={s} src={catArt(s)} alt="" width={800} height={600} />)}</div>
+        <div className="hero-art" aria-hidden="true">{heroImgs.map((src, i) => src && <img key={i} src={src} alt="" width={800} height={600} />)}</div>
       </div></section>
       <section className="wrap"><h2>{t.cats}</h2><CatCards lang={lang} cats={TOP} media={media} /></section>
       {offers.length > 0 && (
@@ -100,7 +106,7 @@ async function Home({ lang }: { lang: Lang }) {
       )}
       <section className="wrap"><h2>{t.how}</h2><ol className="steps">{t.how_items.map(([n, h, p]: string[]) => <li key={n}><span className="n">{n}</span><h3>{h}</h3><p>{p}</p></li>)}</ol></section>
       <section className="band"><div className="wrap"><h2>{t.why}</h2><div className="whys">{t.why_items.map(([h, p]: string[]) => <div className="why" key={h}><h3>{h}</h3><p>{p}</p></div>)}</div></div></section>
-      <Partners lang={lang} />
+      {design.show_partners !== false && <Partners lang={lang} />}
       <section className="wrap prose"><h2>{t.areas}</h2><p>{t.areas_txt}</p><ul className="govs">{GOVS[lang].map((g) => <li key={g}>{g}</li>)}</ul></section>
       <section className="wrap"><div className="sechead"><h2>{lang === "ar" ? t.guides : t.calc}</h2><Link href={upath(lang, "calculator")}>{t.calc} {lang === "ar" ? "←" : "→"}</Link></div>
         {lang === "ar" ? <GuideCards guides={GUIDES.slice(0, 3)} /> : <p className="lead">{t.calc_lead} <Link href={upath(lang, "calculator")}>{t.calc}</Link></p>}
@@ -267,7 +273,7 @@ function CalcPage({ lang }: { lang: Lang }) {
   );
 }
 
-function About({ lang }: { lang: Lang }) {
+function About({ lang, design }: { lang: Lang; design: Partial<DbDesign> }) {
   const t = T[lang];
   return (
     <>
@@ -275,7 +281,7 @@ function About({ lang }: { lang: Lang }) {
       <JsonLd data={orgSchema(lang)} />
       <section className="phero"><div className="wrap"><div><h1>{t.about_h}</h1></div></div></section>
       <section className="wrap prose">{t.about_p.map((p: string, i: number) => <p key={i}>{p}</p>)}</section>
-      <Partners lang={lang} />
+      {design.show_partners !== false && <Partners lang={lang} />}
       <section className="wrap"><h2>{t.products}</h2><CatCards lang={lang} cats={TOP} /></section>
     </>
   );
