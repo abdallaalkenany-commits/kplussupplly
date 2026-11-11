@@ -79,3 +79,9 @@ input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{out
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 .okmsg{color:var(--ok);margin:0;font-weight:600}
 .src{font-style:normal;font-size:11px;font-weight:700;padding:1px 6px;border-radius:6px;margin-inline-start:6px}.src.wa{background:#e7f8ee;color:#1a7f37}
+
+/* design page: editor shown inline instead of a drawer */
+.inline-editor .drawer{position:static;width:100%;max-width:760px;box-shadow:none;border:1px solid var(--line);border-radius:12px;z-index:auto}
+.colorf{display:flex;gap:8px;align-items:center}.colorf input[type=color]{width:46px;height:38px;padding:2px;border:1px solid var(--line);border-radius:8px;background:#fff}.colorf input[dir=ltr]{max-width:140px}
+.hint{display:block;font-weight:400;color:#6b7280;font-size:12.5px}
+.swatch{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid #ccc;vertical-align:middle}

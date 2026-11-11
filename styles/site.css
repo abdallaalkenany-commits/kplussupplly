@@ -235,3 +235,7 @@ a.card.cat:hover .cimg{transform:scale(1.03)}
 @keyframes mq{to{transform:translateX(-50%)}}
 @media (max-width:600px){.partners{padding:40px 0 32px}.mq-item{width:140px;height:76px;margin-right:12px;padding:10px 14px}.mq-item img{max-height:48px}}
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;row-gap:12px}.mq-dup{display:none}.marquee{-webkit-mask-image:none;mask-image:none}}
+
+/* admin-uploaded header logo */
+.logo .lcustom{height:48px;width:auto;max-width:240px;object-fit:contain}
+@media (max-width:600px){.logo .lcustom{height:40px;max-width:170px}}
