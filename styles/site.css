@@ -231,7 +231,7 @@ a.card.cat:hover .cimg{transform:scale(1.03)}
 .mq-item{flex:0 0 auto;width:190px;height:96px;margin-right:18px;display:grid;place-items:center;padding:14px 20px;background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:0 1px 2px rgba(11,37,69,.05);transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
 .mq-item img{display:block;max-width:100%;max-height:62px;width:auto;height:auto;object-fit:contain}
 .mq-item:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:0 10px 24px rgba(11,37,69,.12)}
-@media (hover:hover){.mq-item img{filter:grayscale(1);opacity:.7;transition:filter .3s ease,opacity .3s ease}.mq-item:hover img{filter:none;opacity:1}}
+.mq-item img{transition:transform .3s ease}.mq-item:hover img{transform:scale(1.06)}
 @keyframes mq{to{transform:translateX(-50%)}}
 @media (max-width:600px){.partners{padding:40px 0 32px}.mq-item{width:140px;height:76px;margin-right:12px;padding:10px 14px}.mq-item img{max-height:48px}}
 @media (prefers-reduced-motion:reduce){.mq-track{animation:none;width:auto;flex-wrap:wrap;justify-content:center;row-gap:12px}.mq-dup{display:none}.marquee{-webkit-mask-image:none;mask-image:none}}
