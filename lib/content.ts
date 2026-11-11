@@ -44,6 +44,13 @@ const extra: Record<Lang, Record<string, string>> = {
     calc: "حاسبة مواد البناء", calc_h: "حاسبة مواد البناء: أسمنت ورمل وزلط وطوب", calc_lead: "احسب عدد شكاير الأسمنت وكمية الرمل والزلط لأي خرسانة، وعدد الطوب والمونة لأي حيطة، في ثواني ومجانًا.",
     calc_title: "حاسبة مواد البناء | حساب الأسمنت والطوب والرمل والزلط — كي بلس", calc_desc: "حاسبة مجانية لحساب عدد شكاير الأسمنت والرمل والزلط لمتر الخرسانة، وعدد الطوب الأسمنتي والمونة للحوائط. اطلب سعر الكمية على واتساب.",
     updated: "آخر تحديث", published: "نُشر", read_more: "اقرا الدليل", related_guides: "أدلة مفيدة",
+    prices: "أسعار مواد البناء اليوم", prices_h: "أسعار مواد البناء اليوم في مصر",
+    prices_lead: "أسعار كي بلس الحالية للأسمنت والطوب الأسمنتي والأبواب والسيراميك والأدوات الصحية للمقاولين والمشروعات. الأسعار بتتحدث باستمرار، والسعر النهائي بيتحدد حسب الكمية ومكان التوريد.",
+    prices_title: "أسعار مواد البناء اليوم في مصر | سعر الأسمنت والطوب والسيراميك — كي بلس",
+    prices_desc: "أسعار مواد البناء اليوم من كي بلس: سعر طن الأسمنت، ألف الطوب الأسمنتي، متر السيراميك، والأبواب والأدوات الصحية للمقاولين في مصر. اطلب عرض سعر شامل النقل لموقعك.",
+    prices_note: "الأسعار المعروضة استرشادية لآخر تحديث، وبتختلف حسب الكمية ومكان التوريد وتوفر المنتج. ابعت الكمية ومكان الموقع وناخد لك عرض سعر نهائي.",
+    prices_empty: "بنحدّث الأسعار حاليًا. ابعت الكمية ومكان الموقع على واتساب وهنرد عليك بسعر اليوم.",
+    prices_ask: "اطلب السعر", prices_item: "الصنف", prices_more: "شوف كل أسعار مواد البناء اليوم",
   },
   en: {
     offers: "Offers & Discounts", offers_h: "Building Materials Offers & Discounts",
@@ -85,4 +92,6 @@ export function waLink(text: string) {
 
 export const STATIC_SLUGS = ["about", "contact", "offers", "suppliers", "calculator", ...CATEGORIES.map((c) => c.slug)];
 // Arabic-only pages (guides are written for the Egyptian Arabic search market)
-export const AR_ONLY_SLUGS = ["guides", ...GUIDE_SLUGS];
+export const AR_ONLY_SLUGS = ["guides", "prices", ...GUIDE_SLUGS];
+// the prices page is only indexed and linked once at least this many prices are published from the admin panel
+export const PRICES_MIN = 5;

@@ -24,6 +24,17 @@ export async function getProducts(category: string): Promise<DbProduct[] | null>
   return data as DbProduct[];
 }
 
+export type DbPricedProduct = DbProduct & { updated_at: string };
+
+// Products whose price the team chose to show (admin → products → "اعرض السعر على الموقع").
+// Feeds the /prices/ page; the page stays noindex until enough prices are published.
+export async function getPricedProducts(): Promise<DbPricedProduct[]> {
+  if (!pub) return [];
+  const { data, error } = await pub.from("products").select("*").eq("active", true).eq("show_price", true)
+    .not("price", "is", null).order("category").order("sort").order("id");
+  return error ? [] : (data as DbPricedProduct[]);
+}
+
 export async function getOffers(): Promise<DbOffer[]> {
   if (!pub) return [];
   const { data, error } = await pub.from("offers").select("*").order("sort").order("id", { ascending: false });
