@@ -8,6 +8,7 @@ import Calculator from "./calculator";
 import { getCategoryMedia, getOffers, getPricedProducts, getProducts } from "@/lib/db";
 import { CatCards, Crumbs, Faq, Icon, JsonLd, Shell, money, orgSchema } from "./site";
 import QuoteForm from "./quote-form";
+import Partners from "./partners";
 
 const OPTIONS = (lang: Lang) => CATEGORIES.map((c) => c[lang].nav);
 
@@ -82,7 +83,6 @@ async function Home({ lang }: { lang: Lang }) {
   const t = T[lang];
   const media = await getCategoryMedia();
   const offers = (await getOffers()).slice(0, 3);
-  const brands = ["Ideal Standard", "Cleopatra", "Al-Gawhara", "Obelisk"];
   const faqs = TOP.map((c) => c[lang].faq[0]);
   const site = { "@context": "https://schema.org", "@type": "WebSite", "@id": D + "/#website", url: D + upath(lang), name: lang === "ar" ? C.brand_ar : C.brand_en, inLanguage: lang + "-EG", publisher: { "@id": D + "/#business" } };
   return (
@@ -100,7 +100,7 @@ async function Home({ lang }: { lang: Lang }) {
       )}
       <section className="wrap"><h2>{t.how}</h2><ol className="steps">{t.how_items.map(([n, h, p]: string[]) => <li key={n}><span className="n">{n}</span><h3>{h}</h3><p>{p}</p></li>)}</ol></section>
       <section className="band"><div className="wrap"><h2>{t.why}</h2><div className="whys">{t.why_items.map(([h, p]: string[]) => <div className="why" key={h}><h3>{h}</h3><p>{p}</p></div>)}</div></div></section>
-      <section className="wrap brands" aria-label="brands">{brands.map((b) => <span key={b}>{b}</span>)}</section>
+      <Partners lang={lang} />
       <section className="wrap prose"><h2>{t.areas}</h2><p>{t.areas_txt}</p><ul className="govs">{GOVS[lang].map((g) => <li key={g}>{g}</li>)}</ul></section>
       <section className="wrap"><div className="sechead"><h2>{lang === "ar" ? t.guides : t.calc}</h2><Link href={upath(lang, "calculator")}>{t.calc} {lang === "ar" ? "←" : "→"}</Link></div>
         {lang === "ar" ? <GuideCards guides={GUIDES.slice(0, 3)} /> : <p className="lead">{t.calc_lead} <Link href={upath(lang, "calculator")}>{t.calc}</Link></p>}
@@ -275,6 +275,7 @@ function About({ lang }: { lang: Lang }) {
       <JsonLd data={orgSchema(lang)} />
       <section className="phero"><div className="wrap"><div><h1>{t.about_h}</h1></div></div></section>
       <section className="wrap prose">{t.about_p.map((p: string, i: number) => <p key={i}>{p}</p>)}</section>
+      <Partners lang={lang} />
       <section className="wrap"><h2>{t.products}</h2><CatCards lang={lang} cats={TOP} /></section>
     </>
   );
