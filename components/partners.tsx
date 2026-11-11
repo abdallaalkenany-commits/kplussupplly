@@ -4,11 +4,14 @@ import { BRANDS, CLIENTS, type Partner } from "@/lib/partners";
 // Infinite logo marquee in pure CSS (no client JS). The list is rendered twice so the
 // loop is seamless; the copy is hidden from screen readers. Pauses on hover/focus and
 // becomes a static wrapped grid for visitors who prefer reduced motion.
+// /assets/ is cached for a year, so bump this whenever a logo file is replaced
+const LOGO_VERSION = 2;
+
 function Row({ items, lang, reverse }: { items: Partner[]; lang: Lang; reverse?: boolean }) {
   const logos = (copy: boolean) =>
     items.map(([slug, ar, en, w, h]) => (
       <li className={"mq-item" + (copy ? " mq-dup" : "")} key={(copy ? "d-" : "") + slug} aria-hidden={copy || undefined}>
-        <img src={`/assets/partners/${slug}.webp`} alt={copy ? "" : lang === "ar" ? ar : en} title={lang === "ar" ? ar : en}
+        <img src={`/assets/partners/${slug}.webp?v=${LOGO_VERSION}`} alt={copy ? "" : lang === "ar" ? ar : en} title={lang === "ar" ? ar : en}
           width={w} height={h} loading="lazy" decoding="async" />
       </li>
     ));
