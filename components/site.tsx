@@ -23,7 +23,7 @@ export function orgSchema(lang: Lang) {
     name: C.brand_en, alternateName: [C.brand_ar, C.legal_ar, C.legal_en, "KPLUS", "كي بلاس", "K Plus Supply"], legalName: C.legal_en,
     slogan: "Key to better supply",
     identifier: [{ "@type": "PropertyValue", name: "Commercial Register", value: C.cr }, { "@type": "PropertyValue", name: "Tax ID", value: C.tax }],
-    url: D + "/", logo: D + "/assets/logo.png", image: D + "/assets/og.png", telephone: C.phone_e164, email: C.email, priceRange: "$$",
+    url: D + "/", logo: D + "/assets/brand/kplus-profile-1080.png", image: D + "/assets/og.png", telephone: C.phone_e164, email: C.email, priceRange: "$$",
     address: { "@type": "PostalAddress", streetAddress: lang === "ar" ? C.street_ar : C.street_en, addressLocality: C.city, addressRegion: C.region, addressCountry: "EG" },
     geo: { "@type": "GeoCoordinates", latitude: C.lat, longitude: C.lng },
     ...(C.same_as?.length ? { sameAs: C.same_as } : {}),
