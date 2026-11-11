@@ -4,7 +4,8 @@ import { sb } from "@/lib/supabase/client";
 
 export type Field = {
   key: string; label: string;
-  type?: "text" | "textarea" | "number" | "bool" | "date" | "select" | "image" | "multi";
+  type?: "text" | "textarea" | "number" | "bool" | "date" | "select" | "image" | "multi" | "color";
+  hint?: string;
   options?: [string, string][]; required?: boolean; list?: boolean; ltr?: boolean; readonly?: boolean;
 };
 
@@ -34,6 +35,7 @@ export function display(f: Field, v: any) {
   if (f.type === "select") return f.options?.find(([k]) => k === v)?.[1] || v;
   if (f.type === "multi") return (v as string[]).map((x) => f.options?.find(([k]) => k === x)?.[1] || x).join("، ");
   if (f.type === "image") return <img src={v} alt="" className="thumb" />;
+  if (f.type === "color") return <span dir="ltr"><span className="swatch" style={{ background: v }} /> {v}</span>;
   if (f.type === "number") return Number(v).toLocaleString("ar-EG");
   if (f.key.endsWith("_at")) return new Date(v).toLocaleString("ar-EG", { dateStyle: "medium", timeStyle: "short" });
   return String(v);
@@ -79,8 +81,19 @@ export function Editor({ fields, row, onSave, onCancel, onDelete, folder = "misc
               <label key={k} className="chk"><input type="checkbox" checked={(val || []).includes(k)} onChange={(e) => set(f.key, e.target.checked ? [...(val || []), k] : (val || []).filter((x: string) => x !== k))} /> {l}</label>
             ))}</fieldset>
           );
+          if (f.type === "color") return (
+            <label key={f.key}>{f.label}
+              <span className="colorf">
+                <input type="color" aria-label={f.label} value={/^#[0-9a-f]{6}$/i.test(val || "") ? val : "#000000"} onChange={(e) => set(f.key, e.target.value)} />
+                <input id={id} dir="ltr" placeholder="#0B2545" value={val ?? ""} onChange={(e) => set(f.key, e.target.value)} />
+                {val && <button type="button" className="abtn" onClick={() => set(f.key, null)}>الافتراضي</button>}
+              </span>
+              {f.hint && <small className="hint">{f.hint}</small>}
+            </label>
+          );
           if (f.type === "image") return (
             <div key={f.key} className="imgf"><span>{f.label}</span>
+              {f.hint && <small className="hint">{f.hint}</small>}
               {val && <img src={val} alt="" />}
               <div className="row">
                 <label className="abtn">رفع صورة<input type="file" accept="image/*" hidden onChange={async (e) => {

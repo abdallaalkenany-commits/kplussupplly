@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { sb } from "@/lib/supabase/client";
 import { CATEGORIES, GOVS, TOP } from "@/lib/content";
+import { catArt } from "@/lib/art";
 import Crud, { Editor, toCsv, type Field } from "./crud";
 import { useMe } from "./shell";
 
@@ -312,13 +313,13 @@ export function Categories() {
   }
   return (
     <>
-      <p className="tip">لو مرفعتش أيقونة لقسم، الموقع بيستخدم الأيقونة الافتراضية.</p>
+      <p className="tip">لو مرفعتش صورة أو أيقونة لقسم، الموقع بيستخدم الصورة والأيقونة الافتراضية (اللي ظاهرة هنا).</p>
       <div className="catgrid">
         {CATEGORIES.map((c) => {
           const r = rows[c.slug] || {};
           return (
             <button key={c.slug} className="catcard" onClick={() => setEdit({ slug: c.slug, ...r })}>
-              {r.image_url ? <img src={r.image_url} alt="" className="cimg" /> : <div className="cimg ph">بدون صورة</div>}
+              {r.image_url ? <img src={r.image_url} alt="" className="cimg" /> : catArt(c.slug) ? <img src={catArt(c.slug)} alt="" className="cimg" title="الصورة الافتراضية" /> : <div className="cimg ph">بدون صورة</div>}
               <span className="ic">{r.icon_url ? <img src={r.icon_url} alt="" /> : "—"}</span>
               <b>{c.ar.nav}</b><small dir="ltr">/{c.slug}/</small>
             </button>
@@ -326,6 +327,57 @@ export function Categories() {
         })}
       </div>
       {edit && <><div className="scrim" onClick={() => setEdit(null)} /><Editor fields={fields} row={edit} folder="categories" onSave={save} onCancel={() => setEdit(null)} /></>}
+    </>
+  );
+}
+
+/* ---------------- partner logos (clients / agents & distributors) ---------------- */
+const P_KINDS: [string, string][] = [["client", "شركاء النجاح (عميل)"], ["brand", "وكلاء وموزعون (مورد/براند)"]];
+export function Partners() {
+  const fields: Field[] = [
+    { key: "logo_url", label: "اللوجو", type: "image", required: true, list: true, hint: "PNG شفاف أو SVG أو WebP، يفضّل ارتفاع 160 بكسل تقريبًا." },
+    { key: "kind", label: "يظهر في", type: "select", options: P_KINDS, required: true, list: true },
+    { key: "name_ar", label: "الاسم بالعربي", required: true, list: true }, { key: "name_en", label: "الاسم بالإنجليزي", ltr: true },
+    { key: "website", label: "موقع الشركة (اختياري)", ltr: true },
+    { key: "active", label: "ظاهر على الموقع", type: "bool", list: true }, { key: "sort", label: "الترتيب (الأصغر الأول)", type: "number", list: true },
+  ];
+  return (
+    <>
+      <p className="tip">اللوجوهات دي بتظهر في الشريط المتحرك في الصفحة الرئيسية وصفحة من نحن. لإخفاء لوجو من غير ما تمسحه شيل علامة "ظاهر على الموقع". التعديل بيظهر على الموقع خلال 5 دقايق.</p>
+      <Crud table="partners" title="لوجو" fields={fields} order="sort" asc newRow={{ kind: "client", active: true, sort: 100 }} folder="partners" csvName="partners" filters={{ key: "kind", options: P_KINDS }} />
+    </>
+  );
+}
+
+/* ---------------- site design (admin only) ---------------- */
+export function Design() {
+  const [row, setRow] = useState<any>(undefined);
+  const [key, setKey] = useState(0);
+  useEffect(() => { sb().from("site_design").select("*").eq("id", 1).maybeSingle().then(({ data, error }: any) => setRow(error ? null : data || null)); }, [key]);
+  const fields: Field[] = [
+    { key: "logo_url", label: "لوجو الهيدر (أعلى الصفحة)", type: "image", hint: "لو فاضي بيظهر لوجو KPLUS الحالي. يفضّل PNG شفاف بارتفاع 96 بكسل." },
+    { key: "logo_white_url", label: "لوجو الفوتر (أبيض على خلفية غامقة)", type: "image" },
+    { key: "favicon_url", label: "أيقونة تبويب المتصفح (Favicon)", type: "image", hint: "مربعة PNG مقاس 512×512." },
+    { key: "color_primary", label: "اللون الأساسي (الكحلي)", type: "color", hint: "الافتراضي ‎#0B2545" },
+    { key: "color_accent", label: "لون الأزرار والتمييز (البرتقالي)", type: "color", hint: "الافتراضي ‎#F29F05" },
+    { key: "hero_title_ar", label: "عنوان الصفحة الرئيسية (عربي)" }, { key: "hero_text_ar", label: "نص الصفحة الرئيسية (عربي)", type: "textarea" },
+    { key: "hero_title_en", label: "عنوان الصفحة الرئيسية (إنجليزي)", ltr: true }, { key: "hero_text_en", label: "نص الصفحة الرئيسية (إنجليزي)", type: "textarea" },
+    { key: "hero_img_1", label: "صورة الواجهة 1", type: "image" }, { key: "hero_img_2", label: "صورة الواجهة 2", type: "image" },
+    { key: "hero_img_3", label: "صورة الواجهة 3", type: "image" }, { key: "hero_img_4", label: "صورة الواجهة 4", type: "image" },
+    { key: "show_partners", label: "إظهار شريط شركاء النجاح والوكلاء", type: "bool" },
+    { key: "show_offers", label: "إظهار العروض في الصفحة الرئيسية", type: "bool" },
+  ];
+  async function save(r: any) {
+    const { error } = await sb().from("site_design").update(r).eq("id", 1);
+    if (error) return error.message;
+    setKey((k) => k + 1); return null;
+  }
+  if (row === undefined) return <p>جاري التحميل…</p>;
+  if (row === null) return <p className="err">جدول التصميم لسه مش موجود في قاعدة البيانات. لازم يتشغل ملف supabase/006_partners_design.sql مرة واحدة في Supabase.</p>;
+  return (
+    <>
+      <p className="tip">أي خانة تسيبها فاضية بيرجع فيها التصميم الافتراضي. التعديلات بتظهر على الموقع خلال 5 دقايق. <a href="/" target="_blank" rel="noopener">فتح الموقع</a></p>
+      <div className="inline-editor"><Editor key={key} fields={fields} row={row} folder="design" onSave={save} onCancel={() => setKey((k) => k + 1)} /></div>
     </>
   );
 }

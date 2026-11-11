@@ -17,6 +17,8 @@ const NAV: [string, string, boolean?][] = [
   ["/admin/products/", "المنتجات"],
   ["/admin/offers/", "العروض والخصومات"],
   ["/admin/categories/", "صور وأيقونات الأقسام"],
+  ["/admin/partners/", "شعارات العملاء والوكلاء"],
+  ["/admin/design/", "تصميم الموقع واللوجو", true],
   ["/admin/users/", "المستخدمين والصلاحيات", true],
 ];
 
