@@ -2,10 +2,10 @@ import { catArt, prodArt } from "@/lib/art";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { C, CATEGORIES, CONTENT_UPDATED, D, GOVS, T, TOP, bySlug, upath, waLink, type Lang } from "@/lib/content";
+import { C, CATEGORIES, CONTENT_UPDATED, D, GOVS, PRICES_MIN, T, TOP, bySlug, upath, waLink, type Lang } from "@/lib/content";
 import { GUIDES, guideBySlug, type Guide } from "@/lib/guides";
 import Calculator from "./calculator";
-import { getCategoryMedia, getOffers, getProducts } from "@/lib/db";
+import { getCategoryMedia, getOffers, getPricedProducts, getProducts } from "@/lib/db";
 import { CatCards, Crumbs, Faq, Icon, JsonLd, Shell, money, orgSchema } from "./site";
 import QuoteForm from "./quote-form";
 
@@ -40,6 +40,7 @@ export function pageMeta(lang: Lang, parts: string[] = []): Metadata {
   if (slug === "suppliers") return metaFor(lang, slug, t.suppliers_title, t.suppliers_desc);
   if (slug === "calculator") return metaFor(lang, slug, t.calc_title, t.calc_desc);
   if (lang === "ar" && slug === "guides") return metaFor(lang, slug, t.guides_title, t.guides_desc, false, true);
+  if (lang === "ar" && slug === "prices") return metaFor(lang, slug, t.prices_title, t.prices_desc, true, true);
   if (lang === "ar" && slug.startsWith("guides/")) {
     const g = guideBySlug(parts[1]);
     if (g) return metaFor(lang, slug, g.title, g.desc, false, true);
@@ -47,6 +48,14 @@ export function pageMeta(lang: Lang, parts: string[] = []): Metadata {
   const c = bySlug(slug);
   if (!c) return { title: t.nf_title, robots: { index: false } };
   return metaFor(lang, slug, c[lang].title, c[lang].desc);
+}
+
+// The prices page is noindex until at least PRICES_MIN prices are published from the admin panel,
+// so Google never sees a "prices" page without prices.
+export async function pricesMeta(): Promise<Metadata> {
+  const t = T.ar;
+  const live = (await getPricedProducts()).length >= PRICES_MIN;
+  return metaFor("ar", "prices", t.prices_title, t.prices_desc, !live, true);
 }
 
 export async function SitePage({ lang, parts = [] }: { lang: Lang; parts?: string[] }) {
@@ -59,6 +68,7 @@ export async function SitePage({ lang, parts = [] }: { lang: Lang; parts?: strin
   else if (slug === "suppliers") body = <Suppliers lang={lang} />;
   else if (slug === "calculator") body = <CalcPage lang={lang} />;
   else if (lang === "ar" && slug === "guides") body = <GuidesIndex />;
+  else if (lang === "ar" && slug === "prices") body = await PricesPage();
   else if (lang === "ar" && slug.startsWith("guides/") && guideBySlug(parts[1])) body = <GuidePage g={guideBySlug(parts[1])!} />;
   else {
     const c = bySlug(slug);
@@ -170,6 +180,72 @@ function GuidePage({ g }: { g: Guide }) {
       <Faq lang="ar" faqs={g.faq} />
       <Quote lang="ar" preset={cats[0]?.ar.nav} />
       <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={GUIDES.filter((x) => x.slug !== g.slug).slice(0, 3)} /></section>
+    </>
+  );
+}
+
+const PRICES_FAQ: [string, string][] = [
+  ["الأسعار دي شاملة النقل لموقعي؟", "الأسعار المعروضة هي سعر الصنف لآخر تحديث. تكلفة النقل بتتحسب حسب الكمية ومكان الموقع، وبتتكتب بوضوح في عرض السعر النهائي."],
+  ["الأسعار بتتحدث كل قد إيه؟", "بنحدّث الأسعار باستمرار مع تغيّر أسعار المصانع، وتاريخ آخر تحديث مكتوب أعلى الصفحة."],
+  ["هل في سعر أقل للكميات الكبيرة؟", "أيوه، الكميات الكبيرة وطلبات المشروعات بتاخد سعر خاص. ابعت جدول الكميات ومكان الموقع ونرد عليك بعرض سعر."],
+  ["إزاي أعرف الكمية اللي محتاجها؟", "استخدم حاسبة مواد البناء المجانية لحساب شكاير الأسمنت وعدد الطوب وأمتار السيراميك، وبعدها اطلب السعر على الكمية."],
+];
+
+async function PricesPage() {
+  const t = T.ar;
+  const rows = await getPricedProducts();
+  const latest = rows.reduce((m, r) => (r.updated_at > m ? r.updated_at : m), "");
+  const updated = latest ? latest.slice(0, 10) : CONTENT_UPDATED;
+  // group by top-level category, in menu order
+  const groups = TOP.map((top) => ({
+    top,
+    items: rows.filter((r) => r.category === top.slug || bySlug(r.category)?.parent === top.slug),
+  })).filter((g) => g.items.length);
+  const url = D + "/prices/";
+  const list = {
+    "@context": "https://schema.org", "@type": "ItemList", name: t.prices_h, url,
+    itemListElement: rows.map((r, i) => ({
+      "@type": "ListItem", position: i + 1,
+      item: { "@type": "Product", name: r.name_ar, ...(r.spec_ar ? { description: r.spec_ar } : {}), category: bySlug(r.category)?.ar.nav,
+        offers: { "@type": "Offer", price: r.price, priceCurrency: "EGP", availability: "https://schema.org/InStock", seller: { "@id": D + "/#business" }, url: D + upath("ar", r.category) } },
+    })),
+  };
+  return (
+    <>
+      <Crumbs lang="ar" items={[[t.prices, "prices"]]} />
+      {rows.length > 0 && <JsonLd data={list} />}
+      <section className="phero"><div className="wrap"><div><h1>{t.prices_h}</h1><p className="lead">{t.prices_lead}</p>
+        <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg + " " + t.prices)} rel="noopener">{t.wa}</a></div>
+        <p className="upd">{t.updated}: <time dateTime={updated}>{fmtDate(updated, "ar")}</time></p></div></div></section>
+      {groups.length === 0 ? (
+        <section className="wrap"><p className="empty">{t.prices_empty}</p></section>
+      ) : (
+        <section className="wrap prose guide-body">
+          {groups.map(({ top, items }) => (
+            <div key={top.slug}>
+              <h2>سعر {top.ar.nav} اليوم</h2>
+              <div className="tbl"><table>
+                <thead><tr><th>{t.prices_item}</th><th>{t.unit}</th><th>{t.price}</th><th></th></tr></thead>
+                <tbody>{items.map((r) => (
+                  <tr key={r.id}>
+                    <th scope="row">{r.name_ar}{r.spec_ar ? <><br /><small>{r.spec_ar}</small></> : null}</th>
+                    <td>{r.unit_ar || ""}</td>
+                    <td>{money(r.price, "ar")}</td>
+                    <td><a className="btn sm" href="#quote" data-quote={r.name_ar}>{t.prices_ask}</a></td>
+                  </tr>
+                ))}</tbody>
+              </table></div>
+              <p><Link href={upath("ar", top.slug)}>{top.ar.h1}</Link></p>
+            </div>
+          ))}
+          <p className="cta-line">{t.prices_note}</p>
+          <p className="cta-line">احسب الكمية بالظبط من <Link href="/calculator/">حاسبة مواد البناء</Link>، وبعدها اطلب عرض سعر شامل النقل لموقعك.</p>
+        </section>
+      )}
+      <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={GUIDES.slice(0, 3)} /></section>
+      <Faq lang="ar" faqs={PRICES_FAQ} />
+      <Quote lang="ar" />
+      <section className="wrap"><h2>{t.cats}</h2><CatCards lang="ar" cats={TOP} /></section>
     </>
   );
 }
@@ -315,6 +391,7 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
   const rel = TOP.filter((x) => x.slug !== slug && x.slug !== c.parent).slice(0, 4);
   const guides = lang === "ar" ? GUIDES.filter((g) => g.related.includes(slug) || (c.parent && g.related[0] === c.parent)).slice(0, 3) : [];
   const m = media[slug];
+  const pricesLive = lang === "ar" && (await getPricedProducts()).length >= PRICES_MIN;
   return (
     <>
       <Crumbs lang={lang} items={crumbs} />
@@ -339,7 +416,8 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
           ))}
         </div></section>
       )}
-      <section className="wrap prose">{d.body.map(([h, p], i) => <div key={i}><h2>{h}</h2><p>{p}</p></div>)}</section>
+      <section className="wrap prose">{d.body.map(([h, p], i) => <div key={i}><h2>{h}</h2><p>{p}</p></div>)}
+        {pricesLive && <p className="cta-line"><Link href="/prices/">{t.prices_more}</Link></p>}</section>
       {guides.length > 0 && <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={guides} /></section>}
       <Faq lang={lang} faqs={d.faq} />
       <Quote lang={lang} preset={d.nav} />
