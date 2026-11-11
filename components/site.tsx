@@ -28,7 +28,6 @@ export function orgSchema(lang: Lang) {
     geo: { "@type": "GeoCoordinates", latitude: C.lat, longitude: C.lng },
     ...(C.same_as?.length ? { sameAs: C.same_as } : {}),
     openingHours: C.hours, areaServed: { "@type": "Country", name: "Egypt" },
-    parentOrganization: { "@type": "Organization", name: C.parent_en, alternateName: C.parent_ar },
     contactPoint: [
       { "@type": "ContactPoint", telephone: C.phone_e164, email: C.email_sales, contactType: "sales", availableLanguage: ["Arabic", "English"] },
       { "@type": "ContactPoint", telephone: C.phone_e164, email: C.email_support, contactType: "customer service", availableLanguage: ["Arabic", "English"] },
