@@ -24,7 +24,8 @@ export const BRANDS: Partner[] = [
   ["gemma", "جيما للسيراميك والبورسلين", "Gemma Ceramic & Porcelain", 221, 44],
   ["camsan", "تشامسان باركيه", "Çamsan Parkelam", 192, 55],
   ["terraclick", "تيراكليك", "TerraClick", 227, 38],
+  ["varioclic", "فاريوكليك", "VarioClic", 207, 33],
   ["bmic", "BMIC لصناعات مواد البناء", "BMIC Building Materials", 127, 50],
   ["misr-beni-suef-cement", "أسمنت مصر بني سويف", "Misr Beni Suef Cement", 164, 160],
-  ["amreyah-cement", "أسمنت العامرية", "Amreyah Cement", 166, 101],
+  ["amreyah-cement", "أسمنت العامرية", "Amreyah Cement", 440, 85],
 ];
