@@ -1,7 +1,7 @@
 :root{--navy:#0B2545;--navy2:#13315C;--orange:#F29F05;--orange2:#C98200;--ink:#1d2433;--muted:#5b6475;--bg:#F6F7F9;--card:#fff;--line:#e3e6eb;--wa:#1fa855;--r:14px}
 :root{color-scheme:only light}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
-body{margin:0;font-family:"IBM Plex Sans Arabic",Inter,"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;font-size:17px}
+body{margin:0;font-family:var(--font-ar),var(--font-en),"Segoe UI",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);line-height:1.75;font-size:17px}
 img,svg{max-width:100%}a{color:var(--navy2)}
 .wrap{max-width:1180px;margin:0 auto;padding:0 16px}
 section.wrap{margin:56px auto}
@@ -93,7 +93,7 @@ a.card:hover{border-color:var(--orange);box-shadow:0 8px 24px rgba(11,37,69,.10)
 .logo .lmark{height:46px;width:auto}
 .lword{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
 .lword img{height:24px;width:auto}
-.slog{font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:9.5px;font-weight:600;letter-spacing:2.2px;color:var(--orange2);line-height:1;white-space:nowrap}
+.slog{font-family:var(--font-en),"Segoe UI",Arial,sans-serif;font-size:9.5px;font-weight:600;letter-spacing:2.2px;color:var(--orange2);line-height:1;white-space:nowrap}
 .flogo{height:auto!important;width:260px!important;max-width:100%}
 /* buttons: navy text on amber = readable + premium */
 .btn{background:var(--orange);color:var(--cta-ink);box-shadow:0 4px 14px rgba(242,159,5,.28)}
