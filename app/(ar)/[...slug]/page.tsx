@@ -1,4 +1,4 @@
-import { SitePage, pageMeta } from "@/components/pages";
+import { SitePage, pageMeta, pricesMeta } from "@/components/pages";
 import { AR_ONLY_SLUGS, STATIC_SLUGS } from "@/lib/content";
 
 export const revalidate = 300;
@@ -9,7 +9,9 @@ export function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string[] }> }) {
-  return pageMeta("ar", (await params).slug);
+  const parts = (await params).slug;
+  if (parts.join("/") === "prices") return pricesMeta();
+  return pageMeta("ar", parts);
 }
 
 export default async function Page({ params }: { params: Promise<{ slug: string[] }> }) {
