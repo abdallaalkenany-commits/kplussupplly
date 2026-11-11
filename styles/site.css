@@ -185,3 +185,34 @@ a.card:hover{border-color:var(--orange);box-shadow:0 8px 24px rgba(11,37,69,.10)
 .calc-out div{background:var(--bg);border-radius:12px;padding:12px 14px}
 .calc-out dt{font-size:14px;color:var(--muted)}.calc-out dd{margin:0;font-size:20px;font-weight:800;color:var(--navy)}
 .calc-note{font-size:14px;color:var(--muted)}
+
+/* ---- product art (2026-11-11) ---- */
+.cimg,.pimg{height:auto;aspect-ratio:4/3;background:#EEF2F8;display:block}
+.card.cat.has-img .ic{display:none}
+.card.cat .cimg{transition:transform .25s}
+a.card.cat:hover .cimg{transform:scale(1.03)}
+.card.cat{overflow:hidden}
+.phero .wrap{align-items:center}
+.hero-img{width:400px;aspect-ratio:4/3;height:auto;flex-shrink:0;box-shadow:0 12px 32px rgba(11,37,69,.14);border:1px solid var(--line)}
+.hero-art{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.hero-art img{width:100%;height:auto;aspect-ratio:4/3;border-radius:14px;border:3px solid rgba(255,255,255,.14);box-shadow:0 10px 28px rgba(0,0,0,.25);display:block}
+@media (min-width:1000px){
+  .hero .wrap{display:grid;grid-template-columns:minmax(0,1fr) 420px;column-gap:48px;align-items:center;position:relative;z-index:1}
+  .hero .wrap>*{grid-column:1}
+  .hero .wrap>.hero-art{grid-column:2;grid-row:1 / span 4}
+  .hero-art img:nth-child(2n){transform:translateY(22px)}
+}
+@media (max-width:999px){.hero-art{grid-template-columns:repeat(4,1fr);gap:8px;margin-top:20px}.hero-art img{border-radius:8px;border-width:2px}}
+@media (max-width:900px){.hero-img{width:100%;max-width:520px;margin:0}}
+@media (max-width:600px){
+  .card.cat .cimg{width:calc(100% + 28px);margin:-14px -14px 6px}
+  .card.prod .pimg{width:calc(100% + 32px);margin:-16px -16px 8px}
+}
+@media (max-width:600px){
+  .card.prod:has(.pimg){display:grid;grid-template-columns:104px minmax(0,1fr);column-gap:12px;row-gap:4px;align-items:start}
+  .card.prod:has(.pimg)>*{grid-column:2}
+  .card.prod .pimg{grid-column:1;grid-row:1 / span 4;width:104px;margin:0;border-radius:10px}
+  .card.prod:has(.pimg) .pfoot{grid-column:1 / span 2}
+  .card.prod h3{margin-top:0}
+}
+@media (max-width:900px){.phero .wrap:has(.hero-img)>.ic.big{display:none}}

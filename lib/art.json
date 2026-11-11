@@ -1,0 +1,103 @@
+{
+ "cat": {
+  "cement": "/img/cat/cement.webp",
+  "cement/sulfate-resistant": "/img/cat/cement-sulfate-resistant.webp",
+  "cement/white": "/img/cat/cement-white.webp",
+  "cement-bricks": "/img/cat/cement-bricks.webp",
+  "doors": "/img/cat/doors.webp",
+  "doors/wooden": "/img/cat/doors-wooden.webp",
+  "doors/fire-rated": "/img/cat/doors-fire-rated.webp",
+  "doors/soundproof": "/img/cat/doors-soundproof.webp",
+  "doors/wpc": "/img/cat/doors-wpc.webp",
+  "wpc": "/img/cat/wpc.webp",
+  "ideal-standard": "/img/cat/ideal-standard.webp",
+  "ceramics": "/img/cat/ceramics.webp",
+  "ceramics/cleopatra": "/img/cat/ceramics-cleopatra.webp",
+  "ceramics/al-gawhara": "/img/cat/ceramics-al-gawhara.webp",
+  "ceramics/obelisk": "/img/cat/ceramics-obelisk.webp",
+  "electrical": "/img/cat/electrical.webp"
+ },
+ "prod": {
+  "cement": [
+   "/img/p/cement-0.webp",
+   "/img/p/cement-1.webp",
+   "/img/p/cement-2.webp",
+   "/img/p/cement-3.webp",
+   "/img/p/cement-4.webp"
+  ],
+  "cement/sulfate-resistant": [
+   "/img/p/cement-sulfate-resistant-0.webp",
+   "/img/p/cement-sulfate-resistant-1.webp"
+  ],
+  "cement/white": [
+   "/img/p/cement-white-0.webp",
+   "/img/p/cement-white-1.webp"
+  ],
+  "cement-bricks": [
+   "/img/p/cement-bricks-0.webp",
+   "/img/p/cement-bricks-1.webp",
+   "/img/p/cement-bricks-2.webp",
+   "/img/p/cement-bricks-3.webp",
+   "/img/p/cement-bricks-4.webp"
+  ],
+  "doors/wooden": [
+   "/img/p/doors-wooden-0.webp",
+   "/img/p/doors-wooden-1.webp",
+   "/img/p/doors-wooden-2.webp",
+   "/img/p/doors-wooden-3.webp"
+  ],
+  "doors/fire-rated": [
+   "/img/p/doors-fire-rated-0.webp",
+   "/img/p/doors-fire-rated-1.webp",
+   "/img/p/doors-fire-rated-2.webp",
+   "/img/p/doors-fire-rated-3.webp"
+  ],
+  "doors/soundproof": [
+   "/img/p/doors-soundproof-0.webp",
+   "/img/p/doors-soundproof-1.webp",
+   "/img/p/doors-soundproof-2.webp",
+   "/img/p/doors-soundproof-3.webp"
+  ],
+  "doors/wpc": [
+   "/img/p/doors-wpc-0.webp",
+   "/img/p/doors-wpc-1.webp",
+   "/img/p/doors-wpc-2.webp",
+   "/img/p/doors-wpc-3.webp"
+  ],
+  "wpc": [
+   "/img/p/wpc-0.webp",
+   "/img/p/wpc-1.webp",
+   "/img/p/wpc-2.webp",
+   "/img/p/wpc-3.webp"
+  ],
+  "ideal-standard": [
+   "/img/p/ideal-standard-0.webp",
+   "/img/p/ideal-standard-1.webp",
+   "/img/p/ideal-standard-2.webp",
+   "/img/p/ideal-standard-3.webp",
+   "/img/p/ideal-standard-4.webp"
+  ],
+  "ceramics/cleopatra": [
+   "/img/p/ceramics-cleopatra-0.webp",
+   "/img/p/ceramics-cleopatra-1.webp",
+   "/img/p/ceramics-cleopatra-2.webp"
+  ],
+  "ceramics/al-gawhara": [
+   "/img/p/ceramics-al-gawhara-0.webp",
+   "/img/p/ceramics-al-gawhara-1.webp",
+   "/img/p/ceramics-al-gawhara-2.webp"
+  ],
+  "ceramics/obelisk": [
+   "/img/p/ceramics-obelisk-0.webp",
+   "/img/p/ceramics-obelisk-1.webp",
+   "/img/p/ceramics-obelisk-2.webp"
+  ],
+  "electrical": [
+   "/img/p/electrical-0.webp",
+   "/img/p/electrical-1.webp",
+   "/img/p/electrical-2.webp",
+   "/img/p/electrical-3.webp",
+   "/img/p/electrical-4.webp"
+  ]
+ }
+}

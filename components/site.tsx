@@ -1,3 +1,4 @@
+import { catArt } from "@/lib/art";
 import Link from "next/link";
 import { AR_ONLY_SLUGS, C, CATEGORIES, ICONS, MENU, T, TOP, D, upath, waLink, type Category, type Lang } from "@/lib/content";
 import type { DbCategory } from "@/lib/db";
@@ -137,9 +138,10 @@ export function CatCards({ lang, cats, media }: { lang: Lang; cats: Category[]; 
     <div className="cards">
       {cats.map((c) => {
         const m = media?.[c.slug];
+        const img = m?.image_url || catArt(c.slug);
         return (
-          <Link key={c.slug} className="card cat" href={upath(lang, c.slug)}>
-            {m?.image_url && <img className="cimg" src={m.image_url} alt="" loading="lazy" />}
+          <Link key={c.slug} className={"card cat" + (img ? " has-img" : "")} href={upath(lang, c.slug)}>
+            {img && <img className="cimg" src={img} alt={c[lang].nav} width={800} height={600} loading="lazy" decoding="async" />}
             <span className="ic">{m?.icon_url ? <img src={m.icon_url} alt="" width={40} height={40} /> : <Icon name={c.icon} />}</span>
             <h3>{c[lang].nav}</h3>
             <p>{c[lang].lead.slice(0, 110)}…</p>

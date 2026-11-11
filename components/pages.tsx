@@ -1,3 +1,4 @@
+import { catArt, prodArt } from "@/lib/art";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -81,6 +82,7 @@ async function Home({ lang }: { lang: Lang }) {
         <h1>{t.hero_h}</h1><p className="lead">{t.hero_p}</p>
         <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg)} rel="noopener">{t.wa}</a></div>
         <ul className="badges"><li>{t.why_items[0][0]}</li><li>{t.why_items[2][0]}</li><li>{t.why_items[3][0]}</li></ul>
+        <div className="hero-art" aria-hidden="true">{["cement", "doors", "ceramics", "ideal-standard"].map((s) => <img key={s} src={catArt(s)} alt="" width={800} height={600} />)}</div>
       </div></section>
       <section className="wrap"><h2>{t.cats}</h2><CatCards lang={lang} cats={TOP} media={media} /></section>
       {offers.length > 0 && (
@@ -291,10 +293,10 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
         name: lang === "ar" ? p.name_ar : p.name_en || p.name_ar,
         spec: (lang === "ar" ? p.spec_ar : p.spec_en || p.spec_ar) || "",
         unit: (lang === "ar" ? p.unit_ar : p.unit_en || p.unit_ar) || "",
-        image: p.image_url,
+        image: p.image_url || prodArt(slug, d.products.findIndex(([n]) => n === (lang === "ar" ? p.name_ar : p.name_en || p.name_ar))) || catArt(slug),
         price: p.show_price && p.price != null ? money(p.price, lang) : undefined,
       }))
-    : d.products.map(([name, spec, unit]) => ({ name, spec, unit }));
+    : d.products.map(([name, spec, unit], i) => ({ name, spec, unit, image: prodArt(slug, i) }));
   const url = D + upath(lang, slug);
   const schemas: object[] = [orgSchema(lang)];
   // Google requires a price on Product offers; list unpriced items by name only.
@@ -305,7 +307,7 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
       const priced = raw && raw.show_price && raw.price != null;
       return priced
         ? { "@type": "ListItem", position: i + 1,
-            item: { "@type": "Product", name: p.name, description: p.spec, ...(p.image ? { image: p.image } : {}), brand: { "@type": "Brand", name: C.brand_en }, category: d.nav,
+            item: { "@type": "Product", name: p.name, description: p.spec, ...(p.image ? { image: p.image.startsWith("/") ? D + p.image : p.image } : {}), brand: { "@type": "Brand", name: C.brand_en }, category: d.nav,
               offers: { "@type": "Offer", price: raw!.price, priceCurrency: "EGP", availability: "https://schema.org/InStock", seller: { "@id": D + "/#business" }, url } } }
         : { "@type": "ListItem", position: i + 1, name: p.name };
     }),
@@ -322,14 +324,14 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
         <div><h1>{d.h1}</h1><p className="lead">{d.lead}</p>
           <div className="actions"><a className="btn big" href="#quote">{t.contact}</a><a className="btn wa" href={waLink(t.wa_msg + " " + d.nav)} rel="noopener">{t.wa}</a></div>
           <p className="upd">{t.updated}: <time dateTime={CONTENT_UPDATED}>{fmtDate(CONTENT_UPDATED, lang)}</time></p></div>
-        {m?.image_url && <img className="hero-img" src={m.image_url} alt={d.nav} />}
+        {(m?.image_url || catArt(slug)) && <img className="hero-img" src={m?.image_url || catArt(slug)} alt={d.h1} width={800} height={600} fetchPriority="high" />}
       </div></section>
       {children.length > 0 && <section className="wrap"><h2>{t.products}</h2><CatCards lang={lang} cats={children} media={media} /></section>}
       {products.length > 0 && (
         <section className="wrap"><h2>{t.products}</h2><div className="cards">
           {products.map((p, i) => (
             <article className="card prod" key={i}>
-              {p.image && <img className="pimg" src={p.image} alt={p.name} loading="lazy" />}
+              {p.image && <img className="pimg" src={p.image} alt={p.name} width={800} height={600} loading="lazy" decoding="async" />}
               <h3>{p.name}</h3><p>{p.spec}</p>
               {p.price && <p className="price">{p.price}{p.unit ? ` / ${p.unit}` : ""}</p>}
               <div className="pfoot"><span className="unit">{t.unit}: {p.unit}</span><a className="btn sm" href="#quote" data-quote={p.name}>{t.quote}</a></div>
