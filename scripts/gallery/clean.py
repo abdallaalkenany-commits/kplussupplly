@@ -10,12 +10,12 @@ import cv2
 from PIL import Image
 
 DOORS = {  # file -> (slug, ar, en, crop that keeps the door and leaves logo/labels/codes/frame out)
-    "door-face_207_1.jpg":   ("door-207", "وش باب 2 قائم — كود 207", "2-stile door face — code 207", (0.284, 0.04, 0.724, 0.955)),
-    "door-face_608_1.jpg":   ("door-608", "وش باب 4 خط — كود 608", "4-line door face — code 608", (0.286, 0.04, 0.704, 0.955)),
-    "door-face_cnc_1.jpg":   ("door-508", "وش باب تصميم CNC — كود 508", "CNC design door face — code 508", (0.286, 0.04, 0.80, 0.955)),
-    "door-face_5016_1.jpg":  ("door-5016", "وش باب ميلامين استانلس — كود 5016", "Melamine door face with steel inlay — code 5016", (0.17, 0.04, 0.652, 0.955)),
-    "door-face_910_1.jpg":   ("door-910", "وش باب أوكراني — كود 910", "Ukrainian-style door face — code 910", (0.279, 0.04, 0.714, 0.955)),
-    "door-face_2189S_1.jpg": ("door-2189s", "وش باب تصميم إيطالي — كود 2189S", "Italian-design door face — code 2189S", (0.286, 0.04, 0.694, 0.955)),
+    "door-face_207_1.jpg":   ("door-207", "باب خشب داخلي 2 قائم — كود 207", "2-stile wooden interior door — code 207", (0.284, 0.04, 0.724, 0.955)),
+    "door-face_608_1.jpg":   ("door-608", "باب خشب 4 خط — كود 608", "4-groove wooden interior door — code 608", (0.286, 0.04, 0.704, 0.955)),
+    "door-face_cnc_1.jpg":   ("door-508", "باب خشب حفر CNC — كود 508", "CNC-routed wooden door — code 508", (0.286, 0.04, 0.80, 0.955)),
+    "door-face_5016_1.jpg":  ("door-5016", "باب ميلامين بشريط استانلس — كود 5016", "Melamine door with stainless steel inlay — code 5016", (0.17, 0.04, 0.652, 0.955)),
+    "door-face_910_1.jpg":   ("door-910", "باب خشب أوكراني — كود 910", "Ukrainian-style wooden door — code 910", (0.279, 0.04, 0.714, 0.955)),
+    "door-face_2189S_1.jpg": ("door-2189s", "باب خشب تصميم إيطالي — كود 2189S", "Italian-design wooden door — code 2189S", (0.286, 0.04, 0.694, 0.955)),
 }
 # Model codes printed on the factory cladding photos.
 CLAD_CODES = {"a1": "A64", "a2": "A84", "b1": "B10", "b2": "B59", "l1": "L10", "l2": "L64", "m1": "M10", "m2": "M64",
