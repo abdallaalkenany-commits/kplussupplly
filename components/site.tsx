@@ -71,7 +71,9 @@ export function Crumbs({ lang, items }: { lang: Lang; items: [string, string][] 
   );
 }
 
-export function Shell({ lang, slug, children, design = {} }: { lang: Lang; slug: string; children: React.ReactNode; design?: Partial<DbDesign> }) {
+export function Shell({ lang, slug, children, design = {}, menu = MENU, footerCats = CATEGORIES }: {
+  lang: Lang; slug: string; children: React.ReactNode; design?: Partial<DbDesign>; menu?: Category[]; footerCats?: Category[];
+}) {
   const t = T[lang];
   const other: Lang = lang === "ar" ? "en" : "ar";
   const brand = lang === "ar" ? C.brand_ar : C.brand_en;
@@ -93,7 +95,7 @@ export function Shell({ lang, slug, children, design = {} }: { lang: Lang; slug:
           </Link>
           <MenuButton />
           <nav id="nav" className="nav">
-            {MENU.map((c) => <Link key={c.slug} href={upath(lang, c.slug)}>{c[lang].nav}</Link>)}
+            {menu.map((c) => <Link key={c.slug} href={upath(lang, c.slug)}>{c[lang].nav}</Link>)}
             <Link className="hot" href={upath(lang, "offers")}>{t.offers}</Link>
             <Link href={upath(lang, "account")}>{t.account}</Link>
             <Link className="lang" hrefLang={other} href={upath(other, switchSlug)}>{t.other}</Link>
@@ -112,7 +114,7 @@ export function Shell({ lang, slug, children, design = {} }: { lang: Lang; slug:
           <div>
             <b>{t.products}</b>
             <ul>
-              {CATEGORIES.map((c) => <li key={c.slug}><Link href={upath(lang, c.slug)}>{c[lang].nav}</Link></li>)}
+              {footerCats.map((c) => <li key={c.slug}><Link href={upath(lang, c.slug)}>{c[lang].nav}</Link></li>)}
               <li><Link href={upath(lang, "offers")}>{t.offers}</Link></li>
               <li><Link href={upath(lang, "calculator")}>{t.calc}</Link></li>
               {lang === "ar" && <li><Link href="/guides/">{t.guides}</Link></li>}

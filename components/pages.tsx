@@ -2,7 +2,8 @@ import { catArt, prodArt } from "@/lib/art";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { C, CATEGORIES, CONTENT_UPDATED, D, GOVS, PRICES_MIN, T, TOP, bySlug, upath, waLink, type Lang } from "@/lib/content";
+import { C, CONTENT_UPDATED, D, GOVS, PRICES_MIN, T, upath, waLink, type Lang } from "@/lib/content";
+import { getSiteCats, type SiteCats } from "@/lib/cats";
 import { GUIDES, guideBySlug, type Guide } from "@/lib/guides";
 import Calculator from "./calculator";
 import { getCategoryMedia, getDesign, getOffers, getPricedProducts, getProducts, type DbDesign } from "@/lib/db";
@@ -10,11 +11,10 @@ import { CatCards, Crumbs, Faq, Icon, JsonLd, Shell, money, orgSchema } from "./
 import QuoteForm from "./quote-form";
 import Partners from "./partners";
 
-const OPTIONS = (lang: Lang) => CATEGORIES.map((c) => c[lang].nav);
-
-function Quote({ lang, preset }: { lang: Lang; preset?: string }) {
+async function Quote({ lang, preset }: { lang: Lang; preset?: string }) {
   const t = T[lang];
-  return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow, f_company: t.f_company, f_ctype: t.f_ctype, ctypes: t.ctypes, f_map: t.f_map, f_map_btn: t.f_map_btn, f_map_ph: t.f_map_ph, f_map_ok: t.f_map_ok, f_map_err: t.f_map_err, f_prefill: t.f_prefill, f_more: t.f_more }} options={OPTIONS(lang)} preset={preset} wa={C.whatsapp} />;
+  const options = (await getSiteCats())[lang].all.map((c) => c[lang].nav);
+  return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow, f_company: t.f_company, f_ctype: t.f_ctype, ctypes: t.ctypes, f_map: t.f_map, f_map_btn: t.f_map_btn, f_map_ph: t.f_map_ph, f_map_ok: t.f_map_ok, f_map_err: t.f_map_err, f_prefill: t.f_prefill, f_more: t.f_more }} options={options} preset={preset} wa={C.whatsapp} />;
 }
 
 function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false, arOnly = false): Metadata {
@@ -46,9 +46,17 @@ export function pageMeta(lang: Lang, parts: string[] = []): Metadata {
     const g = guideBySlug(parts[1]);
     if (g) return metaFor(lang, slug, g.title, g.desc, false, true);
   }
-  const c = bySlug(slug);
-  if (!c) return { title: t.nf_title, robots: { index: false } };
-  return metaFor(lang, slug, c[lang].title, c[lang].desc);
+  return { title: t.nf_title, robots: { index: false } };
+}
+
+// Metadata for any [...slug] page: fixed pages first, then sections (built-in or added in the admin panel).
+export async function sitePageMeta(lang: Lang, parts: string[] = []): Promise<Metadata> {
+  const slug = parts.join("/");
+  if (lang === "ar" && slug === "prices") return pricesMeta();
+  const cats = await getSiteCats();
+  const c = cats.by(slug, lang);
+  if (c) return metaFor(lang, slug, c[lang].title, c[lang].desc, false, !cats.en.all.some((x) => x.slug === slug));
+  return pageMeta(lang, parts);
 }
 
 // The prices page is noindex until at least PRICES_MIN prices are published from the admin panel,
@@ -62,25 +70,27 @@ export async function pricesMeta(): Promise<Metadata> {
 export async function SitePage({ lang, parts = [] }: { lang: Lang; parts?: string[] }) {
   const slug = parts.join("/");
   const design = await getDesign();
+  const cats = await getSiteCats();
+  const view = cats[lang];
   let body: React.ReactNode;
-  if (!slug) body = await Home({ lang, design });
-  else if (slug === "about") body = <About lang={lang} design={design} />;
+  if (!slug) body = await Home({ lang, design, cats });
+  else if (slug === "about") body = <About lang={lang} design={design} cats={cats} />;
   else if (slug === "contact") body = <Contact lang={lang} />;
   else if (slug === "offers") body = await Offers({ lang });
-  else if (slug === "suppliers") body = <Suppliers lang={lang} />;
-  else if (slug === "calculator") body = <CalcPage lang={lang} />;
+  else if (slug === "suppliers") body = <Suppliers lang={lang} cats={cats} />;
+  else if (slug === "calculator") body = <CalcPage lang={lang} cats={cats} />;
   else if (lang === "ar" && slug === "guides") body = <GuidesIndex />;
-  else if (lang === "ar" && slug === "prices") body = await PricesPage();
-  else if (lang === "ar" && slug.startsWith("guides/") && guideBySlug(parts[1])) body = <GuidePage g={guideBySlug(parts[1])!} />;
+  else if (lang === "ar" && slug === "prices") body = await PricesPage(cats);
+  else if (lang === "ar" && slug.startsWith("guides/") && guideBySlug(parts[1])) body = <GuidePage g={guideBySlug(parts[1])!} cats={cats} />;
   else {
-    const c = bySlug(slug);
-    if (!c) notFound();
-    body = await CategoryPage({ lang, slug });
+    if (!cats.by(slug, lang)) notFound();
+    body = await CategoryPage({ lang, slug, cats });
   }
-  return <Shell lang={lang} slug={slug} design={design}>{body}</Shell>;
+  return <Shell lang={lang} slug={slug} design={design} menu={view.menu} footerCats={view.all}>{body}</Shell>;
 }
 
-async function Home({ lang, design }: { lang: Lang; design: Partial<DbDesign> }) {
+async function Home({ lang, design, cats }: { lang: Lang; design: Partial<DbDesign>; cats: SiteCats }) {
+  const TOP = cats[lang].top;
   const t = T[lang];
   const media = await getCategoryMedia();
   const offers = design.show_offers === false ? [] : (await getOffers()).slice(0, 3);
@@ -89,7 +99,7 @@ async function Home({ lang, design }: { lang: Lang; design: Partial<DbDesign> })
   // hero collage: admin images first, then the category image (admin upload or built-in art)
   const heroImgs = (["cement", "doors", "ceramics", "ideal-standard"] as const).map((s, i) =>
     (design as Record<string, string | null | undefined>)[`hero_img_${i + 1}`] || media[s]?.image_url || catArt(s));
-  const faqs = TOP.map((c) => c[lang].faq[0]);
+  const faqs = TOP.map((c) => c[lang].faq[0]).filter(Boolean);
   const site = { "@context": "https://schema.org", "@type": "WebSite", "@id": D + "/#website", url: D + upath(lang), name: lang === "ar" ? C.brand_ar : C.brand_en, inLanguage: lang + "-EG", publisher: { "@id": D + "/#business" } };
   return (
     <>
@@ -150,10 +160,10 @@ function GuidesIndex() {
   );
 }
 
-function GuidePage({ g }: { g: Guide }) {
+function GuidePage({ g, cats: sc }: { g: Guide; cats: SiteCats }) {
   const t = T.ar;
   const url = D + `/guides/${g.slug}/`;
-  const cats = g.related.map((s) => bySlug(s)).filter(Boolean) as NonNullable<ReturnType<typeof bySlug>>[];
+  const cats = g.related.map((s) => sc.by(s)).filter((c): c is NonNullable<typeof c> => Boolean(c));
   const article = {
     "@context": "https://schema.org", "@type": "Article", headline: g.h1, description: g.desc, inLanguage: "ar-EG",
     datePublished: g.published, dateModified: g.updated, mainEntityOfPage: url, image: D + "/assets/og.png",
@@ -197,8 +207,9 @@ const PRICES_FAQ: [string, string][] = [
   ["إزاي أعرف الكمية اللي محتاجها؟", "استخدم حاسبة مواد البناء المجانية لحساب شكاير الأسمنت وعدد الطوب وأمتار السيراميك، وبعدها اطلب السعر على الكمية."],
 ];
 
-async function PricesPage() {
+async function PricesPage(sc: SiteCats) {
   const t = T.ar;
+  const TOP = sc.ar.top, bySlug = (s: string) => sc.by(s);
   const rows = await getPricedProducts();
   const latest = rows.reduce((m, r) => (r.updated_at > m ? r.updated_at : m), "");
   const updated = latest ? latest.slice(0, 10) : CONTENT_UPDATED;
@@ -256,8 +267,9 @@ async function PricesPage() {
   );
 }
 
-function CalcPage({ lang }: { lang: Lang }) {
+function CalcPage({ lang, cats }: { lang: Lang; cats: SiteCats }) {
   const t = T[lang];
+  const TOP = cats[lang].top;
   const app = { "@context": "https://schema.org", "@type": "WebApplication", name: t.calc_h, url: D + upath(lang, "calculator"), applicationCategory: "UtilitiesApplication", operatingSystem: "Any", inLanguage: lang + "-EG",
     offers: { "@type": "Offer", price: 0, priceCurrency: "EGP" }, publisher: { "@id": D + "/#business" } };
   return (
@@ -273,8 +285,9 @@ function CalcPage({ lang }: { lang: Lang }) {
   );
 }
 
-function About({ lang, design }: { lang: Lang; design: Partial<DbDesign> }) {
+function About({ lang, design, cats }: { lang: Lang; design: Partial<DbDesign>; cats: SiteCats }) {
   const t = T[lang];
+  const TOP = cats[lang].top;
   return (
     <>
       <Crumbs lang={lang} items={[[t.about, "about"]]} />
@@ -346,8 +359,9 @@ async function Offers({ lang }: { lang: Lang }) {
   );
 }
 
-function Suppliers({ lang }: { lang: Lang }) {
+function Suppliers({ lang, cats }: { lang: Lang; cats: SiteCats }) {
   const t = T[lang];
+  const TOP = cats[lang].top;
   const steps = String(t.sup_steps).split("|");
   return (
     <>
@@ -360,14 +374,16 @@ function Suppliers({ lang }: { lang: Lang }) {
   );
 }
 
-async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
+async function CategoryPage({ lang, slug, cats }: { lang: Lang; slug: string; cats: SiteCats }) {
   const t = T[lang];
-  const c = bySlug(slug)!;
+  const TOP = cats[lang].top;
+  const c = cats.by(slug, lang)!;
   const d = c[lang];
   const crumbs: [string, string][] = [];
-  if (c.parent) { const p = bySlug(c.parent)!; crumbs.push([p[lang].nav, p.slug]); }
+  const parent = c.parent ? cats.by(c.parent, lang) : undefined;
+  if (parent) crumbs.push([parent[lang].nav, parent.slug]);
   crumbs.push([d.nav, slug]);
-  const children = CATEGORIES.filter((x) => x.parent === slug);
+  const children = cats[lang].all.filter((x) => x.parent === slug);
   const media = await getCategoryMedia();
   const db = await getProducts(slug);
   type P = { name: string; spec: string; unit: string; image?: string | null; price?: string };
@@ -423,7 +439,7 @@ async function CategoryPage({ lang, slug }: { lang: Lang; slug: string }) {
           ))}
         </div></section>
       )}
-      <section className="wrap prose">{d.body.map(([h, p], i) => <div key={i}><h2>{h}</h2><p>{p}</p></div>)}
+      <section className="wrap prose">{d.body.map(([h, p], i) => <div key={i}>{h && <h2>{h}</h2>}{p && <p>{p}</p>}</div>)}
         {pricesLive && <p className="cta-line"><Link href="/prices/">{t.prices_more}</Link></p>}</section>
       {guides.length > 0 && <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={guides} /></section>}
       <Faq lang={lang} faqs={d.faq} />
