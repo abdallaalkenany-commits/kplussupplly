@@ -35,6 +35,20 @@ export async function getPricedProducts(): Promise<DbPricedProduct[]> {
   return error ? [] : (data as DbPricedProduct[]);
 }
 
+export type DbCategoryRow = DbCategory & {
+  hidden?: boolean; custom?: boolean; parent?: string | null; sort?: number; menu?: boolean; icon?: string | null;
+  nav_ar?: string | null; nav_en?: string | null; h1_ar?: string | null; h1_en?: string | null;
+  title_ar?: string | null; title_en?: string | null; desc_ar?: string | null; desc_en?: string | null;
+  lead_ar?: string | null; lead_en?: string | null; body_ar?: string | null; body_en?: string | null;
+};
+
+// All section rows (image/icon overrides, hidden flags and admin-added sections).
+export async function getCategoryRows(): Promise<DbCategoryRow[]> {
+  if (!pub) return [];
+  const { data, error } = await pub.from("categories").select("*");
+  return error ? [] : (data as DbCategoryRow[]);
+}
+
 export type DbPartner = { id: number; kind: "client" | "brand"; name_ar: string; name_en: string | null; logo_url: string; website: string | null };
 
 // Partner logos managed from /admin/partners/. Null = table missing or empty, so callers use the built-in list.
