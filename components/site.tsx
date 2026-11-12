@@ -34,6 +34,11 @@ export function orgSchema(lang: Lang) {
     "@context": "https://schema.org", "@type": ["HomeAndConstructionBusiness", "Store"], "@id": D + "/#business",
     name: C.brand_en, alternateName: [C.brand_ar, C.legal_ar, C.legal_en, "KPLUS", "كي بلاس", "K Plus Supply"], legalName: C.legal_en,
     slogan: "Key to better supply",
+    description: lang === "ar"
+      ? "كي بلس للتوريدات العمومية: مورد وموزع مواد بناء وتشطيبات في مصر للمقاولين والمطورين العقاريين والأفراد — أسمنت، طوب أسمنتي، أبواب خشب وWPC ومقاومة للحريق، أدوات صحية إيديال ستاندرد، سيراميك، أرضيات WPC وأدوات كهربائية، مع توريد لكل محافظات مصر."
+      : "K Plus General Supply is a building materials and finishing supplier in Egypt for contractors, developers and homeowners: cement, cement bricks, wooden, WPC and fire-rated doors, Ideal Standard sanitary ware, ceramics, WPC decking and electrical supplies, delivered across Egypt.",
+    foundingDate: C.founded,
+    knowsAbout: ["Cement supply", "Cement bricks", "Wooden doors", "WPC doors", "Fire-rated doors", "Sanitary ware", "Ceramic tiles", "WPC decking", "Building materials supply in Egypt", "توريد أسمنت", "مورد مواد بناء"],
     identifier: [{ "@type": "PropertyValue", name: "Commercial Register", value: C.cr }, { "@type": "PropertyValue", name: "Tax ID", value: C.tax }],
     url: D + "/", logo: D + "/assets/brand/kplus-profile-1080.png", image: D + "/assets/og.png", telephone: C.phone_e164, email: C.email, priceRange: "$$",
     address: { "@type": "PostalAddress", streetAddress: lang === "ar" ? C.street_ar : C.street_en, addressLocality: C.city, addressRegion: C.region, addressCountry: "EG" },
