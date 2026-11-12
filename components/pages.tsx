@@ -18,16 +18,18 @@ async function Quote({ lang, preset }: { lang: Lang; preset?: string }) {
   return <QuoteForm lang={lang} t={{ f_name: t.f_name, f_phone: t.f_phone, f_cat: t.f_cat, f_qty: t.f_qty, f_loc: t.f_loc, f_note: t.f_note, f_send: t.f_send, f_hint: t.f_hint, form_h: t.form_h, wa_msg: t.wa_msg, ok: t.ok, err: t.err, q_send: t.q_send, q_hint: t.q_hint, wa_follow: t.wa_follow, f_company: t.f_company, f_ctype: t.f_ctype, ctypes: t.ctypes, f_map: t.f_map, f_map_btn: t.f_map_btn, f_map_ph: t.f_map_ph, f_map_ok: t.f_map_ok, f_map_err: t.f_map_err, f_prefill: t.f_prefill, f_more: t.f_more }} options={options} preset={preset} wa={C.whatsapp} />;
 }
 
-function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false, arOnly = false): Metadata {
+function metaFor(lang: Lang, slug: string, title: string, description: string, noindex = false, arOnly = false, image?: string): Metadata {
   const url = D + upath(lang, slug);
+  // Share/search image: the section's own photo when it has one, else the brand card.
+  const img = image ? (image.startsWith("http") ? image : D + image) : D + "/assets/og.png";
   const languages: Record<string, string> = arOnly
     ? { "ar-EG": D + upath("ar", slug), "x-default": D + upath("ar", slug) }
     : { "ar-EG": D + upath("ar", slug), "en-EG": D + upath("en", slug), "x-default": D + upath("ar", slug) };
   return {
     title: { absolute: title }, description,
     alternates: { canonical: url, languages },
-    openGraph: { type: arOnly && slug.startsWith("guides/") ? "article" : "website", siteName: lang === "ar" ? C.brand_ar : C.brand_en, locale: lang === "ar" ? "ar_EG" : "en_US", title, description, url, images: [D + "/assets/og.png"] },
-    twitter: { card: "summary_large_image" },
+    openGraph: { type: arOnly && slug.startsWith("guides/") ? "article" : "website", siteName: lang === "ar" ? C.brand_ar : C.brand_en, locale: lang === "ar" ? "ar_EG" : "en_US", title, description, url, images: [img] },
+    twitter: { card: "summary_large_image", images: [img] },
     robots: noindex ? { index: false } : { index: true, follow: true, "max-image-preview": "large" },
   };
 }
@@ -56,7 +58,11 @@ export async function sitePageMeta(lang: Lang, parts: string[] = []): Promise<Me
   if (lang === "ar" && slug === "prices") return pricesMeta();
   const cats = await getSiteCats();
   const c = cats.by(slug, lang);
-  if (c) return metaFor(lang, slug, c[lang].title, c[lang].desc, false, !cats.en.all.some((x) => x.slug === slug));
+  if (c) {
+    const media = await getCategoryMedia();
+    const image = media[slug]?.image_url || catArt(slug);
+    return metaFor(lang, slug, c[lang].title, c[lang].desc, false, !cats.en.all.some((x) => x.slug === slug), image);
+  }
   return pageMeta(lang, parts);
 }
 
