@@ -85,3 +85,4 @@ input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{out
 .colorf{display:flex;gap:8px;align-items:center}.colorf input[type=color]{width:46px;height:38px;padding:2px;border:1px solid var(--line);border-radius:8px;background:#fff}.colorf input[dir=ltr]{max-width:140px}
 .hint{display:block;font-weight:400;color:#6b7280;font-size:12.5px}
 .swatch{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid #ccc;vertical-align:middle}
+.catcard.off{opacity:.55}.catcard .pill{align-self:flex-start}
