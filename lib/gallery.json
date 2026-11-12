@@ -1,112 +1,112 @@
 {
  "doors": {
-  "title_ar": "موديلات أوجه الأبواب المتاحة",
-  "title_en": "Available door face models",
-  "note_ar": "صور حقيقية لموديلات أوجه الأبواب اللي بنوردها. اختار الموديل واطلب سعره بالكود، والمقاسات والألوان حسب طلبك.",
-  "note_en": "Real photos of the door face models we supply. Pick a model and ask for its price by code; sizes and colours to order.",
+  "title_ar": "موديلات أبواب خشب داخلية للشقق",
+  "title_en": "Wooden interior door models for apartments",
+  "note_ar": "صور حقيقية لموديلات أبواب الخشب والميلامين اللي بنوردها للشقق والمشروعات، بالحلق والبرور. اختار الموديل واطلب سعر الباب بالكود، والمقاسات والألوان حسب طلبك.",
+  "note_en": "Real photos of the wooden and melamine interior doors we supply for apartments and projects, with frame and architrave. Pick a model and ask for the door price by code; sizes and colours to order.",
   "items": [
    {
     "src": "/img/g/door-207.webp",
     "w": 845,
     "h": 1757,
-    "ar": "وش باب 2 قائم",
-    "en": "2-stile door face",
+    "ar": "باب خشب داخلي 2 قائم",
+    "en": "2-stile wooden interior door",
     "code": "207"
    },
    {
     "src": "/img/g/door-608.webp",
     "w": 802,
     "h": 1757,
-    "ar": "وش باب 4 خط",
-    "en": "4-line door face",
+    "ar": "باب خشب 4 خط",
+    "en": "4-groove wooden interior door",
     "code": "608"
    },
    {
     "src": "/img/g/door-508.webp",
     "w": 987,
     "h": 1757,
-    "ar": "وش باب تصميم CNC",
-    "en": "CNC design door face",
+    "ar": "باب خشب حفر CNC",
+    "en": "CNC-routed wooden door",
     "code": "508"
    },
    {
     "src": "/img/g/door-910.webp",
     "w": 835,
     "h": 1757,
-    "ar": "وش باب أوكراني",
-    "en": "Ukrainian-style door face",
+    "ar": "باب خشب أوكراني",
+    "en": "Ukrainian-style wooden door",
     "code": "910"
    },
    {
     "src": "/img/g/door-2189s.webp",
     "w": 783,
     "h": 1757,
-    "ar": "وش باب تصميم إيطالي",
-    "en": "Italian-design door face",
+    "ar": "باب خشب تصميم إيطالي",
+    "en": "Italian-design wooden door",
     "code": "2189S"
    },
    {
     "src": "/img/g/door-5016.webp",
     "w": 925,
     "h": 1757,
-    "ar": "وش باب ميلامين استانلس",
-    "en": "Melamine door face with steel inlay",
+    "ar": "باب ميلامين بشريط استانلس",
+    "en": "Melamine door with stainless steel inlay",
     "code": "5016"
    }
   ]
  },
  "doors/wooden": {
-  "title_ar": "موديلات أوجه الأبواب المتاحة",
-  "title_en": "Available door face models",
-  "note_ar": "صور حقيقية لموديلات أوجه الأبواب اللي بنوردها. اختار الموديل واطلب سعره بالكود، والمقاسات والألوان حسب طلبك.",
-  "note_en": "Real photos of the door face models we supply. Pick a model and ask for its price by code; sizes and colours to order.",
+  "title_ar": "موديلات أبواب خشب داخلية للشقق",
+  "title_en": "Wooden interior door models for apartments",
+  "note_ar": "صور حقيقية لموديلات أبواب الخشب والميلامين اللي بنوردها للشقق والمشروعات، بالحلق والبرور. اختار الموديل واطلب سعر الباب بالكود، والمقاسات والألوان حسب طلبك.",
+  "note_en": "Real photos of the wooden and melamine interior doors we supply for apartments and projects, with frame and architrave. Pick a model and ask for the door price by code; sizes and colours to order.",
   "items": [
    {
     "src": "/img/g/door-207.webp",
     "w": 845,
     "h": 1757,
-    "ar": "وش باب 2 قائم",
-    "en": "2-stile door face",
+    "ar": "باب خشب داخلي 2 قائم",
+    "en": "2-stile wooden interior door",
     "code": "207"
    },
    {
     "src": "/img/g/door-608.webp",
     "w": 802,
     "h": 1757,
-    "ar": "وش باب 4 خط",
-    "en": "4-line door face",
+    "ar": "باب خشب 4 خط",
+    "en": "4-groove wooden interior door",
     "code": "608"
    },
    {
     "src": "/img/g/door-508.webp",
     "w": 987,
     "h": 1757,
-    "ar": "وش باب تصميم CNC",
-    "en": "CNC design door face",
+    "ar": "باب خشب حفر CNC",
+    "en": "CNC-routed wooden door",
     "code": "508"
    },
    {
     "src": "/img/g/door-910.webp",
     "w": 835,
     "h": 1757,
-    "ar": "وش باب أوكراني",
-    "en": "Ukrainian-style door face",
+    "ar": "باب خشب أوكراني",
+    "en": "Ukrainian-style wooden door",
     "code": "910"
    },
    {
     "src": "/img/g/door-2189s.webp",
     "w": 783,
     "h": 1757,
-    "ar": "وش باب تصميم إيطالي",
-    "en": "Italian-design door face",
+    "ar": "باب خشب تصميم إيطالي",
+    "en": "Italian-design wooden door",
     "code": "2189S"
    },
    {
     "src": "/img/g/door-5016.webp",
     "w": 925,
     "h": 1757,
-    "ar": "وش باب ميلامين استانلس",
-    "en": "Melamine door face with steel inlay",
+    "ar": "باب ميلامين بشريط استانلس",
+    "en": "Melamine door with stainless steel inlay",
     "code": "5016"
    }
   ]
