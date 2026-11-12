@@ -260,9 +260,10 @@ function SupplierDocs({ row }: { row: any }) {
 
 /* ---------------- products ---------------- */
 export function Products() {
+  const catOpts = useCatOpts();
   const fields: Field[] = [
     { key: "image_url", label: "الصورة", type: "image", list: true },
-    { key: "category", label: "القسم", type: "select", options: CAT_OPTS, required: true, list: true },
+    { key: "category", label: "القسم", type: "select", options: catOpts, required: true, list: true },
     { key: "name_ar", label: "الاسم بالعربي", required: true, list: true }, { key: "name_en", label: "الاسم بالإنجليزي", ltr: true },
     { key: "spec_ar", label: "المواصفات بالعربي", type: "textarea" }, { key: "spec_en", label: "المواصفات بالإنجليزي", type: "textarea" },
     { key: "unit_ar", label: "الوحدة بالعربي", list: true }, { key: "unit_en", label: "الوحدة بالإنجليزي", ltr: true },
@@ -273,19 +274,20 @@ export function Products() {
     <>
       <p className="tip">أي تعديل هنا بيظهر على الموقع خلال 5 دقايق. لو قسم مفيهوش منتجات هنا، الموقع بيعرض المنتجات الافتراضية.</p>
       <Crud table="products" title="منتج" fields={fields} order="category" asc newRow={{ active: true, show_price: false, sort: 100 }} folder="products" csvName="products"
-        filters={{ key: "category", options: CAT_OPTS }} />
+        filters={{ key: "category", options: catOpts }} />
     </>
   );
 }
 
 /* ---------------- offers ---------------- */
 export function Offers() {
+  const catOpts = useCatOpts();
   const fields: Field[] = [
     { key: "image_url", label: "صورة العرض", type: "image", list: true },
     { key: "title_ar", label: "عنوان العرض بالعربي", required: true, list: true }, { key: "title_en", label: "العنوان بالإنجليزي", ltr: true },
     { key: "discount_label", label: "شارة الخصم (مثال: خصم 10%)", list: true },
     { key: "body_ar", label: "التفاصيل بالعربي", type: "textarea" }, { key: "body_en", label: "التفاصيل بالإنجليزي", type: "textarea" },
-    { key: "category", label: "القسم", type: "select", options: CAT_OPTS },
+    { key: "category", label: "القسم", type: "select", options: catOpts },
     { key: "old_price", label: "السعر قبل الخصم", type: "number" }, { key: "new_price", label: "السعر بعد الخصم", type: "number", list: true },
     { key: "unit_ar", label: "الوحدة بالعربي" }, { key: "unit_en", label: "الوحدة بالإنجليزي", ltr: true },
     { key: "starts_on", label: "يبدأ من", type: "date" }, { key: "ends_on", label: "ينتهي في", type: "date", list: true },
@@ -299,34 +301,126 @@ export function Offers() {
   );
 }
 
-/* ---------------- category icons/images ---------------- */
+/* ---------------- website sections: images/icons, hide built-in, add/delete new ---------------- */
+const RESERVED = ["about", "contact", "offers", "suppliers", "calculator", "guides", "prices", "account", "admin", "en", "assets", "img"];
+
+// section options for product/offer forms: built-in sections + sections added in the admin panel
+function useCatOpts() {
+  const [opts, setOpts] = useState<[string, string][]>(CAT_OPTS);
+  useEffect(() => {
+    sb().from("categories").select("slug,nav_ar,hidden").eq("custom", true).then(({ data, error }: any) => {
+      if (!error && data?.length) setOpts([...CAT_OPTS, ...data.map((r: any) => [r.slug, r.nav_ar + (r.hidden ? " (مخفي)" : "")] as [string, string])]);
+    });
+  }, []);
+  return opts;
+}
+
 export function Categories() {
   const [rows, setRows] = useState<Record<string, any>>({});
   const [edit, setEdit] = useState<any>(null);
-  const load = () => sb().from("categories").select("*").then(({ data }: any) => { const m: any = {}; (data || []).forEach((r: any) => (m[r.slug] = r)); setRows(m); });
+  const [confirmDel, setConfirmDel] = useState(false);
+  const [ready, setReady] = useState(true);
+  const load = () => sb().from("categories").select("*").then(({ data }: any) => {
+    const m: any = {}; (data || []).forEach((r: any) => (m[r.slug] = r)); setRows(m);
+    // the "hidden"/"custom" columns come from supabase/007_categories_manage.sql
+    setReady(!(data || []).length || "custom" in (data || [])[0]);
+  });
   useEffect(() => { load(); }, []);
-  const fields: Field[] = [{ key: "icon_url", label: "الأيقونة (مربعة، PNG أو SVG)", type: "image" }, { key: "image_url", label: "صورة القسم", type: "image" }];
+  const custom = Object.values(rows).filter((r: any) => r.custom).sort((a: any, b: any) => (a.sort ?? 100) - (b.sort ?? 100));
+  const parents: [string, string][] = [...TOP.map((c) => [c.slug, c.ar.nav] as [string, string]), ...custom.filter((r: any) => !r.parent).map((r: any) => [r.slug, r.nav_ar] as [string, string])];
+
+  const imgFields: Field[] = [
+    { key: "icon_url", label: "الأيقونة (مربعة، PNG أو SVG)", type: "image" }, { key: "image_url", label: "صورة القسم", type: "image" },
+  ];
+  const builtInFields: Field[] = [{ key: "hidden", label: "إخفاء القسم من الموقع (القائمة والصفحة الرئيسية والفوتر، وصفحته بتقفل)", type: "bool" }, ...imgFields];
+  const customFields = (isNew: boolean): Field[] => [
+    { key: "nav_ar", label: "اسم القسم (عربي)", required: true },
+    isNew ? { key: "slug_part", label: "رابط القسم بالإنجليزي (حروف صغيرة وأرقام وشرطة، مثلاً upvc-doors)", ltr: true, required: true }
+      : { key: "slug", label: "رابط القسم", readonly: true },
+    isNew ? { key: "parent", label: "تابع لقسم (اختياري: سيبه فاضي لو قسم رئيسي)", type: "select", options: parents }
+      : { key: "parent", label: "تابع لقسم", type: "select", options: parents, readonly: true },
+    { key: "hidden", label: "مخفي (مش ظاهر على الموقع)", type: "bool" },
+    { key: "menu", label: "يظهر في القائمة العلوية (للأقسام الرئيسية)", type: "bool" },
+    { key: "sort", label: "الترتيب (الأصغر الأول)", type: "number" },
+    ...imgFields,
+    { key: "h1_ar", label: "العنوان الكبير في الصفحة (عربي)" },
+    { key: "lead_ar", label: "المقدمة (عربي)", type: "textarea" },
+    { key: "body_ar", label: "محتوى الصفحة (عربي): افصل الفقرات بسطر فاضي، وابدأ العنوان الفرعي بـ #", type: "textarea" },
+    { key: "title_ar", label: "عنوان جوجل (SEO) — حوالي 60 حرف" },
+    { key: "desc_ar", label: "وصف جوجل (SEO) — حوالي 155 حرف", type: "textarea" },
+    { key: "nav_en", label: "Section name (English) — لو فاضي القسم مش هيظهر في النسخة الإنجليزي", ltr: true },
+    { key: "h1_en", label: "Page heading (English)", ltr: true }, { key: "lead_en", label: "Intro (English)", type: "textarea" },
+    { key: "body_en", label: "Page content (English)", type: "textarea" },
+    { key: "title_en", label: "Google title (English)", ltr: true }, { key: "desc_en", label: "Google description (English)", type: "textarea" },
+  ];
+
   async function save(r: any) {
-    const { error } = await sb().from("categories").upsert({ slug: edit.slug, ...r });
-    if (error) return error.message;
+    const client = sb();
+    if (edit.__builtin) {
+      const { error } = await client.from("categories").upsert({ slug: edit.slug, hidden: r.hidden, icon_url: r.icon_url, image_url: r.image_url });
+      if (error) return error.message;
+    } else if (edit.__new) {
+      const part = String(r.slug_part || "").trim().toLowerCase();
+      if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(part)) return "الرابط لازم يكون حروف إنجليزي صغيرة وأرقام وشرطة بس، مثلاً upvc-doors.";
+      const slug = r.parent ? `${r.parent}/${part}` : part;
+      if (RESERVED.includes(part) || CATEGORIES.some((c) => c.slug === slug) || rows[slug]) return "الرابط ده مستخدم قبل كده، اختار رابط تاني.";
+      const { slug_part, ...rest } = r;
+      const { error } = await client.from("categories").insert({ ...rest, slug, custom: true, parent: r.parent || null, sort: r.sort ?? 100, menu: r.menu ?? true });
+      if (error) return error.message;
+    } else {
+      const { slug, parent, ...rest } = r;
+      const { error } = await client.from("categories").update(rest).eq("slug", edit.slug);
+      if (error) return error.message;
+    }
     setEdit(null); load(); return null;
   }
+  async function del() {
+    if (custom.some((r: any) => r.parent === edit.slug)) { alert("القسم ده تحته أقسام فرعية. امسحها أو انقلها الأول."); return; }
+    if (!confirmDel) { setConfirmDel(true); return; }
+    await sb().from("categories").delete().eq("slug", edit.slug);
+    setConfirmDel(false); setEdit(null); load();
+  }
+  const open = (row: any) => { setConfirmDel(false); setEdit(row); };
+  const status = (r: any) => <span className={"pill " + (r.hidden ? "s-lost" : "s-won")}>{r.hidden ? "مخفي" : "ظاهر"}</span>;
+
   return (
     <>
-      <p className="tip">لو مرفعتش صورة أو أيقونة لقسم، الموقع بيستخدم الصورة والأيقونة الافتراضية (اللي ظاهرة هنا).</p>
+      {!ready && <p className="err">لإضافة وإخفاء الأقسام لازم يتشغل ملف supabase/007_categories_manage.sql مرة واحدة في Supabase. تعديل الصور والأيقونات شغال عادي.</p>}
+      <p className="tip">اضغط على أي قسم لتعديل صورته وأيقونته أو إخفائه. الأقسام الأساسية مكتوب محتواها في الموقع فينفع تخفيها بس، والأقسام اللي بتضيفها انت تقدر تعدّل كل نصوصها أو تمسحها. التعديلات بتظهر خلال 5 دقايق. <b>تنبيه:</b> إخفاء قسم بيقفل صفحته، فلو جوجل كان مفهرسها هتطلع "مش موجودة".</p>
+      <div className="toolbar"><b>الأقسام الأساسية</b><span className="count">{CATEGORIES.length} قسم</span></div>
       <div className="catgrid">
         {CATEGORIES.map((c) => {
           const r = rows[c.slug] || {};
           return (
-            <button key={c.slug} className="catcard" onClick={() => setEdit({ slug: c.slug, ...r })}>
+            <button key={c.slug} className={"catcard" + (r.hidden ? " off" : "")} onClick={() => open({ slug: c.slug, hidden: false, ...r, __builtin: true })}>
               {r.image_url ? <img src={r.image_url} alt="" className="cimg" /> : catArt(c.slug) ? <img src={catArt(c.slug)} alt="" className="cimg" title="الصورة الافتراضية" /> : <div className="cimg ph">بدون صورة</div>}
               <span className="ic">{r.icon_url ? <img src={r.icon_url} alt="" /> : "—"}</span>
-              <b>{c.ar.nav}</b><small dir="ltr">/{c.slug}/</small>
+              <b>{c.ar.nav}</b><small dir="ltr">/{c.slug}/</small>{status(r)}
             </button>
           );
         })}
       </div>
-      {edit && <><div className="scrim" onClick={() => setEdit(null)} /><Editor fields={fields} row={edit} folder="categories" onSave={save} onCancel={() => setEdit(null)} /></>}
+      <div className="toolbar" style={{ marginTop: 22 }}>
+        <b>أقسام أضفتها</b><span className="count">{custom.length} قسم</span>
+        <button className="abtn primary" disabled={!ready} onClick={() => open({ __new: true, menu: true, hidden: false, sort: 100 })}>+ إضافة قسم جديد</button>
+      </div>
+      {custom.length === 0 ? <p className="emptyst">لسه مفيش أقسام مضافة.</p> : (
+        <div className="catgrid">
+          {custom.map((r: any) => (
+            <button key={r.slug} className={"catcard" + (r.hidden ? " off" : "")} onClick={() => open({ ...r })}>
+              {r.image_url ? <img src={r.image_url} alt="" className="cimg" /> : <div className="cimg ph">بدون صورة</div>}
+              <span className="ic">{r.icon_url ? <img src={r.icon_url} alt="" /> : "—"}</span>
+              <b>{r.nav_ar}</b><small dir="ltr">/{r.slug}/</small>{status(r)}
+            </button>
+          ))}
+        </div>
+      )}
+      {edit && <><div className="scrim" onClick={() => setEdit(null)} />
+        <Editor key={edit.slug || "new"} fields={edit.__builtin ? builtInFields : customFields(Boolean(edit.__new))} row={edit} folder="categories" onSave={save} onCancel={() => setEdit(null)}
+          onDelete={!edit.__builtin && !edit.__new ? del : undefined}
+          extra={<>{confirmDel && <p className="err">دوس "حذف" تاني للتأكيد. المنتجات اللي في القسم ده مش هتتمسح، بس مش هتظهر لحد ما تنقلها لقسم تاني.</p>}
+            {!edit.__new && <a className="abtn" href={`/${edit.slug}/`} target="_blank" rel="noopener">فتح صفحة القسم</a>}</>} />
+      </>}
     </>
   );
 }
