@@ -661,6 +661,21 @@
       "باب WPC مقاوم للمياه",
       "للحمامات والمطابخ — لا يتأثر بالرطوبة",
       "باب"
+     ],
+     [
+      "باب مدخل خشب حفر كلاسيك",
+      "حفر CNC ويدوي بالحلق والكرانيش — للفيلات والمداخل",
+      "باب"
+     ],
+     [
+      "باب خشب دبل ضلفة",
+      "للقاعات والمكاتب والمداخل الرئيسية — مقاسات حسب الطلب",
+      "باب"
+     ],
+     [
+      "أبواب خشب لمشروعات الإسكان",
+      "توريد بالكميات بالحلق — موديل موحد وتسليم على مراحل",
+      "باب"
      ]
     ],
     "faq": [
@@ -725,6 +740,21 @@
      [
       "Water-resistant WPC Door",
       "Bathrooms & kitchens — moisture proof",
+      "door"
+     ],
+     [
+      "Classic carved wooden entrance door",
+      "CNC and hand carving with frame and cornice — villas and entrances",
+      "door"
+     ],
+     [
+      "Double-leaf wooden door",
+      "Halls, offices and main entrances — made to size",
+      "door"
+     ],
+     [
+      "Wooden doors for housing projects",
+      "Bulk supply with frames — one model, phased delivery",
       "door"
      ]
     ],
@@ -1133,6 +1163,11 @@
       "برجولات وأسوار WPC",
       "مظلات وأسوار وبرجولات للحدائق",
       "مشروع"
+     ],
+     [
+      "تجاليد حوائط خشب للمكاتب والقاعات",
+      "قشرة طبيعية أو HPL مع وحدات إضاءة — تصنيع وتركيب",
+      "م²"
      ]
     ],
     "faq": [
@@ -1190,6 +1225,11 @@
       "WPC pergolas and fences",
       "Garden shades, pergolas and fences",
       "project"
+     ],
+     [
+      "Wooden wall cladding for offices and halls",
+      "Natural veneer or HPL with lighting details — made and installed",
+      "m²"
      ]
     ],
     "faq": [
