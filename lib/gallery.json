@@ -1,0 +1,266 @@
+{
+ "doors": {
+  "title_ar": "موديلات أوجه الأبواب المتاحة",
+  "title_en": "Available door face models",
+  "note_ar": "صور حقيقية لموديلات أوجه الأبواب اللي بنوردها. اختار الموديل واطلب سعره بالكود، والمقاسات والألوان حسب طلبك.",
+  "note_en": "Real photos of the door face models we supply. Pick a model and ask for its price by code; sizes and colours to order.",
+  "items": [
+   {
+    "src": "/img/g/door-207.webp",
+    "w": 845,
+    "h": 1757,
+    "ar": "وش باب 2 قائم",
+    "en": "2-stile door face",
+    "code": "207"
+   },
+   {
+    "src": "/img/g/door-608.webp",
+    "w": 802,
+    "h": 1757,
+    "ar": "وش باب 4 خط",
+    "en": "4-line door face",
+    "code": "608"
+   },
+   {
+    "src": "/img/g/door-508.webp",
+    "w": 987,
+    "h": 1757,
+    "ar": "وش باب تصميم CNC",
+    "en": "CNC design door face",
+    "code": "508"
+   },
+   {
+    "src": "/img/g/door-910.webp",
+    "w": 835,
+    "h": 1757,
+    "ar": "وش باب أوكراني",
+    "en": "Ukrainian-style door face",
+    "code": "910"
+   },
+   {
+    "src": "/img/g/door-2189s.webp",
+    "w": 783,
+    "h": 1757,
+    "ar": "وش باب تصميم إيطالي",
+    "en": "Italian-design door face",
+    "code": "2189S"
+   },
+   {
+    "src": "/img/g/door-5016.webp",
+    "w": 925,
+    "h": 1757,
+    "ar": "وش باب ميلامين استانلس",
+    "en": "Melamine door face with steel inlay",
+    "code": "5016"
+   }
+  ]
+ },
+ "doors/wooden": {
+  "title_ar": "موديلات أوجه الأبواب المتاحة",
+  "title_en": "Available door face models",
+  "note_ar": "صور حقيقية لموديلات أوجه الأبواب اللي بنوردها. اختار الموديل واطلب سعره بالكود، والمقاسات والألوان حسب طلبك.",
+  "note_en": "Real photos of the door face models we supply. Pick a model and ask for its price by code; sizes and colours to order.",
+  "items": [
+   {
+    "src": "/img/g/door-207.webp",
+    "w": 845,
+    "h": 1757,
+    "ar": "وش باب 2 قائم",
+    "en": "2-stile door face",
+    "code": "207"
+   },
+   {
+    "src": "/img/g/door-608.webp",
+    "w": 802,
+    "h": 1757,
+    "ar": "وش باب 4 خط",
+    "en": "4-line door face",
+    "code": "608"
+   },
+   {
+    "src": "/img/g/door-508.webp",
+    "w": 987,
+    "h": 1757,
+    "ar": "وش باب تصميم CNC",
+    "en": "CNC design door face",
+    "code": "508"
+   },
+   {
+    "src": "/img/g/door-910.webp",
+    "w": 835,
+    "h": 1757,
+    "ar": "وش باب أوكراني",
+    "en": "Ukrainian-style door face",
+    "code": "910"
+   },
+   {
+    "src": "/img/g/door-2189s.webp",
+    "w": 783,
+    "h": 1757,
+    "ar": "وش باب تصميم إيطالي",
+    "en": "Italian-design door face",
+    "code": "2189S"
+   },
+   {
+    "src": "/img/g/door-5016.webp",
+    "w": 925,
+    "h": 1757,
+    "ar": "وش باب ميلامين استانلس",
+    "en": "Melamine door face with steel inlay",
+    "code": "5016"
+   }
+  ]
+ },
+ "wpc": {
+  "title_ar": "موديلات تجاليد الحوائط الداخلية",
+  "title_en": "Interior wall cladding models",
+  "note_ar": "صور حقيقية لموديلات تجاليد الحوائط المتاحة للتوريد. اطلب سعر أي موديل بالكود، واسألنا عن الخامة والمقاسات.",
+  "note_en": "Real photos of the wall cladding models available for supply. Ask for any model's price by code, plus material and sizes.",
+  "items": [
+   {
+    "src": "/img/g/cladding-a64.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "A64"
+   },
+   {
+    "src": "/img/g/cladding-a84.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "A84"
+   },
+   {
+    "src": "/img/g/cladding-b10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "B10"
+   },
+   {
+    "src": "/img/g/cladding-b59.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "B59"
+   },
+   {
+    "src": "/img/g/cladding-l10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "L10"
+   },
+   {
+    "src": "/img/g/cladding-l64.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "L64"
+   },
+   {
+    "src": "/img/g/cladding-m10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "M10"
+   },
+   {
+    "src": "/img/g/cladding-m64.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "M64"
+   },
+   {
+    "src": "/img/g/cladding-o10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "O10"
+   },
+   {
+    "src": "/img/g/cladding-o84.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "O84"
+   },
+   {
+    "src": "/img/g/cladding-u84.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "U84"
+   },
+   {
+    "src": "/img/g/cladding-u10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "U10"
+   },
+   {
+    "src": "/img/g/cladding-v10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "V10"
+   },
+   {
+    "src": "/img/g/cladding-w10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "W10"
+   },
+   {
+    "src": "/img/g/cladding-x10.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "X10"
+   },
+   {
+    "src": "/img/g/cladding-x64.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "X64"
+   },
+   {
+    "src": "/img/g/cladding-y64.webp",
+    "w": 1000,
+    "h": 1066,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "Y64"
+   },
+   {
+    "src": "/img/g/cladding-z64.webp",
+    "w": 1000,
+    "h": 983,
+    "ar": "تجليد حوائط",
+    "en": "Wall cladding",
+    "code": "Z64"
+   }
+  ]
+ }
+}

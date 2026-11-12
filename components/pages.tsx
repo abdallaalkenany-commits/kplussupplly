@@ -1,4 +1,5 @@
 import { catArt, prodArt } from "@/lib/art";
+import { galleryFor } from "@/lib/gallery";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -411,9 +412,15 @@ async function CategoryPage({ lang, slug, cats }: { lang: Lang; slug: string; ca
         : { "@type": "ListItem", position: i + 1, name: p.name };
     }),
   });
+  const galS = galleryFor(slug);
+  if (galS) schemas.push({
+    "@context": "https://schema.org", "@type": "ImageGallery", name: lang === "ar" ? galS.title_ar : galS.title_en, url: url + "#models",
+    image: galS.items.map((g) => ({ "@type": "ImageObject", contentUrl: D + g.src, name: lang === "ar" ? g.ar : g.en, width: g.w, height: g.h })),
+  });
   const rel = TOP.filter((x) => x.slug !== slug && x.slug !== c.parent).slice(0, 4);
   const guides = lang === "ar" ? GUIDES.filter((g) => g.related.includes(slug) || (c.parent && g.related[0] === c.parent)).slice(0, 3) : [];
   const m = media[slug];
+  const gal = galleryFor(slug);
   const pricesLive = lang === "ar" && (await getPricedProducts()).length >= PRICES_MIN;
   return (
     <>
@@ -438,6 +445,22 @@ async function CategoryPage({ lang, slug, cats }: { lang: Lang; slug: string; ca
             </article>
           ))}
         </div></section>
+      )}
+      {gal && (
+        <section className="wrap" id="models"><h2>{lang === "ar" ? gal.title_ar : gal.title_en}</h2>
+          <p className="lead">{lang === "ar" ? gal.note_ar : gal.note_en}</p>
+          <div className={gal.items.every((g) => g.h > g.w * 1.4) ? "gallery tall" : "gallery"}>
+            {gal.items.map((g, i) => {
+              const name = lang === "ar" ? g.ar : g.en;
+              return (
+                <figure className="gitem" key={i}>
+                  <a href={g.src} target="_blank" rel="noopener"><img src={g.src} alt={`${name}${g.code ? " " + g.code : ""}`} width={g.w} height={g.h} loading="lazy" decoding="async" /></a>
+                  <figcaption><b>{name}</b>{g.code && <small>{lang === "ar" ? "كود" : "Code"} <bdi>{g.code}</bdi></small>}<a className="btn sm" href="#quote" data-quote={`${name}${g.code ? ` (${lang === "ar" ? "كود" : "code"} ${g.code})` : ""}`}>{t.quote}</a></figcaption>
+                </figure>
+              );
+            })}
+          </div>
+        </section>
       )}
       <section className="wrap prose">{d.body.map(([h, p], i) => <div key={i}>{h && <h2>{h}</h2>}{p && <p>{p}</p>}</div>)}
         {pricesLive && <p className="cta-line"><Link href="/prices/">{t.prices_more}</Link></p>}</section>

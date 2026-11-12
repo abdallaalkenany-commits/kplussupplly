@@ -239,3 +239,14 @@ a.card.cat:hover .cimg{transform:scale(1.03)}
 /* admin-uploaded header logo */
 .logo .lcustom{height:48px;width:auto;max-width:240px;object-fit:contain}
 @media (max-width:600px){.logo .lcustom{height:40px;max-width:170px}}
+/* model gallery (real product photos) */
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px}
+.gallery.tall{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+.gitem{margin:0;background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column}
+.gitem img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--bg)}
+.gallery.tall .gitem img{aspect-ratio:1/2}
+.gitem figcaption{display:flex;flex-direction:column;gap:4px;padding:10px 12px 12px;flex:1}
+.gitem figcaption b{color:var(--navy);line-height:1.4}
+.gitem figcaption small{color:var(--muted);font-weight:700}
+.gitem figcaption .btn{margin-top:auto;white-space:nowrap;text-align:center}
+@media (max-width:640px){.gallery,.gallery.tall{grid-template-columns:1fr 1fr;gap:10px}.gitem figcaption{padding:8px}}
