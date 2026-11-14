@@ -167,6 +167,16 @@ function GuidesIndex() {
   );
 }
 
+// Related guides: most shared categories first, then newest, so internal links stay topical.
+function relatedGuides(g: Guide, n = 3) {
+  const score = (x: Guide) => x.related.filter((r) => g.related.includes(r) || g.related.some((gr) => r.startsWith(gr + "/") || gr.startsWith(r + "/"))).length;
+  return GUIDES.filter((x) => x.slug !== g.slug)
+    .map((x) => ({ x, s: score(x) }))
+    .sort((a, b) => b.s - a.s || b.x.published.localeCompare(a.x.published))
+    .slice(0, n)
+    .map((o) => o.x);
+}
+
 function GuidePage({ g, cats: sc }: { g: Guide; cats: SiteCats }) {
   const t = T.ar;
   const url = D + `/guides/${g.slug}/`;
@@ -202,7 +212,7 @@ function GuidePage({ g, cats: sc }: { g: Guide; cats: SiteCats }) {
       {cats.length > 0 && <section className="wrap"><h2>{t.products}</h2><CatCards lang="ar" cats={cats} /></section>}
       <Faq lang="ar" faqs={g.faq} />
       <Quote lang="ar" preset={cats[0]?.ar.nav} />
-      <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={GUIDES.filter((x) => x.slug !== g.slug).slice(0, 3)} /></section>
+      <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={relatedGuides(g)} /></section>
     </>
   );
 }
