@@ -150,6 +150,7 @@ function Dashboard({ lang, profile }: { lang: Lang; profile: Profile }) {
         <div><b>{profile.full_name || profile.email}</b><br /><span className="unit" dir="ltr">{profile.email}</span></div>
         <div className="actions">
           {staff && <a className="btn" href="/admin/">{x.staff}</a>}
+          {profile.role === "supplier" && <a className="btn" href="/supplier/">{lang === "ar" ? "أوامر التوريد" : "Supply orders"}</a>}
           <button className="btn ghost" onClick={() => sb().auth.signOut()}>{x.logout}</button>
         </div>
       </div>

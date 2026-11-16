@@ -465,7 +465,13 @@ async function CategoryPage({ lang, slug, cats }: { lang: Lang; slug: string; ca
       {gal && (
         <section className="wrap" id="models"><h2>{lang === "ar" ? gal.title_ar : gal.title_en}</h2>
           <p className="lead">{lang === "ar" ? gal.note_ar : gal.note_en}</p>
-          <div className={gal.items.every((g) => g.h > g.w * 1.4) ? "gallery tall" : "gallery"}>
+          {gal.pdf && (
+            <a className="catdl" href={gal.pdf} target="_blank" rel="noopener">
+              <img src={gal.pdf.replace(/^\/files\/([\w-]+)-catalog\.pdf$/, "/img/catalogs/$1/p01.webp")} alt="" width={140} height={198} loading="lazy" />
+              <span><b>{lang === "ar" ? "تحميل الكتالوج كامل (PDF)" : "Download the full catalogue (PDF)"}</b><small>{lang === "ar" ? gal.title_ar : gal.title_en}</small></span>
+            </a>
+          )}
+          <div className={gal.pages ? "gallery pages" : gal.items.every((g) => g.h > g.w * 1.4) ? "gallery tall" : "gallery"}>
             {gal.items.map((g, i) => {
               const name = lang === "ar" ? g.ar : g.en;
               return (
