@@ -262,5 +262,279 @@
     "code": "Z64"
    }
   ]
+ },
+ "plumbing/ukinox-sinks": {
+  "title_ar": "كتالوج أحواض UKINOX",
+  "title_en": "UKINOX sinks catalogue",
+  "pages": true,
+  "pdf": "/files/ukinox-catalog.pdf",
+  "note_ar": "صفحات من كتالوج أحواض المطابخ الاستانلس UKINOX بالموديلات والمقاسات. اطلب سعر أي موديل بالكود.",
+  "note_en": "Pages from the UKINOX stainless steel sink catalogue with models and sizes. Ask for any model by code.",
+  "items": [
+   {
+    "src": "/img/catalogs/ukinox/p09.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض UKINOX موديل D400 / D430",
+    "en": "UKINOX D400 / D430",
+    "code": "D400 / D430"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p10.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض UKINOX موديل KR485 / KR565",
+    "en": "UKINOX KR485 / KR565",
+    "code": "KR485 / KR565"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p11.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض UKINOX موديل D443 / D700",
+    "en": "UKINOX D443 / D700",
+    "code": "D443 / D700"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p12.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض UKINOX موديل KR625 / KR675",
+    "en": "UKINOX KR625 / KR675",
+    "code": "KR625 / KR675"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p13.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض UKINOX موديل KR480 / KR780",
+    "en": "UKINOX KR480 / KR780",
+    "code": "KR480 / KR780"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p14.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض UKINOX موديل UK80 / DXT63",
+    "en": "UKINOX UK80 / DXT63",
+    "code": "UK80 / DXT63"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p15.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض بجناح UKINOX موديل LY80 / LY350",
+    "en": "UKINOX LY80 / LY350 with drainer",
+    "code": "LY80 / LY350"
+   },
+   {
+    "src": "/img/catalogs/ukinox/p16.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض بجناح UKINOX موديل LY400 / LY430 / LY480",
+    "en": "UKINOX LY400 / LY430 / LY480 with drainer",
+    "code": "LY400 / LY430 / LY480"
+   }
+  ]
+ },
+ "plumbing/albedo-sinks": {
+  "title_ar": "موديلات أحواض Albedo",
+  "title_en": "Albedo sink models",
+  "pages": true,
+  "pdf": "/files/albedo-catalog.pdf",
+  "note_ar": "كل الموديلات استانلس ستيل 304، سمك 0.8 × 2.5 مم، عمق 215 مم، تشطيب HL. اطلب سعر الموديل بالكود.",
+  "note_en": "All models in 304 stainless steel, 0.8 × 2.5 mm, 215 mm deep, HL finish. Ask for a model by code.",
+  "items": [
+   {
+    "src": "/img/catalogs/albedo/p02.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوضين موديل HML 700",
+    "en": "Albedo HML 700 sink",
+    "code": "HML 700"
+   },
+   {
+    "src": "/img/catalogs/albedo/p04.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوضين موديل HML 775",
+    "en": "Albedo HML 775 sink",
+    "code": "HML 775"
+   },
+   {
+    "src": "/img/catalogs/albedo/p06.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد موديل HM 800",
+    "en": "Albedo HM 800 sink",
+    "code": "HM 800"
+   },
+   {
+    "src": "/img/catalogs/albedo/p08.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد موديل HM 750",
+    "en": "Albedo HM 750 sink",
+    "code": "HM 750"
+   },
+   {
+    "src": "/img/catalogs/albedo/p10.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد موديل HM 700",
+    "en": "Albedo HM 700 sink",
+    "code": "HM 700"
+   },
+   {
+    "src": "/img/catalogs/albedo/p12.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد موديل HM 600",
+    "en": "Albedo HM 600 sink",
+    "code": "HM 600"
+   },
+   {
+    "src": "/img/catalogs/albedo/p14.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد موديل HM 550",
+    "en": "Albedo HM 550 sink",
+    "code": "HM 550"
+   },
+   {
+    "src": "/img/catalogs/albedo/p16.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد بمكان خلاط موديل HMT 800",
+    "en": "Albedo HMT 800 sink",
+    "code": "HMT 800"
+   },
+   {
+    "src": "/img/catalogs/albedo/p18.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد بمكان خلاط موديل HMT 750",
+    "en": "Albedo HMT 750 sink",
+    "code": "HMT 750"
+   },
+   {
+    "src": "/img/catalogs/albedo/p20.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد بمكان خلاط موديل HMT 700",
+    "en": "Albedo HMT 700 sink",
+    "code": "HMT 700"
+   },
+   {
+    "src": "/img/catalogs/albedo/p22.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد بمكان خلاط موديل HMT 600",
+    "en": "Albedo HMT 600 sink",
+    "code": "HMT 600"
+   },
+   {
+    "src": "/img/catalogs/albedo/p24.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "حوض Albedo حوض واحد بمكان خلاط موديل HMT 550",
+    "en": "Albedo HMT 550 sink",
+    "code": "HMT 550"
+   }
+  ]
+ },
+ "plumbing/quartz": {
+  "title_ar": "منتجات Quartz للأدوات الصحية",
+  "title_en": "Quartz sanitary ware products",
+  "pages": true,
+  "pdf": "/files/quartz-catalog.pdf",
+  "note_ar": "صفحات من كتالوج منتجات Quartz بالأكواد والمقاسات. اطلب سعر أي صنف بالكود.",
+  "note_en": "Pages from the Quartz products list with codes and sizes. Ask for any item by code.",
+  "items": [
+   {
+    "src": "/img/catalogs/quartz/p04.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "محابس زاوية Quartz",
+    "en": "Quartz Angle valves"
+   },
+   {
+    "src": "/img/catalogs/quartz/p05.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "محابس غسالة Quartz",
+    "en": "Quartz Wash valves"
+   },
+   {
+    "src": "/img/catalogs/quartz/p06.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "محبس خدمة (هوز بيب) نحاس Quartz",
+    "en": "Quartz Brass service valves (hose bib)"
+   },
+   {
+    "src": "/img/catalogs/quartz/p07.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "شطافات Quartz",
+    "en": "Quartz Hand sprayers"
+   },
+   {
+    "src": "/img/catalogs/quartz/p08.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "سيفونات Quartz",
+    "en": "Quartz Siphons and bottle traps"
+   },
+   {
+    "src": "/img/catalogs/quartz/p09.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "صفايات دش طولية Quartz",
+    "en": "Quartz Linear shower drains"
+   },
+   {
+    "src": "/img/catalogs/quartz/p10.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "صفايات أرضية Quartz",
+    "en": "Quartz Floor drains"
+   },
+   {
+    "src": "/img/catalogs/quartz/p11.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "بلوف وصفايات بانيو Quartz",
+    "en": "Quartz Bathtub drains"
+   },
+   {
+    "src": "/img/catalogs/quartz/p12.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "وصلات نحاس Quartz",
+    "en": "Quartz Brass fittings"
+   },
+   {
+    "src": "/img/catalogs/quartz/p13.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "أكواع ووصلات نحاس Quartz",
+    "en": "Quartz Brass elbows and fittings"
+   },
+   {
+    "src": "/img/catalogs/quartz/p14.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "خراطيم مرنة استانلس Quartz",
+    "en": "Quartz Stainless flexible hoses"
+   },
+   {
+    "src": "/img/catalogs/quartz/p15.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "وردات استانلس Quartz",
+    "en": "Quartz Stainless cover plates"
+   }
+  ]
  }
 }
