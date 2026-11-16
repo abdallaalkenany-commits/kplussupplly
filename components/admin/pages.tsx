@@ -6,6 +6,7 @@ import { CATEGORIES, GOVS, TOP } from "@/lib/content";
 import { catArt } from "@/lib/art";
 import Crud, { Editor, toCsv, type Field } from "./crud";
 import { useMe } from "./shell";
+import { useSections } from "@/lib/sections-client";
 
 export const CTYPES: [string, string][] = [["developer", "مطور عقاري"], ["contractor", "مقاول"], ["supplier", "مورد"], ["factory", "مصنع"], ["concrete_plant", "محطة خرسانة"], ["company", "شركة"], ["individual", "فرد"], ["other", "أخرى"]];
 export const Q_STATUS: [string, string][] = [["new", "جديد"], ["contacted", "اتواصلنا"], ["quoted", "اتبعت عرض سعر"], ["won", "اتكسب"], ["lost", "اتخسر"]];
@@ -244,11 +245,12 @@ export function Suppliers() {
 }
 
 function SupplierList() {
+  const secOpts: [string, string][] = useSections().map((s) => [s.slug, s.label]);
   const fields: Field[] = [
     { key: "company_name", label: "الشركة", required: true, list: true }, { key: "contact_name", label: "المسؤول", list: true },
     { key: "phone", label: "الموبايل", ltr: true, list: true }, { key: "email", label: "الإيميل", ltr: true },
     { key: "governorate", label: "المحافظة", type: "select", options: GOV_OPTS, list: true },
-    { key: "categories", label: "الأقسام", type: "multi", options: TOP_OPTS, list: true },
+    { key: "categories", label: "الأقسام المسموحة (صلاحيات المورد: يورّد ويضيف منتجات فيها)", type: "multi", options: secOpts, list: true },
     { key: "products", label: "المنتجات والماركات", type: "textarea" },
     { key: "cr_number", label: "السجل التجاري", ltr: true }, { key: "tax_number", label: "البطاقة الضريبية", ltr: true }, { key: "website", label: "الموقع", ltr: true },
     { key: "status", label: "الحالة", type: "select", options: [["pending", "تحت المراجعة"], ["approved", "معتمد"], ["rejected", "مرفوض"]], required: true, list: true },
@@ -471,9 +473,46 @@ export function Products() {
   return (
     <>
       <p className="tip">أي تعديل هنا بيظهر على الموقع خلال 5 دقايق. لو قسم مفيهوش منتجات هنا، الموقع بيعرض المنتجات الافتراضية.</p>
+      <PendingSupplierProducts catOpts={catOpts} />
       <Crud table="products" title="منتج" fields={fields} order="category" asc newRow={{ active: true, show_price: false, sort: 100 }} folder="products" csvName="products"
-        filters={{ key: "category", options: catOpts }} />
+        filters={{ key: "category", options: catOpts }} extraFor={(r) => <SupplierProductInfo id={r.id} price={r.price} />} />
     </>
+  );
+}
+
+/* products added by suppliers from /supplier/: hidden until approved ("ظاهر على الموقع") */
+function PendingSupplierProducts({ catOpts }: { catOpts: [string, string][] }) {
+  const [rows, setRows] = useState<any[]>([]);
+  useEffect(() => {
+    sb().from("supplier_items").select("product_id,supplier_price,status,updated_at,suppliers(company_name),products(name_ar,category)")
+      .eq("status", "pending").order("updated_at", { ascending: false }).then(({ data, error }: any) => { if (!error) setRows(data || []); });
+  }, []);
+  if (!rows.length) return null;
+  return (
+    <section className="box" style={{ marginBottom: 14 }}>
+      <h2>منتجات من الموردين محتاجة موافقتك ({rows.length})</h2>
+      <p className="meta">افتح المنتج من الجدول تحت (فلتر بالقسم)، راجعه، وعلّم "ظاهر على الموقع" واحفظ علشان يتنشر. السعر على الموقع بيتحسب لوحده = سعر المورد + 15%.</p>
+      <ul className="list">{rows.map((r) => (
+        <li key={r.product_id}><span>{r.products?.name_ar} <small className="meta">· {catOpts.find(([k]) => k === r.products?.category)?.[1] || r.products?.category}</small></span>
+          <small>{r.suppliers?.company_name} · {r.supplier_price != null ? money(r.supplier_price) : "من غير سعر"}</small></li>
+      ))}</ul>
+    </section>
+  );
+}
+
+function SupplierProductInfo({ id, price }: { id: number; price: number | null }) {
+  const [r, setR] = useState<any>(null);
+  useEffect(() => {
+    sb().from("supplier_items").select("supplier_price,status,suppliers(company_name,phone)").eq("product_id", id).maybeSingle().then(({ data }: any) => setR(data || false));
+  }, [id]);
+  if (!r) return null;
+  const st: Record<string, string> = { pending: "تحت المراجعة", approved: "معتمد", rejected: "مرفوض" };
+  return (
+    <div className="acts"><h3>منتج مضاف من مورد</h3>
+      <p className="meta">المورد: <b>{r.suppliers?.company_name}</b> · الحالة: {st[r.status] || r.status}</p>
+      <p className="meta">سعر المورد: <b>{r.supplier_price != null ? money(r.supplier_price) : "—"}</b> · السعر على الموقع (بعد +15%): <b>{money(price)}</b></p>
+      <p className="meta">المورد مابيشوفش السعر اللي على الموقع في صفحته، بيشوف سعره هو بس.</p>
+    </div>
   );
 }
 
