@@ -15,7 +15,13 @@
   "ceramics/cleopatra": "/img/ph/cat/ceramics-cleopatra.webp",
   "ceramics/al-gawhara": "/img/cat/ceramics-al-gawhara.webp",
   "ceramics/obelisk": "/img/cat/ceramics-obelisk.webp",
-  "electrical": "/img/ph/cat/electrical.webp"
+  "electrical": "/img/ph/cat/electrical.webp",
+  "aluminium": "/img/ph/cat/aluminium.webp",
+  "plumbing": "/img/ph/cat/plumbing.webp",
+  "plumbing/ukinox-sinks": "/img/ph/cat/plumbing-ukinox-sinks.webp",
+  "plumbing/albedo-sinks": "/img/ph/cat/plumbing-albedo-sinks.webp",
+  "plumbing/quartz": "/img/ph/cat/plumbing-quartz.webp",
+  "doors/accessories": "/img/ph/cat/doors-accessories.webp"
  },
  "prod": {
   "cement": [
