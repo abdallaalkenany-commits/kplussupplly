@@ -256,3 +256,5 @@ a.card.cat:hover .cimg{transform:scale(1.03)}
 .catdl{display:flex;align-items:center;gap:16px;max-width:520px;margin:0 0 18px;padding:12px;border:1px solid var(--line);border-radius:var(--r);background:#fff;text-decoration:none;color:inherit}.catdl:hover{border-color:var(--navy)}.catdl img{width:90px;height:auto;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.12)}.catdl span{display:flex;flex-direction:column;gap:4px}.catdl b{color:var(--navy)}.catdl small{color:var(--muted)}
 /* desktop menu: wrap to a second row instead of overflowing the page when there are many sections */
 @media (min-width:901px){.nav{flex:1 1 auto;min-width:0;flex-wrap:wrap;justify-content:flex-end;row-gap:2px}.bar{padding-block:6px}}
+/* supplier sign-up: every section, sub-sections indented */
+.cats-all{display:flex;flex-wrap:wrap;gap:6px 18px}.cats-all .hint{flex-basis:100%;margin:0 0 4px}.cats-all label.sub{font-size:.92em;color:var(--muted)}.cats-all label.sub::before{content:'↳ ';opacity:.6}
