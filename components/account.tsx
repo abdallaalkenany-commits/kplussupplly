@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { sb, sbConfigured } from "@/lib/supabase/client";
-import { GOVS, TOP, upath, type Lang } from "@/lib/content";
+import { GOVS, upath, type Lang } from "@/lib/content";
+import { useSections } from "@/lib/sections-client";
 
 const TX = {
   ar: {
@@ -183,6 +184,7 @@ function SupplierForm({ lang, profile }: { lang: Lang; profile: Profile }) {
   const [sup, setSup] = useState<any>(null);
   const [msg, setMsg] = useState("");
   const [busy, setBusy] = useState(false);
+  const sections = useSections(lang);
 
   async function load() {
     const { data } = await sb().from("suppliers").select("*").eq("user_id", profile.id).maybeSingle();
@@ -221,10 +223,12 @@ function SupplierForm({ lang, profile }: { lang: Lang; profile: Profile }) {
   }
 
   if (!sup) return <p>…</p>;
+  const locked = sup.status === "approved";
   const statusLabel = { pending: x.s_pending, approved: x.s_approved, rejected: x.s_rejected } as Record<string, string>;
   return (
     <>
       <h2>{x.sup_profile} {sup.id && <span className={"pill s-" + sup.status}>{statusLabel[sup.status]}</span>}</h2>
+      {locked && <p className="hint"><a className="btn sm" href="/supplier/">{lang === "ar" ? "أضف منتجاتك وتابع أوامر التوريد من بوابة الموردين" : "Add your products and follow supply orders in the supplier portal"}</a></p>}
       <form className="qform card" onSubmit={save}>
         <label>{x.company_name}<input id="s-company" name="company_name" required autoComplete="organization" defaultValue={sup.company_name || ""} /></label>
         <label>{x.contact_name}<input id="s-contact" name="contact_name" autoComplete="name" defaultValue={sup.contact_name || ""} /></label>
@@ -232,8 +236,14 @@ function SupplierForm({ lang, profile }: { lang: Lang; profile: Profile }) {
         <label>{x.email}<input id="s-email" name="email" type="email" dir="ltr" autoComplete="email" defaultValue={sup.email || ""} /></label>
         <label>{x.gov}<select id="s-gov" name="governorate" defaultValue={sup.governorate || ""}><option value=""></option>{GOVS[lang].map((g) => <option key={g}>{g}</option>)}</select></label>
         <label>{x.website}<input id="s-web" name="website" dir="ltr" autoComplete="url" defaultValue={sup.website || ""} /></label>
-        <fieldset className="full seg"><legend>{x.cats}</legend>
-          {TOP.map((c) => <label key={c.slug}><input type="checkbox" name="categories" value={c.slug} defaultChecked={(sup.categories || []).includes(c.slug)} /> {c[lang].nav}</label>)}
+        <fieldset className="full seg cats-all"><legend>{x.cats}</legend>
+          {locked && <p className="hint">{lang === "ar" ? "الأقسام دي هي صلاحيات حسابك، وبتتعدل من كي بلس بس بعد الاعتماد." : "These sections are your account permissions; after approval only K Plus can change them."}</p>}
+          {sections.map((c) => (
+            <label key={c.slug} className={c.parent ? "sub" : ""}>
+              <input type="checkbox" name="categories" value={c.slug} disabled={locked} defaultChecked={(sup.categories || []).includes(c.slug)} /> {c.parent ? c.name : c.label}
+            </label>
+          ))}
+          {locked && (sup.categories || []).map((s: string) => <input key={s} type="hidden" name="categories" value={s} />)}
         </fieldset>
         <label className="full">{x.sup_products}<textarea id="s-products" name="products" rows={3} defaultValue={sup.products || ""} /></label>
         <label>{x.cr}<input id="s-cr" name="cr_number" dir="ltr" defaultValue={sup.cr_number || ""} /></label>

@@ -4,6 +4,7 @@
 // Supabase (supabase/009_supplier_portal.sql) enforces this; the page never queries other tables.
 import { useEffect, useRef, useState } from "react";
 import { sb, sbConfigured } from "@/lib/supabase/client";
+import { sectionAllowed, useSections } from "@/lib/sections-client";
 
 type Me = { id: string; email: string; full_name: string | null; role: string };
 type Order = {
@@ -98,12 +99,12 @@ function Portal({ me }: { me: Me }) {
   const [sup, setSup] = useState<any>(null);
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [open, setOpen] = useState<number | null>(null);
-  const [tab, setTab] = useState<"orders" | "profile">("orders");
+  const [tab, setTab] = useState<"orders" | "products" | "profile">("orders");
 
   async function load() {
     const c = sb();
     const [s, o] = await Promise.all([
-      c.from("suppliers").select("id,company_name,contact_name,phone,email,wa_apikey,status").eq("user_id", me.id).maybeSingle(),
+      c.from("suppliers").select("id,company_name,contact_name,phone,email,wa_apikey,status,categories").eq("user_id", me.id).maybeSingle(),
       c.from("supply_orders").select("id,items,quantity,delivery_location,delivery_date,delivery_contact,notes,status,supplier_note,created_at,updated_at").order("created_at", { ascending: false }),
     ]);
     setSup(s.data || false);
@@ -130,9 +131,10 @@ function Portal({ me }: { me: Me }) {
         {sup === false && <p className="err">حسابك لسه مش مربوط بشركة. كلم كي بلس.</p>}
         <div className="seg" role="tablist" style={{ marginBottom: 14 }}>
           <button role="tab" aria-selected={tab === "orders"} className={tab === "orders" ? "on" : ""} onClick={() => setTab("orders")}>أوامر التوريد</button>
+          <button role="tab" aria-selected={tab === "products"} className={tab === "products" ? "on" : ""} onClick={() => setTab("products")}>منتجاتي</button>
           <button role="tab" aria-selected={tab === "profile"} className={tab === "profile" ? "on" : ""} onClick={() => setTab("profile")}>بياناتي والتنبيهات</button>
         </div>
-        {tab === "orders" ? (
+        {tab === "products" ? (sup ? <MyProducts sup={sup} me={me} /> : null) : tab === "orders" ? (
           <>
             <div className="kpis">
               {[["new", "أوامر جديدة"], ["accepted", "مقبولة"], ["preparing", "جاري التجهيز"], ["delivered", "اتسلمت"]].map(([k, l]) => (
@@ -201,6 +203,142 @@ function OrderDrawer({ o, onClose, onChanged }: { o: Order; onClose: () => void;
         {msg && <p className="okmsg" role="status">{msg}</p>}
       </div>
     </div>
+  );
+}
+
+/* ---------- supplier's own products (shown on the website after K Plus approves them) ---------- */
+type MyProduct = { id: number; category: string; name_ar: string; name_en: string | null; spec_ar: string | null; unit_ar: string | null;
+  image_url: string | null; supplier_price: number | null; status: string; published: boolean };
+const P_STATUS: Record<string, [string, string]> = { pending: ["تحت المراجعة", "so-new"], approved: ["منشور على الموقع", "so-delivered"], rejected: ["مرفوض", "so-rejected"] };
+
+// shrink photos in the browser before upload (max 1400px, WebP) so product pages stay fast
+async function shrink(file: File): Promise<Blob> {
+  try {
+    const img = await createImageBitmap(file);
+    const k = Math.min(1, 1400 / Math.max(img.width, img.height));
+    const c = document.createElement("canvas");
+    c.width = Math.round(img.width * k); c.height = Math.round(img.height * k);
+    c.getContext("2d")!.drawImage(img, 0, 0, c.width, c.height);
+    const b = await new Promise<Blob | null>((r) => c.toBlob(r, "image/webp", 0.85));
+    return b || file;
+  } catch { return file; }
+}
+
+function MyProducts({ sup, me }: { sup: any; me: Me }) {
+  const sections = useSections("ar");
+  const allowed = sections.filter((s) => sectionAllowed(sup.categories, s.slug));
+  const [rows, setRows] = useState<MyProduct[] | null>(null);
+  const [edit, setEdit] = useState<Partial<MyProduct> & { price?: string } | null>(null);
+  const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [confirmDel, setConfirmDel] = useState(false);
+
+  async function load() {
+    const { data, error } = await sb().rpc("supplier_my_products");
+    setRows(error ? [] : (data as MyProduct[]));
+    if (error) setMsg(error.message);
+  }
+  useEffect(() => { load(); }, []);
+
+  if (sup.status !== "approved") return <p className="tip">إضافة المنتجات بتتفتح أول ما كي بلس تعتمد حسابك.</p>;
+  if (!allowed.length) return <p className="tip">مفيش أقسام مسموحة لحسابك لسه. كلم كي بلس علشان تحدد الأقسام اللي بتوردها.</p>;
+
+  async function upload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]; e.target.value = "";
+    if (!file || !edit) return;
+    if (!file.type.startsWith("image/")) return setMsg("ارفع صورة بس (JPG أو PNG أو WebP).");
+    if (file.size > 15 * 1024 * 1024) return setMsg("الصورة كبيرة زيادة (أقصى حاجة 15 ميجا).");
+    setBusy(true); setMsg("");
+    const blob = await shrink(file);
+    const ext = blob.type === "image/webp" ? "webp" : (file.name.split(".").pop() || "jpg").toLowerCase().replace(/[^a-z0-9]/g, "");
+    const path = `suppliers/${me.id}/${Date.now()}.${ext}`;
+    const c = sb();
+    const { error } = await c.storage.from("media").upload(path, blob, { upsert: false, cacheControl: "31536000", contentType: blob.type || file.type });
+    setBusy(false);
+    if (error) return setMsg("الصورة ماترفعتش: " + error.message);
+    setEdit({ ...edit, image_url: c.storage.from("media").getPublicUrl(path).data.publicUrl as string });
+  }
+
+  async function save(e: React.FormEvent) {
+    e.preventDefault();
+    if (!edit) return;
+    setBusy(true); setMsg("");
+    const price = edit.price != null && String(edit.price).trim() !== "" ? Number(String(edit.price).replace(/[^\d.]/g, "")) : null;
+    const { error } = await sb().rpc("supplier_save_product", {
+      p_id: edit.id ?? null, p_category: edit.category, p_name_ar: edit.name_ar || "", p_name_en: edit.name_en || null,
+      p_spec_ar: edit.spec_ar || null, p_unit_ar: edit.unit_ar || null, p_image_url: edit.image_url || null, p_price: price,
+    });
+    setBusy(false);
+    if (error) return setMsg("ماتحفظش: " + error.message);
+    setEdit(null); setMsg("اتحفظ. المنتج هيظهر على الموقع بعد مراجعة كي بلس (تعديل السعر بس بيتنشر على طول)."); load();
+  }
+
+  async function del() {
+    if (!edit?.id) return;
+    if (!confirmDel) return setConfirmDel(true);
+    setBusy(true);
+    const { error } = await sb().rpc("supplier_delete_product", { p_id: edit.id });
+    setBusy(false); setConfirmDel(false);
+    if (error) return setMsg(error.message);
+    setEdit(null); load();
+  }
+
+  const secName = (slug: string) => sections.find((s) => s.slug === slug)?.label || slug;
+  return (
+    <>
+      <p className="tip">ضيف منتجاتك في الأقسام المسموحة لحسابك، بصورة وسعر (السعر اختياري). المنتج بيظهر على موقع كي بلس بعد المراجعة. ماتكتبش أرقام تليفونات أو بيانات تواصل في اسم أو وصف المنتج.</p>
+      <div className="toolbar">
+        <span className="count">{rows?.length || 0} منتج</span>
+        <button className="abtn primary" onClick={() => { setConfirmDel(false); setEdit({ category: allowed[0].slug, unit_ar: "قطعة" }); }}>+ منتج جديد</button>
+      </div>
+      {msg && <p className="okmsg" role="status">{msg}</p>}
+      {rows === null ? <p>جاري التحميل…</p> : rows.length === 0 ? <p className="emptyst">لسه ماضفتش منتجات.</p> : (
+        <div className="tablewrap"><table className="atbl">
+          <thead><tr><th>الصورة</th><th>المنتج</th><th>القسم</th><th>سعرك</th><th>الحالة</th></tr></thead>
+          <tbody>{rows.map((r) => (
+            <tr key={r.id} tabIndex={0} onClick={() => { setConfirmDel(false); setEdit({ ...r, price: r.supplier_price != null ? String(r.supplier_price) : "" }); }}
+              onKeyDown={(e) => e.key === "Enter" && setEdit({ ...r, price: r.supplier_price != null ? String(r.supplier_price) : "" })}>
+              <td>{r.image_url ? <img src={r.image_url} alt="" className="thumb" /> : "—"}</td>
+              <td>{r.name_ar}{r.unit_ar ? <small className="meta"> / {r.unit_ar}</small> : null}</td>
+              <td>{secName(r.category)}</td>
+              <td>{r.supplier_price != null ? Number(r.supplier_price).toLocaleString("ar-EG") + " ج.م" : "—"}</td>
+              <td><span className={"pill " + (P_STATUS[r.status]?.[1] || "")}>{r.status === "approved" && !r.published ? "مخفي" : P_STATUS[r.status]?.[0] || r.status}</span></td>
+            </tr>
+          ))}</tbody>
+        </table></div>
+      )}
+      {edit && (
+        <>
+          <div className="scrim" onClick={() => setEdit(null)} />
+          <div className="drawer" role="dialog" aria-modal="true" aria-label="منتج">
+            <form className="aform" onSubmit={save}>
+              <h2 style={{ margin: 0 }}>{edit.id ? "تعديل منتج" : "منتج جديد"}</h2>
+              <label>القسم<select id="mp-cat" required value={edit.category || ""} onChange={(e) => setEdit({ ...edit, category: e.target.value })}>
+                {allowed.map((s) => <option key={s.slug} value={s.slug}>{s.label}</option>)}</select></label>
+              <label>اسم المنتج بالعربي<input id="mp-name" required minLength={2} maxLength={200} value={edit.name_ar || ""} onChange={(e) => setEdit({ ...edit, name_ar: e.target.value })} /></label>
+              <label>الاسم بالإنجليزي (اختياري)<input id="mp-name-en" dir="ltr" maxLength={200} value={edit.name_en || ""} onChange={(e) => setEdit({ ...edit, name_en: e.target.value })} /></label>
+              <label>المواصفات<textarea id="mp-spec" rows={3} maxLength={1000} value={edit.spec_ar || ""} onChange={(e) => setEdit({ ...edit, spec_ar: e.target.value })} placeholder="المقاس، الخامة، الموديل…" /></label>
+              <label>الوحدة<input id="mp-unit" maxLength={50} value={edit.unit_ar || ""} onChange={(e) => setEdit({ ...edit, unit_ar: e.target.value })} placeholder="قطعة، متر، طن، شكارة…" /></label>
+              <label>السعر (ج.م، اختياري)<input id="mp-price" inputMode="decimal" dir="ltr" value={edit.price ?? ""} onChange={(e) => setEdit({ ...edit, price: e.target.value })} placeholder="سيبه فاضي لو مش عايز تحدد سعر" /></label>
+              <div className="imgf"><span>صورة المنتج</span>
+                {edit.image_url && <img src={edit.image_url} alt="" />}
+                <div className="row">
+                  <label className="abtn">{edit.image_url ? "تغيير الصورة" : "رفع صورة"}<input type="file" accept="image/*" hidden onChange={upload} /></label>
+                  {edit.image_url && <button type="button" className="abtn" onClick={() => setEdit({ ...edit, image_url: null })}>إزالة</button>}
+                </div>
+              </div>
+              {msg && <p className="err" role="alert">{msg}</p>}
+              {confirmDel && <p className="err">دوس "حذف" تاني للتأكيد.</p>}
+              <div className="row sticky">
+                <button className="abtn primary" disabled={busy}>حفظ</button>
+                <button type="button" className="abtn" onClick={() => setEdit(null)}>إلغاء</button>
+                {edit.id && <button type="button" className="abtn danger" disabled={busy} onClick={del}>حذف</button>}
+              </div>
+            </form>
+          </div>
+        </>
+      )}
+    </>
   );
 }
 
