@@ -28,4 +28,7 @@ export const BRANDS: Partner[] = [
   ["bmic", "BMIC لصناعات مواد البناء", "BMIC Building Materials", 127, 50],
   ["misr-beni-suef-cement", "أسمنت مصر بني سويف", "Misr Beni Suef Cement", 164, 160],
   ["amreyah-cement", "أسمنت العامرية", "Amreyah Cement", 440, 85],
+  ["ukinox", "يو كي إينوكس — أحواض استانلس ستيل", "UKINOX stainless steel sinks", 440, 114],
+  ["afm", "الأهرام لنظم الأمان — كوالين AFM", "AFM locks — Ahram Security Group", 284, 136],
+  ["quartz", "كوارتز للأدوات الصحية", "Quartz Sanitary Ware", 234, 130],
 ];
