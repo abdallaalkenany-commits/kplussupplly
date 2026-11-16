@@ -86,3 +86,10 @@ input:focus,select:focus,textarea:focus,button:focus-visible,a:focus-visible{out
 .hint{display:block;font-weight:400;color:#6b7280;font-size:12.5px}
 .swatch{display:inline-block;width:14px;height:14px;border-radius:4px;border:1px solid #ccc;vertical-align:middle}
 .catcard.off{opacity:.55}.catcard .pill{align-self:flex-start}
+
+/* supplier portal + supply orders */
+.portal{min-height:100%;display:flex;flex-direction:column}.ptop{display:flex;align-items:center;gap:14px;padding:12px 24px;background:var(--navy);color:#fff}.ptop .ptitle{flex:1;display:flex;flex-direction:column;line-height:1.3}.ptop small{color:var(--amber)}
+.pill.so-new{background:#fff1d6;color:#8a5a00}.pill.so-accepted{background:#e3eefb;color:var(--info)}.pill.so-preparing{background:#ede7fb;color:#5b3fa8}.pill.so-delivered{background:#dff3e7;color:var(--ok)}.pill.so-rejected,.pill.so-cancelled{background:#f6e2e0;color:var(--bad)}
+.so-row{gap:16px;align-items:flex-start;border-bottom:1px dashed var(--line);padding-bottom:6px}.so-row b{text-align:start;max-width:70%}
+.tabs2{display:flex;gap:8px;margin-bottom:14px}.copybox{white-space:pre-wrap;background:#f7f8fb;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:13px;margin:0}
+@media (max-width:900px){.ptop{padding:10px 16px}}
