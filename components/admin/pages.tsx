@@ -184,6 +184,7 @@ function QuoteDrawer({ row, staff, me, onClose, onChanged, onMove }: { row: any;
             <a className="abtn wa" href={`https://wa.me/${String(row.phone).replace(/\D/g, "").replace(/^0/, "20")}?text=${encodeURIComponent(waText)}`} target="_blank" rel="noopener">واتساب العميل</a>
             <a className="abtn" href={`tel:${row.phone}`}>اتصال</a>
             {row.map_url && <a className="abtn" href={row.map_url} target="_blank" rel="noopener">📍 فتح اللوكيشن</a>}
+            <Link className="abtn primary" href={`/admin/suppliers/?tab=orders&quote=${row.id}`}>حوّل لمورد (أمر توريد)</Link>
             {Q_STATUS.filter(([k]) => k !== row.status).slice(0, 3).map(([k, l]) => <button type="button" key={k} className="abtn" onClick={() => onMove(row, k)}>← {l}</button>)}
           </div>
           <p className="meta">طلب #{row.id} · {fmtDate(row.created_at)} · من صفحة <span dir="ltr">{row.page || "—"}</span></p>
@@ -226,8 +227,23 @@ function CustomerHistory({ id }: { id: string }) {
   );
 }
 
-/* ---------------- suppliers ---------------- */
+/* ---------------- suppliers + supply orders ---------------- */
 export function Suppliers() {
+  const [tab, setTab] = useState<"list" | "orders">("list");
+  useEffect(() => { if (new URLSearchParams(location.search).get("tab") === "orders") setTab("orders"); }, []);
+  const go = (t: "list" | "orders") => { setTab(t); history.replaceState(null, "", t === "orders" ? "?tab=orders" : location.pathname); };
+  return (
+    <>
+      <div className="seg" role="tablist" style={{ marginBottom: 14 }}>
+        <button role="tab" aria-selected={tab === "list"} className={tab === "list" ? "on" : ""} onClick={() => go("list")}>الموردين</button>
+        <button role="tab" aria-selected={tab === "orders"} className={tab === "orders" ? "on" : ""} onClick={() => go("orders")}>أوامر التوريد</button>
+      </div>
+      {tab === "list" ? <SupplierList /> : <SupplyOrders />}
+    </>
+  );
+}
+
+function SupplierList() {
   const fields: Field[] = [
     { key: "company_name", label: "الشركة", required: true, list: true }, { key: "contact_name", label: "المسؤول", list: true },
     { key: "phone", label: "الموبايل", ltr: true, list: true }, { key: "email", label: "الإيميل", ltr: true },
@@ -241,7 +257,189 @@ export function Suppliers() {
     { key: "created_at", label: "تاريخ التسجيل", readonly: true, list: true },
   ];
   return <Crud table="suppliers" title="مورد" fields={fields} order="created_at" newRow={{ status: "approved", categories: [], files: [] }} csvName="suppliers"
-    filters={{ key: "status", options: [["pending", "تحت المراجعة"], ["approved", "معتمد"], ["rejected", "مرفوض"]] }} extraFor={(r) => <SupplierDocs row={r} />} />;
+    filters={{ key: "status", options: [["pending", "تحت المراجعة"], ["approved", "معتمد"], ["rejected", "مرفوض"]] }} extraFor={(r) => <><SupplierLogin row={r} /><SupplierDocs row={r} /></>} />;
+}
+
+const SITE = "https://kplussupply.com";
+const waTo = (phone: string | null | undefined, text: string) =>
+  `https://wa.me/${String(phone || "").replace(/\D/g, "").replace(/^0/, "20")}?text=${encodeURIComponent(text)}`;
+function genPassword() {
+  const abc = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghjkmnpqrstuvwxyz23456789";
+  const a = new Uint32Array(10); crypto.getRandomValues(a);
+  return "Kp-" + Array.from(a, (n) => abc[n % abc.length]).join("");
+}
+
+/* supplier portal login: admin creates it and the supplier gets the link + email + password */
+function SupplierLogin({ row }: { row: any }) {
+  const me = useMe();
+  const [email, setEmail] = useState(row.email || "");
+  const [pw, setPw] = useState(genPassword);
+  const [busy, setBusy] = useState(false);
+  const [err, setErr] = useState("");
+  const [done, setDone] = useState<any>(null);
+  const [show, setShow] = useState(!row.user_id);
+  const invite = `أهلاً ${row.contact_name || row.company_name}،\nاتعملك حساب على بوابة الموردين في كي بلس للتوريدات العمومية لمتابعة أوامر التوريد المحوّلة منّا.\nرابط الدخول: ${SITE}/supplier/\nالإيميل: ${email.trim()}\nكلمة السر: ${pw}\nننصحك تغيّر كلمة السر من صفحتك بعد أول دخول.`;
+  async function create() {
+    setBusy(true); setErr(""); setDone(null);
+    const { data, error } = await sb().rpc("admin_create_supplier_login", { p_supplier: row.id, p_email: email.trim(), p_password: pw });
+    setBusy(false);
+    if (error) return setErr(error.message.includes("function") ? "لازم تشغّل ملف التحديث 009 في Supabase الأول." : error.message);
+    setDone(data);
+  }
+  return (
+    <div className="acts"><h3>حساب بوابة المورد</h3>
+      {row.user_id && <p className="meta">✓ المورد عنده حساب على <a href="/supplier/" target="_blank" rel="noopener">بوابة الموردين</a>{row.portal_invited_at ? ` · آخر دعوة ${fmtDate(row.portal_invited_at)}` : ""}.</p>}
+      {me.role !== "admin" ? <p className="meta">إنشاء حسابات الموردين للمدير بس.</p> : !show ? (
+        <button type="button" className="abtn" onClick={() => setShow(true)}>تغيير كلمة السر وإرسال الدعوة تاني</button>
+      ) : (
+        <>
+          <p className="meta">المورد هيدخل بالإيميل وكلمة السر دول ويشوف صفحته وأوامر التوريد بتاعته بس.</p>
+          <label>إيميل المورد<input id="sl-email" type="email" dir="ltr" value={email} onChange={(e) => setEmail(e.target.value)} /></label>
+          <label>كلمة السر<span className="row"><input id="sl-pass" dir="ltr" value={pw} onChange={(e) => setPw(e.target.value)} style={{ flex: 1 }} /><button type="button" className="abtn" onClick={() => setPw(genPassword())}>توليد</button></span></label>
+          <button type="button" className="abtn primary" disabled={busy || !email.trim() || pw.length < 8} onClick={create}>{row.user_id ? "حفظ كلمة السر الجديدة وإرسال الدعوة" : "إنشاء الحساب وإرسال الدعوة"}</button>
+          {err && <p className="err" role="alert">{err}</p>}
+          {done && (
+            <>
+              <p className="okmsg" role="status">{done.existing ? "الإيميل كان متسجل: اتربط بالمورد واتغيرت كلمة السر." : "اتعمل الحساب."} {done.emailed ? "واتبعت الدعوة على الإيميل." : "الإيميل ماتبعتش أوتوماتيك (إعدادات البريد مش متظبطة في صفحة المستخدمين)، ابعت الدعوة بنفسك:"}</p>
+              <pre className="copybox">{invite}</pre>
+              <div className="row">
+                {row.phone && <a className="abtn wa" href={waTo(row.phone, invite)} target="_blank" rel="noopener">ابعت الدعوة واتساب</a>}
+                <a className="abtn" href={`mailto:${email.trim()}?subject=${encodeURIComponent("بيانات دخول بوابة الموردين — كي بلس")}&body=${encodeURIComponent(invite)}`}>ابعتها من إيميلك</a>
+                <button type="button" className="abtn" onClick={() => navigator.clipboard?.writeText(invite)}>نسخ</button>
+              </div>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+export const SO_STATUS: [string, string][] = [["new", "جديد"], ["accepted", "اتقبل"], ["preparing", "جاري التجهيز"], ["delivered", "اتسلم"], ["rejected", "اعتذر المورد"], ["cancelled", "اتلغى"]];
+function orderText(o: any, company?: string) {
+  return [
+    `📦 أمر توريد رقم PO-${o.id}`, `محوّل من: كي بلس للتوريدات العمومية (K Plus)`, company ? `إلى: ${company}` : "",
+    `الأصناف: ${o.items}`, o.quantity ? `الكمية: ${o.quantity}` : "", o.delivery_location ? `مكان التسليم: ${o.delivery_location}` : "",
+    o.delivery_date ? `موعد التسليم: ${o.delivery_date}` : "", o.delivery_contact ? `المسؤول في الموقع: ${o.delivery_contact}` : "",
+    o.notes ? `ملاحظات: ${o.notes}` : "", `تابع الأمر وحدّث حالته من صفحتك: ${SITE}/supplier/?order=${o.id}`,
+  ].filter(Boolean).join("\n");
+}
+
+function SupplyOrders() {
+  const [rows, setRows] = useState<any[] | null>(null);
+  const [sups, setSups] = useState<any[]>([]);
+  const [edit, setEdit] = useState<any>(null);
+  const [q, setQ] = useState("");
+  const [flt, setFlt] = useState("");
+  const [loadErr, setLoadErr] = useState("");
+
+  async function load() {
+    const c = sb();
+    const [o, s] = await Promise.all([
+      c.from("supply_orders").select("*").order("created_at", { ascending: false }).limit(1000),
+      c.from("suppliers").select("id,company_name,contact_name,phone,email,user_id,status").order("company_name"),
+    ]);
+    if (o.error) setLoadErr("لازم تشغّل ملف التحديث 009 في Supabase الأول (" + o.error.message + ").");
+    setRows(o.data || []); setSups(s.data || []);
+  }
+  useEffect(() => {
+    load();
+    const qid = Number(new URLSearchParams(location.search).get("quote"));
+    if (qid) sb().from("quote_requests").select("id,product,quantity,location,notes").eq("id", qid).single().then(({ data }: any) => {
+      if (data) setEdit({ __new: true, status: "new", quote_id: data.id, items: data.product || "", quantity: data.quantity || "", delivery_location: data.location || "" });
+    });
+  }, []);
+
+  const supName = (id: string) => sups.find((s) => s.id === id)?.company_name || "—";
+  const supOpts: [string, string][] = sups.filter((s) => s.status !== "rejected").map((s) => [s.id, s.company_name + (s.user_id ? "" : " (من غير حساب)")]);
+  const fields: Field[] = [
+    { key: "supplier_id", label: "المورد", type: "select", options: supOpts, required: true },
+    { key: "items", label: "الأصناف المطلوبة", type: "textarea", required: true },
+    { key: "quantity", label: "الكمية" },
+    { key: "delivery_location", label: "مكان التسليم" },
+    { key: "delivery_date", label: "موعد التسليم", type: "date" },
+    { key: "delivery_contact", label: "المسؤول في الموقع (اسم وموبايل)" },
+    { key: "notes", label: "ملاحظات للمورد", type: "textarea" },
+    { key: "quote_id", label: "رقم طلب العميل (داخلي، مش بيظهر للمورد)", type: "number" },
+    { key: "status", label: "الحالة", type: "select", options: SO_STATUS, required: true },
+    { key: "supplier_note", label: "ملاحظة المورد", readonly: true },
+    { key: "created_at", label: "تاريخ الأمر", readonly: true },
+  ];
+  const shown = (rows || []).filter((r) => (!flt || r.status === flt) && (!q || [r.id, r.items, r.quantity, r.delivery_location, supName(r.supplier_id)].join(" ").toLowerCase().includes(q.toLowerCase())));
+
+  async function save(r: any) {
+    const c = sb();
+    if (edit.__new) {
+      const { data, error } = await c.from("supply_orders").insert(r).select().single();
+      if (error) return error.message;
+      await load();
+      const { data: fresh } = await c.from("supply_orders").select("*").eq("id", data.id).single();
+      setEdit({ ...(fresh || data), __justSent: true });
+      return null;
+    }
+    const { error } = await c.from("supply_orders").update(r).eq("id", edit.id);
+    if (error) return error.message;
+    setEdit(null); load(); return null;
+  }
+
+  return (
+    <div>
+      {loadErr && <p className="err">{loadErr}</p>}
+      <p className="tip">أمر التوريد بيتبعت للمورد أوتوماتيك على الإيميل (وعلى الواتساب لو المورد فعّل التنبيهات من صفحته)، ومكتوب فيه إنه <b>محوّل من كي بلس</b>. المورد بيتابع ويحدّث الحالة من <a href="/supplier/" target="_blank" rel="noopener">بوابة الموردين</a>، وأي تحديث بيوصلك واتساب.</p>
+      <div className="toolbar">
+        <input id="search-orders" className="search" placeholder="بحث…" value={q} onChange={(e) => setQ(e.target.value)} />
+        <select id="filter-orders" value={flt} onChange={(e) => setFlt(e.target.value)}><option value="">الكل</option>{SO_STATUS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
+        <span className="count">{shown.length} أمر</span>
+        <button className="abtn primary" onClick={() => setEdit({ __new: true, status: "new" })}>+ أمر توريد جديد</button>
+      </div>
+      {rows === null ? <p>جاري التحميل…</p> : shown.length === 0 ? <p className="emptyst">مفيش أوامر توريد لسه.</p> : (
+        <div className="tablewrap"><table className="atbl">
+          <thead><tr><th>رقم الأمر</th><th>المورد</th><th>الأصناف</th><th>الكمية</th><th>التسليم</th><th>الحالة</th><th>التنبيه</th><th>التاريخ</th></tr></thead>
+          <tbody>{shown.map((r) => (
+            <tr key={r.id} onClick={() => setEdit(r)} tabIndex={0} onKeyDown={(e) => e.key === "Enter" && setEdit(r)}>
+              <td><b dir="ltr">PO-{r.id}</b></td><td>{supName(r.supplier_id)}</td><td>{String(r.items).slice(0, 50)}</td><td>{r.quantity || "—"}</td>
+              <td>{r.delivery_date || "—"}</td><td><span className={"pill so-" + r.status}>{SO_STATUS.find(([k]) => k === r.status)?.[1]}</span></td>
+              <td>{r.notified?.email ? "✉️" : ""}{r.notified?.whatsapp ? " 💬" : ""}{!r.notified?.email && !r.notified?.whatsapp ? "—" : ""}</td><td>{fmtDate(r.created_at)}</td>
+            </tr>
+          ))}</tbody>
+        </table></div>
+      )}
+      {edit && (
+        <>
+          <div className="scrim" onClick={() => setEdit(null)} />
+          <Editor key={edit.id || "new"} fields={fields} row={edit} folder="orders" onSave={save} onCancel={() => setEdit(null)}
+            extra={!edit.__new && <OrderSend o={edit} sup={sups.find((s) => s.id === edit.supplier_id)} justSent={edit.__justSent} onDone={load} />} />
+        </>
+      )}
+    </div>
+  );
+}
+
+function OrderSend({ o, sup, justSent, onDone }: { o: any; sup: any; justSent?: boolean; onDone: () => void }) {
+  const [n, setN] = useState<any>(o.notified || {});
+  const [busy, setBusy] = useState(false);
+  const [msg, setMsg] = useState("");
+  const text = orderText(o, sup?.company_name);
+  async function resend() {
+    setBusy(true); setMsg("");
+    const { data, error } = await sb().rpc("resend_supply_order", { p_id: o.id });
+    setBusy(false);
+    if (error) return setMsg(error.message);
+    setN(data || {}); setMsg("اتبعت التنبيه تاني."); onDone();
+  }
+  return (
+    <div className="acts"><h3>إرسال الأمر للمورد</h3>
+      {justSent && <p className="okmsg">اتسجل أمر التوريد PO-{o.id}.</p>}
+      <p className="meta">إيميل: {n.email ? "✓ اتبعت" : "✗ ماتبعتش" + (!sup?.email ? " (المورد مالوش إيميل)" : " (راجع إعدادات البريد في صفحة المستخدمين)")} · واتساب أوتوماتيك: {n.whatsapp ? "✓ اتبعت" : "✗ المورد مفعّلش تنبيهات واتساب"}</p>
+      {!sup?.user_id && <p className="meta">⚠️ المورد ده مالوش حساب على البوابة لسه، اعمله حساب من تاب "الموردين" علشان يقدر يتابع الأمر.</p>}
+      <div className="row">
+        {sup?.phone && <a className="abtn wa" href={waTo(sup.phone, text)} target="_blank" rel="noopener">ابعت الأمر واتساب من موبايلك</a>}
+        <button type="button" className="abtn" disabled={busy} onClick={resend}>إعادة إرسال التنبيه</button>
+        <button type="button" className="abtn" onClick={() => navigator.clipboard?.writeText(text)}>نسخ نص الأمر</button>
+      </div>
+      {msg && <p className="okmsg" role="status">{msg}</p>}
+    </div>
+  );
 }
 function SupplierDocs({ row }: { row: any }) {
   const [links, setLinks] = useState<Record<string, string>>({});
@@ -489,6 +687,7 @@ export function Users() {
   return (
     <>
       <WaAlerts />
+      <MailSettings />
       <p className="tip">علشان تضيف موظف: خليه يعمل حساب من صفحة "حسابي" على الموقع، وبعدين غيّر صلاحيته هنا لـ "مبيعات" أو "مدير".</p>
       <Crud table="profiles" title="مستخدم" fields={fields} order="created_at" canDelete={false} csvName="users"
         filters={{ key: "role", options: [["admin", "مدير"], ["sales", "مبيعات"], ["customer", "عميل"], ["supplier", "مورد"]] }} />
@@ -530,6 +729,51 @@ function WaAlerts() {
       <div className="aform" style={{ maxWidth: 520 }}>
         <label>رقم واتساب اللي هيستقبل التنبيهات (بكود الدولة)<input id="cmb-phone" dir="ltr" value={v.phone} onChange={(e) => setV({ ...v, phone: e.target.value })} /></label>
         <label>مفتاح CallMeBot (apikey)<input id="cmb-key" dir="ltr" value={v.key} onChange={(e) => setV({ ...v, key: e.target.value })} /></label>
+        <div className="row">
+          <button className="abtn primary" disabled={busy} onClick={() => save(true)}>حفظ وتجربة</button>
+          <button className="abtn" disabled={busy} onClick={() => save(false)}>حفظ بس</button>
+        </div>
+        {msg && <p className="okmsg" role="status">{msg}</p>}
+      </div>
+    </section>
+  );
+}
+
+/* ---------------- email for supply orders + supplier invitations ---------------- */
+const MAIL_KEYS = ["mail_provider", "mail_apikey", "mail_from", "mail_from_name"];
+function MailSettings() {
+  const [v, setV] = useState<Record<string, string> | null>(null);
+  const [msg, setMsg] = useState("");
+  const [busy, setBusy] = useState(false);
+  useEffect(() => {
+    sb().from("app_settings").select("key,value").in("key", MAIL_KEYS).then(({ data }: any) => {
+      const m: Record<string, string> = { mail_provider: "brevo", mail_apikey: "", mail_from: "", mail_from_name: "كي بلس للتوريدات العمومية" };
+      (data || []).forEach((r: any) => { if (r.value) m[r.key] = r.value; });
+      setV(m);
+    });
+  }, []);
+  async function save(test: boolean) {
+    if (!v) return;
+    setBusy(true); setMsg("");
+    const now = new Date().toISOString();
+    const { error } = await sb().from("app_settings").upsert(MAIL_KEYS.map((key) => ({ key, value: (v[key] || "").trim(), updated_at: now })));
+    if (error) { setBusy(false); return setMsg("مااتحفظش: " + error.message); }
+    if (test) {
+      const r = await sb().rpc("mail_test");
+      setMsg(r.error ? "اتحفظ، بس التجربة فشلت: " + r.error.message : `اتحفظ، وبعتنا إيميل تجربة على ${r.data}. لو ماوصلش خلال دقيقتين راجع المفتاح وإيميل الإرسال (وبص في الـ Spam).`);
+    } else setMsg("اتحفظ.");
+    setBusy(false);
+  }
+  if (!v) return null;
+  return (
+    <section className="box" style={{ marginBottom: 16 }}>
+      <h2>إيميلات أوامر التوريد ودعوات الموردين</h2>
+      <p className="tip">الإيميلات بتتبعت من خدمة بريد مجانية. الأسهل <b>Brevo</b>: اعمل حساب مجاني على brevo.com، أكّد إيميل الإرسال (Senders)، وخد مفتاح API من SMTP &amp; API، والصقه هنا. (300 إيميل في اليوم مجاناً.)</p>
+      <div className="aform" style={{ maxWidth: 520 }}>
+        <label>الخدمة<select id="mail-prov" value={v.mail_provider} onChange={(e) => setV({ ...v, mail_provider: e.target.value })}><option value="brevo">Brevo</option><option value="resend">Resend</option></select></label>
+        <label>مفتاح API<input id="mail-key" dir="ltr" type="password" autoComplete="off" value={v.mail_apikey} onChange={(e) => setV({ ...v, mail_apikey: e.target.value })} /></label>
+        <label>إيميل الإرسال (لازم يكون متأكد في الخدمة)<input id="mail-from" dir="ltr" type="email" value={v.mail_from} onChange={(e) => setV({ ...v, mail_from: e.target.value })} /></label>
+        <label>اسم المرسل<input id="mail-name" value={v.mail_from_name} onChange={(e) => setV({ ...v, mail_from_name: e.target.value })} /></label>
         <div className="row">
           <button className="abtn primary" disabled={busy} onClick={() => save(true)}>حفظ وتجربة</button>
           <button className="abtn" disabled={busy} onClick={() => save(false)}>حفظ بس</button>
