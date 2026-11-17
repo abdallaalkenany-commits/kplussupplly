@@ -454,7 +454,9 @@ async function CategoryPage({ lang, slug, cats }: { lang: Lang; slug: string; ca
     image: galS.items.map((g) => ({ "@type": "ImageObject", contentUrl: D + g.src, name: lang === "ar" ? g.ar : g.en, width: g.w, height: g.h })),
   });
   const rel = TOP.filter((x) => x.slug !== slug && x.slug !== c.parent).slice(0, 4);
-  const guides = lang === "ar" ? GUIDES.filter((g) => g.related.includes(slug) || (c.parent && g.related[0] === c.parent)).slice(0, 3) : [];
+  // All related guides; guides whose main topic is this section come first.
+  const guides = lang === "ar" ? GUIDES.filter((g) => g.related.includes(slug) || (c.parent && g.related[0] === c.parent))
+    .sort((a, b) => Number(b.related[0] === slug) - Number(a.related[0] === slug)) : [];
   const m = media[slug];
   const gal = galleryFor(slug);
   const pricesLive = lang === "ar" && (await getPricedProducts()).length >= PRICES_MIN;
