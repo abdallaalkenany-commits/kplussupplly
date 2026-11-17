@@ -19,16 +19,22 @@ export function parseBody(text?: string | null): [string, string][] {
   }).filter(([h, p]) => h || p);
 }
 
+// A body block whose heading starts with "س:" (or "Q:") is a FAQ entry: the heading is the question, the text the answer.
+const FAQ_MARK = /^(س|Q)\s*[:：]\s*/i;
+
 function fromRow(r: DbCategoryRow): Category {
   const block = (l: Lang) => {
     const nav = (l === "ar" ? r.nav_ar : r.nav_en) || r.nav_ar || r.slug;
     const pick = (k: "h1" | "title" | "desc" | "lead" | "body") => (r[`${k}_${l}` as keyof DbCategoryRow] as string | null) || (r[`${k}_ar` as keyof DbCategoryRow] as string | null);
     const lead = pick("lead") || "";
+    const blocks = parseBody(pick("body"));
     return {
       nav, h1: pick("h1") || nav, lead,
       title: pick("title") || `${nav} | ${l === "ar" ? "كي بلس" : "K Plus"}`,
       desc: pick("desc") || lead.slice(0, 160),
-      body: parseBody(pick("body")), products: [], faq: [],
+      body: blocks.filter(([h]) => !FAQ_MARK.test(h)),
+      products: [],
+      faq: blocks.filter(([h, p]) => FAQ_MARK.test(h) && p).map(([h, p]): [string, string] => [h.replace(FAQ_MARK, ""), p]),
     };
   };
   return { slug: r.slug, icon: r.icon && ICONS[r.icon] ? r.icon : DEFAULT_ICON, parent: r.parent || null, menu: r.menu !== false, ar: block("ar"), en: block("en") };
