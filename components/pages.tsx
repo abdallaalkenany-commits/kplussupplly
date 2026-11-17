@@ -284,6 +284,19 @@ async function PricesPage(sc: SiteCats) {
   );
 }
 
+const CALC_GUIDES = ["concrete-mix-quantities", "cement-bags-per-cubic-meter", "how-to-calculate-bricks", "plaster-mortar-quantities", "how-to-calculate-tiles", "cement-bricks-vs-red-bricks"];
+const CALC_HOW_AR = [
+  "الخرسانة: الحاسبة بتضرب حجم الخرسانة (الطول × العرض × السمك) في كمية الأسمنت لكل متر مكعب: 350 كجم للمسلحة و250 كجم للعادية، وبتحسب الرمل حوالي 0.4 م³ والزلط حوالي 0.8 م³ لكل متر خرسانة، وبتحوّل الأسمنت لشكاير 50 كجم.",
+  "الطوب والمونة: بتضرب مساحة الحيطة في عدد الطوب لكل متر مربع حسب نوع الطوب وسمك الحيطة (مثلًا 60 طوبة مصمت 25×12×6 لحيطة 12 سم، و12.5 بلوكة 20×40)، وبتحسب حجم المونة وتحوّله لأسمنت ورمل.",
+  "الأرقام تقريبية للتخطيط والتسعير المبدئي. زوّد 5% إلى 10% للهالك، والكميات النهائية بيعتمدها المهندس المشرف حسب الرسومات.",
+];
+const CALC_FAQ_AR: [string, string][] = [
+  ["متر الخرسانة محتاج كام شكارة أسمنت؟", "حوالي 7 شكاير (350 كجم) للخرسانة المسلحة العادية، و4 إلى 5 شكاير لخرسانة النظافة."],
+  ["متر المباني محتاج كام طوبة أسمنتي؟", "الطوب الأسمنتي المصمت 25×12×6 سم محتاج حوالي 60 طوبة لمتر حيطة 12 سم و120 طوبة لحيطة 25 سم، والبلوك 20×40 حوالي 12.5 بلوكة للمتر. اختار النوع في الحاسبة وهي تحسب الباقي."],
+  ["الحاسبة بتحسب الهالك؟", "الحاسبة بتطلع الكمية الصافية تقريبًا. زوّد 5% إلى 10% احتياطي للهالك والكسر والفروق في الموقع."],
+  ["أقدر أطلب الكمية اللي طلعت في الحاسبة؟", "أيوه، دوس على زرار واتساب تحت النتيجة وابعت الكمية ومكان الموقع، وهنرد عليك بعرض سعر شامل النقل."],
+];
+
 function CalcPage({ lang, cats }: { lang: Lang; cats: SiteCats }) {
   const t = T[lang];
   const TOP = cats[lang].top;
@@ -295,7 +308,14 @@ function CalcPage({ lang, cats }: { lang: Lang; cats: SiteCats }) {
       <JsonLd data={app} />
       <section className="phero"><div className="wrap"><div><h1>{t.calc_h}</h1><p className="lead">{t.calc_lead}</p></div></div></section>
       <section className="wrap"><Calculator lang={lang} wa={C.whatsapp} /></section>
-      {lang === "ar" && <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={GUIDES.slice(0, 3)} /></section>}
+      {lang === "ar" && (
+        <section className="wrap prose">
+          <h2>إزاي الحاسبة بتحسب الكميات؟</h2>
+          {CALC_HOW_AR.map((p, i) => <p key={i}>{p}</p>)}
+        </section>
+      )}
+      {lang === "ar" && <section className="wrap"><h2>{t.related_guides}</h2><GuideCards guides={CALC_GUIDES.map((s) => guideBySlug(s)).filter((g): g is Guide => !!g)} /></section>}
+      {lang === "ar" && <Faq lang={lang} faqs={CALC_FAQ_AR} />}
       <section className="wrap"><h2>{t.cats}</h2><CatCards lang={lang} cats={TOP.slice(0, 4)} /></section>
       <Quote lang={lang} />
     </>
