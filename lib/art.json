@@ -21,7 +21,8 @@
   "plumbing/ukinox-sinks": "/img/ph/cat/plumbing-ukinox-sinks.webp",
   "plumbing/albedo-sinks": "/img/ph/cat/plumbing-albedo-sinks.webp",
   "plumbing/quartz": "/img/ph/cat/plumbing-quartz.webp",
-  "doors/accessories": "/img/ph/cat/doors-accessories.webp"
+  "doors/accessories": "/img/ph/cat/doors-accessories.webp",
+  "wpc/flooring": "/img/ph/cat/wpc.webp"
  },
  "prod": {
   "cement": [
@@ -108,6 +109,12 @@
    "/img/ph/p/electrical-2.webp",
    "/img/ph/p/electrical-3.webp",
    "/img/ph/p/electrical-4.webp"
+  ],
+  "wpc/flooring": [
+   "/img/ph/p/wpc-0.webp",
+   "/img/ph/p/wpc-0.webp",
+   "/img/ph/p/wpc-0.webp",
+   null
   ]
  }
 }

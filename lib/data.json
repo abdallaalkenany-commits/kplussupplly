@@ -796,6 +796,30 @@
      [
       "المستندات اللي بتستلمها",
       "مع كل توريد بنسلم بيانات الباب الفنية وشهادة الاختبار للتصنيف، علشان تقدمها في ملف الحماية المدنية. قبل التصنيع بنراجع معاك الرسومات ومكان كل باب واتجاه الفتح."
+     ],
+     [
+      "أماكن تركيب الأبواب المقاومة للحريق",
+      "بيوت السلالم ومداخلها في كل دور، ومخارج الطوارئ، وغرف الكهرباء والمولدات والمحولات، وغرف الطلمبات والمضخات، والمطابخ المركزية في الفنادق والمستشفيات، وأبواب الشقق على ممرات الهروب في الأبراج، وأبواب الجراجات المؤدية للسلالم. مكان كل باب وتصنيفه بيتحدد في رسومات الحماية المدنية المعتمدة للمبنى."
+     ],
+     [
+      "باب حريق خشب ولا صاج؟",
+      "الباب الخشب المقاوم للحريق شكله زي الباب العادي ويتشطب قشرة أو دهان أو HPL، فبيتركب في الفنادق والمستشفيات والشقق والمكاتب. الباب الصاج أتقل وأقوى ضد الصدمات، ومناسب لغرف الكهرباء والمولدات والمخارج الخدمية والجراجات وأماكن التصنيف العالي. الاتنين بيتصنعوا بتصنيفات مختلفة حسب الاختبار."
+     ],
+     [
+      "المقاسات الشائعة",
+      "الضلفة الواحدة غالبًا بعرض 90 أو 100 سم وارتفاع 210 سم، والباب بضلفتين بعرض من 120 إلى 180 سم للممرات ومخارج الطوارئ الواسعة. بنصنّع على مقاس الفتحة الفعلي بعد رفع المقاسات في الموقع، مع مراعاة أقل عرض مطلوب لمخارج الهروب في الرسومات."
+     ],
+     [
+      "الزجاج والإكسسوارات",
+      "لو الباب فيه شباك رؤية لازم يكون زجاج مقاوم للحريق بنفس تصنيف الباب. والإكسسوارات كلها لازم تكون مختبرة: ذراع غلق هيدروليك، ومفصلات، وكالون، وبار طوارئ (Panic Bar) لمخارج الهروب، ومنظم غلق للأبواب بضلفتين، وشريط انتفاخي بيتمدد مع الحرارة ويقفل الفراغ حوالين الضلفة."
+     ],
+     [
+      "التركيب والصيانة",
+      "الباب المقاوم للحريق بيشتغل كوحدة كاملة (ضلفة + حلق + إكسسوارات + تركيب)، فالتركيب الغلط بيلغي التصنيف. بعد التركيب لازم الباب يقفل لوحده تمامًا من أي زاوية، ومينفعش يتسند مفتوح بخابور. وراجع الأبواب دوريًا: ذراع الغلق، والشريط الانتفاخي، والمفصلات، والفراغ حوالين الضلفة."
+     ],
+     [
+      "التوريد للمشروعات",
+      "ابعتلنا رسومات الحماية المدنية أو جدول الأبواب (المكان، التصنيف، المقاس، اتجاه الفتح، التشطيب)، وبنقدم عرض سعر مفصل لكل نوع، ومستندات فنية وشهادات اختبار تتقدم في ملف الحماية المدنية، وجدول توريد وتركيب حسب مراحل المشروع."
      ]
     ],
     "products": [
@@ -836,6 +860,22 @@
      [
       "الباب المقاوم للحريق شكله زي الباب العادي؟",
       "الخشب منه بيتشطب قشرة أو دهان زي الأبواب العادية، فيتركب في الفنادق والشقق من غير ما يبان الفرق."
+     ],
+     [
+      "يعني إيه تصنيف EI60 أو FD60؟",
+      "الرقم هو عدد الدقائق اللي الباب صمد فيها في اختبار الحريق. حرف E معناه منع مرور اللهب والغازات، وحرف I معناه العزل الحراري (الوش التاني للباب ميسخنش لدرجة خطيرة). FD60 تسمية تانية شائعة لباب حريق 60 دقيقة."
+     ],
+     [
+      "ينفع أركب زجاج في باب الحريق؟",
+      "أيوه بشرط إن الزجاج يكون مقاوم للحريق بنفس تصنيف الباب ومركب بالطريقة المختبرة."
+     ],
+     [
+      "لازم الباب يقفل لوحده؟",
+      "أيوه، أبواب الحريق لازم يكون عليها ذراع غلق علشان تفضل مقفولة وتمنع انتقال الدخان والنار، ومينفعش تتسند مفتوحة."
+     ],
+     [
+      "بتوردوا أبواب حريق بضلفتين؟",
+      "أيوه، بنورد أبواب بضلفة وبضلفتين للمخارج والممرات الواسعة، مع منظم الغلق والإكسسوارات المختبرة."
      ]
     ]
    },
@@ -857,6 +897,22 @@
      [
       "Fire ratings explained",
       "The rating is how many minutes the door holds back fire and smoke in testing: FD30 for apartments and hotel rooms, FD60 for stairwells and corridors, and 90–120 minutes for electrical and generator rooms."
+     ],
+     [
+      "Where fire doors are installed",
+      "Stairwells, emergency exits, electrical, generator and pump rooms, central kitchens, apartment doors on escape corridors in towers, and car-park doors leading to stairs, as shown in the approved civil-defence drawings."
+     ],
+     [
+      "Wood or steel?",
+      "Wooden fire doors look like normal doors and suit hotels, hospitals, apartments and offices. Steel fire doors are heavier and tougher, for electrical rooms, service exits and car parks."
+     ],
+     [
+      "Common sizes",
+      "Single leaves are usually 90 or 100 cm wide and 210 cm high; double doors 120–180 cm wide for corridors and exits. We manufacture to the measured opening."
+     ],
+     [
+      "Installation and maintenance",
+      "A fire door works as a tested set (leaf, frame, hardware and installation). It must self-close fully and never be wedged open. Check closers, seals and hinges regularly."
      ]
     ],
     "products": [
@@ -889,6 +945,14 @@
      [
       "60 or 90 minutes?",
       "It depends on the building type and door location; send the drawings and we will specify the rating."
+     ],
+     [
+      "What does EI60 or FD60 mean?",
+      "The number is the minutes the door resisted in the fire test. E is integrity (no flames or hot gases pass) and I is insulation. FD60 is another common name for a 60-minute fire door."
+     ],
+     [
+      "Can a fire door have glass?",
+      "Yes, if the glass is fire-rated to the same rating and fitted as tested."
      ]
     ]
    }
@@ -1244,6 +1308,165 @@
     ]
    },
    "menu": false
+  },
+  {
+   "slug": "wpc/flooring",
+   "icon": "deck",
+   "parent": "wpc",
+   "ar": {
+    "nav": "أرضيات WPC",
+    "title": "أرضيات WPC خارجية (ديك) للحدائق والرووف وحمامات السباحة | توريد وتركيب — كي بلس",
+    "desc": "توريد وتركيب أرضيات WPC (ديك) للمشروعات في مصر: ألواح مفرغة ومصمتة ضد الانزلاق للحدائق والرووف وحول حمامات السباحة، بالمدادات والكليبسات وخطوات التركيب الصحيحة. اطلب عرض سعر لمشروعك.",
+    "h1": "أرضيات WPC (ديك) خارجية: توريد وتركيب للمشروعات",
+    "lead": "أرضيات WPC بتجمع شكل الخشب الطبيعي مع تحمّل البلاستيك: مابتتشققش من الشمس، ومابتتسوسش، ومابتحتاجش ورنيش. بنوردها ونركبها للكمبوندات والفنادق والقرى السياحية والفيلات بالمدادات والإكسسوارات الكاملة.",
+    "body": [
+     [
+      "يعني إيه أرضيات WPC؟",
+      "WPC اختصار Wood Plastic Composite، وهو خليط من ألياف الخشب والبلاستيك المعاد تدويره مع إضافات ضد الأشعة فوق البنفسجية. الألواح بتتصنع بالبثق، فبتطلع مقاساتها منتظمة وسطحها مضلع أو بنقشة خشب ضد الانزلاق، ومناسبة للاستخدام الخارجي في الشمس والمطر."
+     ],
+     [
+      "مفرغ ولا مصمت؟",
+      "اللوح المفرغ (Hollow) أخف وأوفر، ومناسب للحدائق والرووف والممرات العادية. اللوح المصمت (Solid) أتقل وأقوى، ومناسب للأماكن اللي عليها حركة كتير زي المطاعم والفنادق وحول حمامات السباحة. فيه كمان ألواح Co-extrusion عليها طبقة حماية خارجية بتقاوم البهتان والبقع أكتر."
+     ],
+     [
+      "المقاسات الشائعة",
+      "أشهر مقاسات ألواح الديك: عرض حوالي 14 سم، وسمك من 2.2 إلى 2.5 سم، وطول 2.2 أو 2.9 أو 4 متر، وفي مقاسات تانية حسب المصنع. المدادات (Joists) غالبًا مقاس حوالي 3×5 سم أو 4×6 سم، وبتتركب كل 30 إلى 35 سم تقريبًا. بنحدد المقاس الأنسب بعد رفع مقاسات الموقع علشان نقلل الهالك."
+     ],
+     [
+      "أماكن الاستخدام",
+      "حدائق الفيلات والكمبوندات، وأسطح المباني (الرووف)، وحول حمامات السباحة، والممشى والكورنيش، وتراسات المطاعم والكافيهات، والقرى السياحية والفنادق، والبلكونات. وللأماكن الداخلية بنرشح أرضيات HDF أو السيراميك بدل WPC."
+     ],
+     [
+      "خطوات التركيب الصحيحة",
+      "1) أرضية مستوية بميل خفيف لتصريف المياه (خرسانة أو بلاط). 2) تثبيت المدادات على مسافات منتظمة بفيشر أو على قواعد. 3) تركيب الألواح بكليبسات مخفية مع ترك فاصل تمدد بين الألواح (حوالي 5 مم) وعند الحوائط. 4) تقفيل الحواف بزوايا وبروفايل نهاية. التركيب الغلط، خصوصًا عدم ترك فواصل التمدد أو تباعد المدادات، هو أشهر سبب لتقوّس الألواح."
+     ],
+     [
+      "WPC ولا خشب طبيعي ولا بورسلين خارجي؟",
+      "الخشب الطبيعي شكله أجمل لكنه محتاج ورنيش وصيانة كل سنة وبيتشقق ويتسوس. البورسلين الخارجي قوي لكنه بيسخن ويبقى زلق وهو مبلول. WPC في النص: شكل خشب، وصيانة شبه معدومة، وسطح ضد الانزلاق، وسهل الفك وإعادة التركيب لو احتجت توصل للعزل أو المواسير تحته."
+     ],
+     [
+      "الصيانة والعمر الافتراضي",
+      "تنظيف بالمية والصابون أو بخرطوم ضغط خفيف، ومن غير دهان أو ورنيش. لون الألواح العادية ممكن يفتح شوية في أول شهور تحت الشمس وبعدين يثبت، وألواح Co-extrusion أثبت في اللون. العمر الافتراضي طويل لو التركيب صح، والمصانع بتدي ضمان بيختلف حسب النوع."
+     ],
+     [
+      "التوريد للمشروعات",
+      "بنستقبل المخطط أو المساحات وصور المكان، وبنعمل رفع مقاسات وتوزيع ألواح لتقليل الهالك، وبنقدم عرض سعر شامل الألواح والمدادات والكليبسات والتركيب، وبنورد على مراحل حسب جدول تنفيذ المشروع. الأسعار بتتحدد حسب نوع اللوح والسمك واللون والمساحة."
+     ]
+    ],
+    "products": [
+     [
+      "ألواح ديك WPC مفرغة",
+      "للحدائق والرووف والممرات — سطح ضد الانزلاق",
+      "م²"
+     ],
+     [
+      "ألواح ديك WPC مصمتة",
+      "للمطاعم والفنادق وحول حمامات السباحة — تحمّل أعلى",
+      "م²"
+     ],
+     [
+      "ألواح ديك Co-extrusion",
+      "طبقة حماية خارجية ضد البهتان والبقع",
+      "م²"
+     ],
+     [
+      "مدادات وكليبسات وإكسسوارات",
+      "مدادات WPC أو ألومنيوم، كليبسات مخفية، زوايا وبروفايل نهاية",
+      "مشروع"
+     ]
+    ],
+    "faq": [
+     [
+      "أرضيات WPC بتستحمل الشمس والمطر؟",
+      "أيوه، WPC الخارجي معالج ضد الأشعة فوق البنفسجية والمياه، ومابيتشققش ولا بيتسوس زي الخشب الطبيعي."
+     ],
+     [
+      "أرضيات WPC بتسخن في الصيف؟",
+      "زي أي أرضية خارجية بتدفى في الشمس المباشرة، والألوان الفاتحة أقل سخونة من الغامقة. لو المكان مكشوف تمامًا ننصح بلون فاتح أو تظليل."
+     ],
+     [
+      "هل أرضيات WPC بتزحلق حوالين البيسين؟",
+      "سطحها مضلع أو بنقشة خشب ضد الانزلاق، وده سبب إنها منتشرة حوالين حمامات السباحة. ننصح باللوح المصمت أو Co-extrusion في الأماكن دي."
+     ],
+     [
+      "هل ينفع تتركب فوق البلاط القديم؟",
+      "أيوه لو البلاط ثابت ومستوي وفيه ميل لتصريف المياه، لأن الألواح بتتركب على مدادات مش ملزوقة على الأرضية."
+     ],
+     [
+      "المتر محتاج كام لوح؟",
+      "بيختلف حسب مقاس اللوح؛ مثلًا لوح عرض 14 سم وطول 2.9 متر بيغطي حوالي 0.4 م²، يعني حوالي 2.5 لوح للمتر المربع، زائد هالك حسب شكل المكان."
+     ],
+     [
+      "سعر متر أرضيات WPC كام؟",
+      "بيتحدد حسب نوع اللوح (مفرغ أو مصمت أو Co-extrusion) والسمك واللون والمساحة والتركيب. ابعتلنا المساحة وصور المكان ونرد بعرض سعر."
+     ]
+    ]
+   },
+   "en": {
+    "nav": "WPC Decking",
+    "title": "Outdoor WPC Decking for Gardens, Roofs & Pools in Egypt — K Plus",
+    "desc": "Supply and installation of WPC decking in Egypt: hollow, solid and co-extruded anti-slip boards for gardens, roofs, pool decks and walkways, with joists, clips and correct installation.",
+    "h1": "Outdoor WPC Decking: Supply & Installation",
+    "lead": "WPC decking gives the look of timber with the durability of plastic: no cracking, no rot and no varnish. We supply and install it for compounds, hotels, resorts and villas with joists and full accessories.",
+    "body": [
+     [
+      "What is WPC decking?",
+      "WPC (Wood Plastic Composite) blends wood fibre and recycled plastic with UV additives. Extruded boards have consistent sizes and a grooved or wood-grain anti-slip surface for outdoor use."
+     ],
+     [
+      "Hollow, solid or co-extruded?",
+      "Hollow boards are lighter and economical for gardens and roofs. Solid boards are stronger for busy areas such as restaurants, hotels and pool decks. Co-extruded boards add a protective cap that resists fading and stains."
+     ],
+     [
+      "Common sizes",
+      "Typical boards are about 14 cm wide, 2.2–2.5 cm thick and 2.2, 2.9 or 4 m long. Joists are usually fixed every 30–35 cm."
+     ],
+     [
+      "Installation",
+      "Level base with a slight fall for drainage, joists at regular spacing, boards fixed with hidden clips leaving about 5 mm expansion gaps, then edge trims. Missing expansion gaps is the main cause of warping."
+     ],
+     [
+      "Maintenance",
+      "Wash with water and soap; no painting or varnish. Standard boards may lighten slightly in the first months, co-extruded boards hold their colour better."
+     ]
+    ],
+    "products": [
+     [
+      "Hollow WPC decking boards",
+      "Gardens, roofs and walkways — anti-slip",
+      "m²"
+     ],
+     [
+      "Solid WPC decking boards",
+      "Restaurants, hotels and pool decks",
+      "m²"
+     ],
+     [
+      "Co-extruded WPC decking",
+      "Protective cap against fading and stains",
+      "m²"
+     ],
+     [
+      "Joists, clips and trims",
+      "WPC or aluminium joists, hidden clips, edge profiles",
+      "project"
+     ]
+    ],
+    "faq": [
+     [
+      "Does WPC decking withstand sun and rain?",
+      "Yes. Outdoor WPC is UV- and water-resistant and does not crack or rot like natural timber."
+     ],
+     [
+      "Can it be laid over existing tiles?",
+      "Yes, if the tiles are sound and level with a drainage fall, because the boards sit on joists."
+     ],
+     [
+      "What is the WPC decking price per m²?",
+      "It depends on board type, thickness, colour, area and installation. Send the area and photos for a quote."
+     ]
+    ]
+   }
   },
   {
    "slug": "ideal-standard",
