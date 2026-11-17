@@ -13,7 +13,9 @@ const TX = {
     no_quotes: "لسه مفيش طلبات. اطلب عرض سعر من أي صفحة منتج.", status: "الحالة", date: "التاريخ", product: "المنتج", qty: "الكمية",
     sup_profile: "بيانات المورد", company_name: "اسم الشركة", contact_name: "اسم المسؤول", gov: "المحافظة", cats: "الأقسام اللي بتوردها",
     sup_products: "المنتجات والماركات", cr: "رقم السجل التجاري", tax: "رقم البطاقة الضريبية", website: "الموقع الإلكتروني (اختياري)",
-    docs: "المستندات (سجل تجاري، بطاقة ضريبية، كتالوج)", upload: "رفع ملف", save: "حفظ", saved: "اتحفظ.", staff: "لوحة التحكم",
+    docs: "المستندات (الكتالوج، قائمة الأسعار، السجل التجاري، البطاقة الضريبية)", upload: "رفع ملفات",
+    docs_hint: "ارفع الكتالوج وقائمة الأسعار وأي مستندات تانية (PDF أو Excel أو Word أو صور)، وتقدر تختار أكتر من ملف مرة واحدة. الملفات بيشوفها فريق كي بلس بس.",
+    save_first: "احفظ بياناتك الأول، وبعدها هيظهر لك مكان رفع الكتالوج وقائمة الأسعار.", save: "حفظ", saved: "اتحفظ.", staff: "لوحة التحكم",
     s_pending: "تحت المراجعة", s_approved: "معتمد", s_rejected: "مرفوض", not_ready: "التسجيل هيتفتح قريب. لحد ما يجهز كلمنا على واتساب.",
     forgot: "نسيت كلمة السر؟", reset_sent: "بعتنالك لينك تغيير كلمة السر على الإيميل.",
     q: { new: "جديد", contacted: "اتواصلنا", quoted: "اتبعت عرض سعر", won: "اتنفذ", lost: "مقفول" } as Record<string, string>,
@@ -26,7 +28,9 @@ const TX = {
     no_quotes: "No requests yet. Request a quote from any product page.", status: "Status", date: "Date", product: "Product", qty: "Quantity",
     sup_profile: "Supplier profile", company_name: "Company name", contact_name: "Contact person", gov: "Governorate", cats: "Categories you supply",
     sup_products: "Products and brands", cr: "Commercial register no.", tax: "Tax card no.", website: "Website (optional)",
-    docs: "Documents (commercial register, tax card, catalogue)", upload: "Upload file", save: "Save", saved: "Saved.", staff: "Dashboard",
+    docs: "Documents (catalogue, price list, commercial register, tax card)", upload: "Upload files",
+    docs_hint: "Upload your catalogue, price list and any other documents (PDF, Excel, Word or images). You can pick several files at once. Only the K Plus team can see them.",
+    save_first: "Save your details first; the catalogue and price-list upload will appear right after.", save: "Save", saved: "Saved.", staff: "Dashboard",
     s_pending: "Under review", s_approved: "Approved", s_rejected: "Rejected", not_ready: "Registration opens soon. Until then, message us on WhatsApp.",
     forgot: "Forgot password?", reset_sent: "We emailed you a password reset link.",
     q: { new: "New", contacted: "Contacted", quoted: "Quote sent", won: "Delivered", lost: "Closed" } as Record<string, string>,
@@ -208,17 +212,20 @@ function SupplierForm({ lang, profile }: { lang: Lang; profile: Profile }) {
   }
 
   async function upload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (!file || !sup?.id) return;
-    setBusy(true);
-    const path = `${profile.id}/${Date.now()}-${file.name.replace(/[^\w.\-]+/g, "_")}`;
+    const picked = Array.from(e.target.files || []);
+    if (!picked.length || !sup?.id) return;
+    setBusy(true); setMsg("");
     const client = sb();
-    const up = await client.storage.from("supplier-docs").upload(path, file);
-    if (up.error) { setMsg(up.error.message); setBusy(false); return; }
-    const files = [...(sup.files || []), { path, name: file.name, at: new Date().toISOString() }];
+    const files = [...(sup.files || [])];
+    for (const file of picked) {
+      const path = `${profile.id}/${Date.now()}-${file.name.replace(/[^\w.\-]+/g, "_")}`;
+      const up = await client.storage.from("supplier-docs").upload(path, file);
+      if (up.error) { setMsg(file.name + ": " + up.error.message); continue; }
+      files.push({ path, name: file.name, at: new Date().toISOString() });
+    }
     const res = await client.from("suppliers").update({ files }).eq("id", sup.id).select().single();
     setBusy(false);
-    if (!res.error) setSup(res.data);
+    if (!res.error) setSup(res.data); else setMsg(res.error.message);
     e.target.value = "";
   }
 
@@ -251,13 +258,14 @@ function SupplierForm({ lang, profile }: { lang: Lang; profile: Profile }) {
         <button className="btn full" disabled={busy}>{x.save}</button>
         {msg && <p className="hint full" role="status">{msg}</p>}
       </form>
-      {sup.id && (
+      {sup.id ? (
         <div className="card docs">
           <h3>{x.docs}</h3>
+          <p className="hint">{x.docs_hint}</p>
           <ul>{(sup.files || []).map((f: any) => <li key={f.path}>{f.name}</li>)}</ul>
-          <label className="btn ghost sm upl">{x.upload}<input type="file" accept=".pdf,.jpg,.jpeg,.png" onChange={upload} hidden /></label>
+          <label className="btn ghost sm upl">{busy ? "…" : x.upload}<input type="file" multiple accept=".pdf,.jpg,.jpeg,.png,.webp,.xlsx,.xls,.csv,.doc,.docx" onChange={upload} disabled={busy} hidden /></label>
         </div>
-      )}
+      ) : <p className="hint">{x.save_first}</p>}
     </>
   );
 }
