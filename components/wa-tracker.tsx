@@ -6,8 +6,8 @@ const KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 const STORE = "kp_lead";
 
 const TXT = {
-  ar: { h: "قبل ما نكمل على واتساب", p: "سيب اسمك ورقمك عشان فريق المبيعات يقدر يرجعلك لو الرسالة اتأخرت.", name: "الاسم", phone: "رقم الموبايل", go: "كمّل على واتساب", close: "إغلاق", bad: "اكتب رقم موبايل صحيح", hi: "الاسم" },
-  en: { h: "Before we continue to WhatsApp", p: "Leave your name and number so our sales team can call you back if needed.", name: "Name", phone: "Mobile number", go: "Continue to WhatsApp", close: "Close", bad: "Enter a valid mobile number", hi: "Name" },
+  ar: { h: "قبل ما نكمل على واتساب", p: "اسمك ورقمك اختياري: بيساعد فريق المبيعات يرجعلك لو الرسالة اتأخرت.", name: "الاسم (اختياري)", phone: "رقم الموبايل (اختياري)", go: "كمّل على واتساب", skip: "افتح واتساب على طول من غير بيانات", close: "إغلاق", bad: "اكتب رقم موبايل صحيح أو سيبه فاضي", hi: "الاسم" },
+  en: { h: "Before we continue to WhatsApp", p: "Name and number are optional: they help our sales team call you back if needed.", name: "Name (optional)", phone: "Mobile number (optional)", go: "Continue to WhatsApp", skip: "Open WhatsApp directly, skip this", close: "Close", bad: "Enter a valid mobile number or leave it empty", hi: "Name" },
 };
 
 function post(table: string, body: any, fallback?: any) {
@@ -64,14 +64,20 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
   useEffect(() => { if (pending) setTimeout(() => nameRef.current?.focus(), 30); }, [pending]);
 
   if (!pending) return null;
+  // Never block WhatsApp: name/phone are optional, and "skip" opens the chat straight away.
+  function direct() {
+    window.open(pending!.href, "_blank", "noopener");
+    setPending(null);
+  }
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = new FormData(e.currentTarget);
     const name = String(fd.get("name") || "").trim().slice(0, 120);
     const phone = String(fd.get("phone") || "").replace(/[^\d+]/g, "").slice(0, 30);
+    if (!phone) return direct();
     if (phone.length < 8) return setErr(t.bad);
     try { localStorage.setItem(STORE, JSON.stringify({ name, phone })); } catch {}
-    lead(name, phone, pending!.href, pending!.message);
+    lead(name || phone, phone, pending!.href, pending!.message);
     setPending(null);
   }
   return (
@@ -81,10 +87,11 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
         <button type="button" className="wagate-x" aria-label={t.close} onClick={() => setPending(null)}>×</button>
         <h2 id="wagate-h">{t.h}</h2>
         <p>{t.p}</p>
-        <label>{t.name}<input ref={nameRef} id="wg-name" name="name" required minLength={2} maxLength={120} autoComplete="name" /></label>
-        <label>{t.phone}<input id="wg-phone" name="phone" type="tel" required dir="ltr" maxLength={30} autoComplete="tel" inputMode="tel" /></label>
+        <label>{t.name}<input ref={nameRef} id="wg-name" name="name" maxLength={120} autoComplete="name" /></label>
+        <label>{t.phone}<input id="wg-phone" name="phone" type="tel" dir="ltr" maxLength={30} autoComplete="tel" inputMode="tel" /></label>
         {err && <p className="wagate-err" role="alert">{err}</p>}
         <button className="btn wa" type="submit">{t.go}</button>
+        <button type="button" onClick={direct} style={{ border: 0, background: "none", color: "var(--muted)", textDecoration: "underline", cursor: "pointer", font: "inherit", fontSize: 14, padding: 4 }}>{t.skip}</button>
       </form>
     </div>
   );
