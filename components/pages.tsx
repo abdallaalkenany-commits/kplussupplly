@@ -177,6 +177,20 @@ function relatedGuides(g: Guide, n = 3) {
     .map((o) => o.x);
 }
 
+// Guide paragraphs may contain internal links written as [anchor text](/path/).
+function rich(p: string) {
+  const out: React.ReactNode[] = [];
+  const re = /\[([^\]]+)\]\((\/[^)\s]*)\)/g;
+  let last = 0, m: RegExpExecArray | null;
+  while ((m = re.exec(p))) {
+    if (m.index > last) out.push(p.slice(last, m.index));
+    out.push(<Link key={m.index} href={m[2]}>{m[1]}</Link>);
+    last = m.index + m[0].length;
+  }
+  if (last < p.length) out.push(p.slice(last));
+  return out;
+}
+
 function GuidePage({ g, cats: sc }: { g: Guide; cats: SiteCats }) {
   const t = T.ar;
   const url = D + `/guides/${g.slug}/`;
@@ -197,7 +211,7 @@ function GuidePage({ g, cats: sc }: { g: Guide; cats: SiteCats }) {
           {g.sections.map((sec, i) => (
             <div key={i}>
               <h2>{sec.h}</h2>
-              {sec.p.map((p, j) => <p key={j}>{p}</p>)}
+              {sec.p.map((p, j) => <p key={j}>{rich(p)}</p>)}
               {sec.table && (
                 <div className="tbl"><table>
                   <thead><tr>{sec.table.head.map((h, j) => <th key={j}>{h}</th>)}</tr></thead>
