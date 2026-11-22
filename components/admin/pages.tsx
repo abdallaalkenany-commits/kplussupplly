@@ -825,16 +825,19 @@ function MailSettings() {
 
 /* ---------------- whatsapp clicks ---------------- */
 export const WA_SOURCES: [string, string][] = [["float", "الزرار العائم"], ["product", "زرار منتج"], ["page", "زرار في الصفحة"], ["header", "أعلى الصفحة"], ["footer", "أسفل الصفحة"], ["quote_form", "بعد طلب السعر"]];
+export const WA_OUTCOMES: [string, string][] = [["closed", "قفل النافذة (مافتحش واتساب)"], ["direct", "فتح واتساب من غير بيانات"], ["lead", "فتح واتساب وساب رقمه"], ["known", "فتح واتساب (رقمه محفوظ)"], ["form", "بعد طلب السعر"]];
 export function WhatsApp() {
   const fields: Field[] = [
     { key: "created_at", label: "الوقت", list: true, readonly: true },
     { key: "source", label: "مكان الزرار", type: "select", options: WA_SOURCES, list: true, readonly: true },
+    { key: "outcome", label: "اللي حصل بعد الضغطة", type: "select", options: WA_OUTCOMES, list: true, readonly: true },
     { key: "message", label: "الرسالة / المنتج", list: true, readonly: true },
     { key: "page", label: "الصفحة", list: true, readonly: true, ltr: true },
   ];
   return (
     <div>
       <p className="emptyst">كل مرة زائر يدوس على زرار واتساب في الموقع بتتسجل هنا، ومعاها المنتج والصفحة. الرسايل نفسها بتوصل على واتساب الشركة، ولو الزائر بعت بياناته في الرسالة سجّله كعميل أو طلب سعر.</p>
+      <p className="emptyst">«اللي حصل بعد الضغطة» بيتسجل من 22/11/2026: «قفل النافذة» يعني ما فتحش واتساب أصلًا. «فتح واتساب» يعني الرسالة اتكتبت له جاهزة، لكن الإرسال في إيده هو، فممكن ما يبعتش. لو ساب رقمه هتلاقيه في «طلبات الأسعار». «—» يعني ساب الصفحة من غير ما يختار، أو ضغطة قديمة قبل التاريخ ده.</p>
       <Crud table="wa_clicks" title="ضغطة" fields={fields} filters={{ key: "source", options: WA_SOURCES }} csvName="whatsapp-clicks" />
     </div>
   );
