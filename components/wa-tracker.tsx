@@ -10,14 +10,25 @@ const TXT = {
   en: { h: "Before we continue to WhatsApp", p: "Name and number are optional: they help our sales team call you back if needed.", name: "Name (optional)", phone: "Mobile number (optional)", go: "Continue to WhatsApp", skip: "Open WhatsApp directly, skip this", close: "Close", bad: "Enter a valid mobile number or leave it empty", hi: "Name" },
 };
 
-function post(table: string, body: any, fallback?: any) {
-  if (!URL_ || !KEY) return;
+function post(table: string, body: any, fallback?: any): Promise<unknown> {
+  if (!URL_ || !KEY) return Promise.resolve();
   const send = (b: any) => fetch(`${URL_}/rest/v1/${table}`, {
     method: "POST", keepalive: true,
     headers: { apikey: KEY, Authorization: `Bearer ${KEY}`, "Content-Type": "application/json", Prefer: "return=minimal" },
     body: JSON.stringify(b),
   });
-  send(body).then((r) => { if (!r.ok && fallback && r.status === 400) return send(fallback); }).catch(() => {});
+  return send(body).then((r) => { if (!r.ok && fallback && r.status === 400) return send(fallback); }).catch(() => {});
+}
+function uid(): string {
+  try { if (crypto.randomUUID) return crypto.randomUUID(); } catch {}
+  return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0; return (c === "x" ? r : (r & 3) | 8).toString(16);
+  });
+}
+type Outcome = "closed" | "direct" | "lead" | "known";
+/** What the visitor did after the click (shown in /admin/whatsapp/). Runs after the click row is saved. */
+function saveOutcome(click: { id: string; saved: Promise<unknown> }, outcome: Outcome) {
+  click.saved.then(() => post("rpc/wa_set_outcome", { p_click: click.id, p_outcome: outcome }));
 }
 function readLead(): { name: string; phone: string } | null {
   try { const v = JSON.parse(localStorage.getItem(STORE) || "null"); return v && v.name && v.phone ? v : null; } catch { return null; }
@@ -32,6 +43,12 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
   const [err, setErr] = useState("");
   const t = TXT[lang];
   const nameRef = useRef<HTMLInputElement>(null);
+  const clickRef = useRef<{ id: string; saved: Promise<unknown> } | null>(null);
+  function mark(outcome: Outcome) {
+    const c = clickRef.current;
+    clickRef.current = null;
+    if (c) saveOutcome(c, outcome);
+  }
 
   function lead(name: string, phone: string, href: string, message: string) {
     const product = (message.split(":").slice(1).join(":") || "").trim() || null;
@@ -50,11 +67,15 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
         : a.closest("footer") ? "footer" : a.closest(".nav,.top") ? "header" : "page";
       let message = "";
       try { message = new URL(a.href).searchParams.get("text") || ""; } catch {}
-      post("wa_clicks", { source, message: message.slice(0, 1000), page: location.pathname.slice(0, 300), lang });
+      const known = source === "quote_form" ? null : readLead();
+      const base = { source, message: message.slice(0, 1000), page: location.pathname.slice(0, 300), lang };
+      const id = uid();
+      // fallback = the old row shape, in case the outcome columns (SQL 014) are missing
+      const saved = post("wa_clicks", { ...base, click_id: id, outcome: source === "quote_form" ? "form" : known ? "known" : null }, base);
       if (source === "quote_form" || !URL_) return; // quote form already saved the lead
       e.preventDefault();
-      const known = readLead();
       if (known) return lead(known.name, known.phone, a.href, message);
+      clickRef.current = { id, saved };
       setErr(""); setPending({ href: a.href, message });
     }
     document.addEventListener("click", onClick, true);
@@ -66,7 +87,12 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
   if (!pending) return null;
   // Never block WhatsApp: name/phone are optional, and "skip" opens the chat straight away.
   function direct() {
+    mark("direct");
     window.open(pending!.href, "_blank", "noopener");
+    setPending(null);
+  }
+  function close() {
+    mark("closed");
     setPending(null);
   }
   function submit(e: React.FormEvent<HTMLFormElement>) {
@@ -77,14 +103,15 @@ export default function WaTracker({ lang }: { lang: "ar" | "en" }) {
     if (!phone) return direct();
     if (phone.length < 8) return setErr(t.bad);
     try { localStorage.setItem(STORE, JSON.stringify({ name, phone })); } catch {}
+    mark("lead");
     lead(name || phone, phone, pending!.href, pending!.message);
     setPending(null);
   }
   return (
-    <div className="wagate" role="dialog" aria-modal="true" aria-labelledby="wagate-h" onKeyDown={(e) => e.key === "Escape" && setPending(null)}>
-      <div className="wagate-bg" onClick={() => setPending(null)} />
+    <div className="wagate" role="dialog" aria-modal="true" aria-labelledby="wagate-h" onKeyDown={(e) => e.key === "Escape" && close()}>
+      <div className="wagate-bg" onClick={close} />
       <form className="wagate-card" onSubmit={submit}>
-        <button type="button" className="wagate-x" aria-label={t.close} onClick={() => setPending(null)}>×</button>
+        <button type="button" className="wagate-x" aria-label={t.close} onClick={close}>×</button>
         <h2 id="wagate-h">{t.h}</h2>
         <p>{t.p}</p>
         <label>{t.name}<input ref={nameRef} id="wg-name" name="name" maxLength={120} autoComplete="name" /></label>
