@@ -501,11 +501,15 @@ async function CategoryPage({ lang, slug, cats }: { lang: Lang; slug: string; ca
       {gal && (
         <section className="wrap" id="models"><h2>{lang === "ar" ? gal.title_ar : gal.title_en}</h2>
           <p className="lead">{lang === "ar" ? gal.note_ar : gal.note_en}</p>
-          {gal.pdf && (
-            <a className="catdl" href={gal.pdf} target="_blank" rel="noopener">
-              <img src={gal.pdf.replace(/^\/files\/([\w-]+)-catalog\.pdf$/, "/img/catalogs/$1/p01.webp")} alt="" width={140} height={198} loading="lazy" />
-              <span><b>{lang === "ar" ? "تحميل الكتالوج كامل (PDF)" : "Download the full catalogue (PDF)"}</b><small>{lang === "ar" ? gal.title_ar : gal.title_en}</small></span>
-            </a>
+          {(gal.pdfs?.length || gal.pdf) && (
+            <div className="catdls">
+              {(gal.pdfs ?? [{ pdf: gal.pdf!, ar: gal.title_ar, en: gal.title_en }]).map((f) => (
+                <a className="catdl" href={f.pdf} target="_blank" rel="noopener" key={f.pdf}>
+                  <img src={f.pdf.replace(/^\/files\/([\w-]+)-catalog\.pdf$/, "/img/catalogs/$1/p01.webp")} alt={lang === "ar" ? f.ar : f.en} width={140} height={198} loading="lazy" />
+                  <span><b>{gal.pdfs ? (lang === "ar" ? "تحميل الكتالوج (PDF)" : "Download catalogue (PDF)") : (lang === "ar" ? "تحميل الكتالوج كامل (PDF)" : "Download the full catalogue (PDF)")}</b><small>{lang === "ar" ? f.ar : f.en}</small></span>
+                </a>
+              ))}
+            </div>
           )}
           <div className={gal.pages ? "gallery pages" : gal.items.every((g) => g.h > g.w * 1.4) ? "gallery tall" : "gallery"}>
             {gal.items.map((g, i) => {
