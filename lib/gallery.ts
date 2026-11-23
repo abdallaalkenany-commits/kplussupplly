@@ -4,7 +4,7 @@ import gallery from "./gallery.json";
 
 export type GalleryItem = { src: string; w: number; h: number; ar: string; en: string; code?: string };
 // pages: catalogue pages (A4, shown whole); pdf: cleaned catalogue to download (cover = items' folder /p01.webp)
-export type Gallery = { title_ar: string; title_en: string; note_ar: string; note_en: string; items: GalleryItem[]; pages?: boolean; pdf?: string };
+export type Gallery = { title_ar: string; title_en: string; note_ar: string; note_en: string; items: GalleryItem[]; pages?: boolean; pdf?: string; pdfs?: { pdf: string; ar: string; en: string }[] };
 
 const G = gallery as Record<string, Gallery>;
 

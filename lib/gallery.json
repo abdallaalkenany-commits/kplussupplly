@@ -536,5 +536,174 @@
     "en": "Quartz Stainless cover plates"
    }
   ]
+ },
+ "ideal-standard": {
+  "title_ar": "كتالوجات إيديال ستاندرد 2026",
+  "title_en": "Ideal Standard 2026 catalogues",
+  "pages": true,
+  "note_ar": "حمّل كتالوجات إيديال ستاندرد 2026 كاملة، أو تصفح صفحات من المجموعات تحت. اطلب سعر أي منتج بالكود (SKU) من الكتالوج.",
+  "note_en": "Download the full Ideal Standard 2026 catalogues or browse pages from the collections below. Ask for any product by its SKU code.",
+  "pdfs": [
+   {
+    "pdf": "/files/ideal-ceramics-catalog.pdf",
+    "ar": "كتالوج إيديال ستاندرد 2026: الصيني (أطقم ومراحيض وأحواض)",
+    "en": "Ideal Standard 2026: ceramics"
+   },
+   {
+    "pdf": "/files/ideal-fittings-catalog.pdf",
+    "ar": "كتالوج إيديال ستاندرد 2026: الخلاطات النحاس",
+    "en": "Ideal Standard 2026: brass fittings"
+   },
+   {
+    "pdf": "/files/ideal-bath-shower-catalog.pdf",
+    "ar": "كتالوج إيديال ستاندرد 2026: البانيوهات والدش",
+    "en": "Ideal Standard 2026: bathtubs and showering"
+   },
+   {
+    "pdf": "/files/ideal-new-collection-catalog.pdf",
+    "ar": "إيديال ستاندرد New Collection 2026 (خلاطات)",
+    "en": "Ideal Standard New Collection 2026 (mixers)"
+   }
+  ],
+  "items": [
+   {
+    "src": "/img/catalogs/ideal-ceramics/p024.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة Tonic من إيديال ستاندرد",
+    "en": "Ideal Standard Tonic collection"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p030.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة Tesi للأطقم الصيني",
+    "en": "Ideal Standard Tesi ceramics"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p038.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة Connect: حوض 70 سم",
+    "en": "Ideal Standard Connect collection",
+    "code": "G812801"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p048.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة New Esedra",
+    "en": "Ideal Standard New Esedra collection",
+    "code": "T282401"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p052.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة Playa",
+    "en": "Ideal Standard Playa collection"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p062.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة San Remo",
+    "en": "Ideal Standard San Remo collection"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p072.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "مجموعة Plan",
+    "en": "Ideal Standard Plan collection"
+   },
+   {
+    "src": "/img/catalogs/ideal-ceramics/p102.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "صناديق دفن ProSys بالشاسيه",
+    "en": "ProSys built-in cisterns with frame",
+    "code": "R014667"
+   },
+   {
+    "src": "/img/catalogs/ideal-fittings/p008.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "خلاطات Melange",
+    "en": "Melange mixers",
+    "code": "A7437AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-fittings/p016.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "خلاطات Tesi",
+    "en": "Tesi mixers",
+    "code": "A7456AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-fittings/p020.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "خلاطات Ceraplan III",
+    "en": "Ceraplan III mixers",
+    "code": "BC941AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-fittings/p024.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "خلاطات Cerafine D",
+    "en": "Cerafine D mixers",
+    "code": "BC686AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-new-collection/p016.webp",
+    "w": 700,
+    "h": 996,
+    "ar": "خلاطات Extra (المجموعة الجديدة 2026)",
+    "en": "Extra mixers (New Collection 2026)",
+    "code": "BD500AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-new-collection/p020.webp",
+    "w": 700,
+    "h": 996,
+    "ar": "خلاطات Ceraline Nuovo",
+    "en": "Ceraline Nuovo mixers",
+    "code": "BD845XG"
+   },
+   {
+    "src": "/img/catalogs/ideal-new-collection/p024.webp",
+    "w": 700,
+    "h": 996,
+    "ar": "خلاطات Cerafine O",
+    "en": "Cerafine O mixers",
+    "code": "BC703AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-new-collection/p035.webp",
+    "w": 700,
+    "h": 996,
+    "ar": "خلاطات Cerabase",
+    "en": "Cerabase mixers",
+    "code": "BC829AA"
+   },
+   {
+    "src": "/img/catalogs/ideal-bath-shower/p013.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "بانيو Tonic II Seamless",
+    "en": "Tonic II Seamless bathtub"
+   },
+   {
+    "src": "/img/catalogs/ideal-bath-shower/p019.webp",
+    "w": 700,
+    "h": 990,
+    "ar": "بانيو Media Plus بيضاوي قائم بذاته",
+    "en": "Media Plus oval free-standing bathtub",
+    "code": "GA251"
+   }
+  ]
  }
 }

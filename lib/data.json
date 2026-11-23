@@ -1594,11 +1594,15 @@
    "parent": null,
    "ar": {
     "nav": "أدوات صحية إيديال ستاندرد",
-    "title": "توريد أدوات صحية إيديال ستاندرد للمشروعات | أطقم حمامات — كي بلس",
-    "desc": "توريد أطقم حمامات وأحواض ومراحيض وخلاطات إيديال ستاندرد الأصلية بالجملة للمشروعات السكنية والفنادق في مصر، بضمان الوكيل. اطلب عرض سعر.",
-    "h1": "توريد أدوات صحية إيديال ستاندرد الأصلية",
-    "lead": "أطقم حمامات كاملة ومراحيض وأحواض وخلاطات إيديال ستاندرد (Ideal Standard) أصلية بضمان، بأسعار جملة للمقاولين والمطورين.",
+    "title": "وكيل إيديال ستاندرد للمشروعات | كتالوج أدوات صحية 2026 — كي بلس",
+    "desc": "كي بلس وكيل إيديال ستاندرد لتوريد أطقم الحمامات والمراحيض والأحواض والخلاطات الأصلية بالجملة للمشروعات في مصر. حمّل كتالوج 2026 واطلب سعر بالكود.",
+    "h1": "وكيل إيديال ستاندرد: أدوات صحية أصلية للمشروعات",
+    "lead": "كي بلس وكيل إيديال ستاندرد (Ideal Standard) لتوريد أطقم الحمامات والمراحيض والأحواض والخلاطات والبانيوهات الأصلية بضمان، بأسعار جملة للمقاولين والمطورين. وتقدر تحمّل كتالوجات إيديال ستاندرد 2026 من الصفحة دي.",
     "body": [
+     [
+      "كتالوجات إيديال ستاندرد 2026",
+      "حمّل كتالوجات إيديال ستاندرد 2026 مقسمة لأربع ملفات: الصيني (أطقم الحمامات والمراحيض والأحواض)، الخلاطات النحاس، البانيوهات وقواعد وكبائن الدش، وكتالوج المجموعة الجديدة 2026 (New Collection) للخلاطات. كل منتج في الكتالوج ليه كود (SKU)، ابعتلنا الأكواد والكميات ونرد بعرض سعر جملة لمشروعك."
+     ],
      [
       "ليه إيديال ستاندرد؟",
       "علامة عالمية ليها تاريخ طويل في السوق المصري، بورسلين عالي الجودة، قطع غيار متوفرة، وضمان رسمي. مناسبة للمشروعات السكنية والفنادق والمستشفيات."
@@ -1676,10 +1680,10 @@
    },
    "en": {
     "nav": "Ideal Standard Sanitary Ware",
-    "title": "Ideal Standard Sanitary Ware Supply for Projects in Egypt — K Plus",
-    "desc": "Wholesale supply of genuine Ideal Standard bathroom sets, basins, WCs and mixers for residential and hotel projects in Egypt, with official warranty. Request a quote.",
-    "h1": "Genuine Ideal Standard Sanitary Ware Supply",
-    "lead": "Complete bathroom sets, WCs, basins and mixers from Ideal Standard with warranty, at wholesale prices for contractors and developers.",
+    "title": "Ideal Standard Agent for Projects in Egypt | 2026 Catalogues — K Plus",
+    "desc": "K Plus is an Ideal Standard agent supplying genuine bathroom sets, WCs, basins and mixers wholesale for projects in Egypt. Download the 2026 catalogues.",
+    "h1": "Ideal Standard Agent: Genuine Sanitary Ware for Projects",
+    "lead": "K Plus is an Ideal Standard agent supplying complete bathroom sets, WCs, basins, mixers and bathtubs with warranty, at wholesale prices for contractors and developers. Download the Ideal Standard 2026 catalogues on this page.",
     "body": [
      [
       "Why Ideal Standard?",
